@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<versionStorage>
+  <auxPath value="net.tcp://vcsservice.devexpress.dev:9091/DXVCSService">
+    <projectPath value="$/2016.1/Bin/Framework4/DesignAssemblies" date="0">
+      <fileName value="Microsoft.VisualStudio.Shell.Design.dll" version="7" time="5247556647248376459" hash="adV7bB9n+MFvxb0IO3/v2w==" writeTime="5247556647248376459" />
+      <fileName value="Microsoft.VisualStudio.Shell.dll" version="7" time="5247556647248376459" hash="2ezuY2q8bCQarKzbetab2g==" writeTime="5247556647248376459" />
+      <fileName value="Microsoft.VisualStudio.Shell.Immutable.10.0.dll" version="2" time="5247556647248376459" hash="btVCJdyZiKo+sLCZQrTX2Q==" writeTime="5247556647248376459" />
+      <fileName value="Microsoft.Windows.Design.Extensibility.dll" version="22" time="5247556647248376459" hash="/wnplIC8ybCtWfw0VrcJjw==" writeTime="5247556647248376459" />
+      <fileName value="Microsoft.Windows.Design.Interaction.dll" version="22" time="5247556647248376459" hash="ud6QNcweRiifuBId1qWBeA==" writeTime="5247556647248376459" />
+    </projectPath>
+  </auxPath>
+</versionStorage>

@@ -1,0 +1,17 @@
+D:\PerformanceComparison_Win\Assembly\Profiler.Core.dll.config
+D:\PerformanceComparison_Win\Assembly\Profiler.Core.dll
+D:\PerformanceComparison_Win\Assembly\Profiler.Core.pdb
+D:\PerformanceComparison_Win\Core\obj\Debug\ProfilerCore.csprojResolveAssemblyReference.cache
+D:\PerformanceComparison_Win\Core\obj\Debug\Profiler.Core.dll
+D:\PerformanceComparison_Win\Core\obj\Debug\Profiler.Core.pdb
+D:\Profiler_Win\Assembly\Data\Profiler.mdf
+D:\Profiler_Win\Assembly\Data\Profiler_log.ldf
+D:\Profiler_Win\Assembly\ProfilerCore.dll.config
+D:\Profiler_Win\Assembly\ProfilerCore.dll
+D:\Profiler_Win\Assembly\ProfilerCore.pdb
+D:\Profiler_Win\Core\obj\Debug\ProfilerCore.dll
+D:\Profiler_Win\Core\obj\Debug\ProfilerCore.pdb
+D:\Profiler_Win\Bin\ProfilerCore.dll.config
+D:\Profiler_Win\Bin\ProfilerCore.dll
+D:\Profiler_Win\Bin\ProfilerCore.pdb
+D:\Profiler_Win\Core\obj\Debug\ProfilerCore.csprojResolveAssemblyReference.cache

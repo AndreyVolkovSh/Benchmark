@@ -1,0 +1,12 @@
+D:\Profiler_Win\Tests\Grid\Grid_DevExpress\obj\Debug\Grid.Tests.Properties.Resources.resources
+D:\Profiler_Win\Tests\Grid\Grid_DevExpress\obj\Debug\Grid.Tests.DevExpressGrid.resources
+D:\Profiler_Win\Tests\Grid\Grid_DevExpress\obj\Debug\Grid_DevExpress.csproj.GenerateResource.Cache
+D:\Profiler_Win\Bin\DevExpress\Grid_DevExpress.dll.config
+D:\Profiler_Win\Bin\DevExpress\Grid_DevExpress.dll
+D:\Profiler_Win\Bin\DevExpress\Grid_DevExpress.pdb
+D:\Profiler_Win\Tests\Grid\Grid_DevExpress\obj\Debug\Grid_DevExpress.dll
+D:\Profiler_Win\Tests\Grid\Grid_DevExpress\obj\Debug\Grid_DevExpress.pdb
+D:\Profiler_Win\Bin\Assembly_Tests\DevExpress\Grid_DevExpress.dll.config
+D:\Profiler_Win\Bin\Assembly_Tests\DevExpress\Grid_DevExpress.dll
+D:\Profiler_Win\Bin\Assembly_Tests\DevExpress\Grid_DevExpress.pdb
+D:\Profiler_Win\Tests\Grid\Grid_DevExpress\obj\Debug\Grid_DevExpress.csprojResolveAssemblyReference.cache

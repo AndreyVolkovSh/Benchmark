@@ -1,0 +1,9 @@
+D:\Profiler_Win\Runner\obj\Debug\Profiler_Win.csprojResolveAssemblyReference.cache
+D:\Profiler_Win\Runner\obj\Debug\PerformanceComparison_Win.Runner.resources
+D:\Profiler_Win\Runner\obj\Debug\Profiler.Properties.Resources.resources
+D:\Profiler_Win\Runner\obj\Debug\Profiler_Win.csproj.GenerateResource.Cache
+D:\Profiler_Win\Bin\Profiler_Win.exe.config
+D:\Profiler_Win\Bin\Profiler_Win.exe
+D:\Profiler_Win\Bin\Profiler_Win.pdb
+D:\Profiler_Win\Runner\obj\Debug\Profiler_Win.exe
+D:\Profiler_Win\Runner\obj\Debug\Profiler_Win.pdb
