@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<versionStorage>
+  <auxPath value="net.tcp://vcsservice.devexpress.dev:9091/DXVCSService">
+    <projectPath value="$/2016.1/Bin/Framework4/EntityFramework" date="0">
+      <fileName value="EntityFramework.dll" version="18" time="5247556647248376459" hash="m+O+VHBiAsj2f7SOPTHfSw==" writeTime="5247556647248376459" />
+      <fileName value="System.Data.SQLite.dll" version="22" time="5247556647267466459" hash="gNJv/rPhbfoFmRg7jj5xOA==" writeTime="5247556647267466459" />
+      <fileName value="System.Data.SQLite.EF6.dll" version="22" time="5247556647267466459" hash="SubIjQ2eeL5ehaz0XcKkrw==" writeTime="5247556647267466459" />
+    </projectPath>
+  </auxPath>
+</versionStorage>
