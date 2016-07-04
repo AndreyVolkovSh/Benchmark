@@ -8,25 +8,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace Profiler {
     public class ProfilerContext : IDisposable {
         const string sourceName = "DX_Profiler";
-        //string logNameCore;
-        EventLog logCore;
-        public ProfilerContext(string logName) {
-            CreateLog(logName);
+        string logName = "DX_Profiler_Log";
+        public ProfilerContext() {
+            CreateLog();
         }
-        protected void CreateLog(string logName) {
+        protected void CreateLog() {
             if(EventLog.SourceExists(sourceName)) return;
-            logCore = new EventLog(logName);
-            logCore.Source = sourceName;
-            //EventLog.CreateEventSource(sourceName, logName);            
+            EventLog.CreateEventSource(sourceName, logName);            
         }
-        protected void DeleteLog(string logName) {
-            if(!EventLog.SourceExists(sourceName)) return;
-            EventLog.DeleteEventSource(sourceName);            
-            logCore.Clear();
-            logCore.Close();            
-            logCore.Dispose();
-            logCore = null;
-            //EventLog.Delete(logName);
+        protected void DeleteLog() {
+            if (!EventLog.SourceExists(sourceName)) return;
+            EventLog.DeleteEventSource(sourceName);
+            EventLog.Delete(logName);
         }
         static byte[] ResultToBytes<T>(T result) where T : class {
             if(result == null) return null;
@@ -49,7 +42,7 @@ namespace Profiler {
             if(!EventLog.SourceExists(sourceName)) return;
             EventLog.WriteEntry(sourceName, message, type, 0, 0, ResultToBytes(result));
         }
-        public List<ProfilerLog> GetResults(string logName) {
+        public List<ProfilerLog> GetResults() {
             if(!EventLog.SourceExists(sourceName)) return null;
             IEnumerable<EventLog> logs = EventLog.GetEventLogs().Where(x => x.Log == logName);
             if(logs == null || logs.Count() == 0) return null;
@@ -64,9 +57,8 @@ namespace Profiler {
         }
         #region IDisposable Members
         void IDisposable.Dispose() {
-            DeleteLog(logCore.Log);
+            DeleteLog();
         }
-
         #endregion
     }
     [Serializable]

@@ -126,7 +126,7 @@ namespace PerformanceComparison_Win {
             parametersCore.ReferencedAssemblies.Add("ProfilerCore.dll");
         }
         public List<ProfilerLog> RunTest(string template, string test) {
-            using(ProfilerContext context = new ProfilerContext(test)) {
+            using(ProfilerContext context = new ProfilerContext()) {
                 string exe = test + ".exe";
                 parametersCore.OutputAssembly = exe;
                 CompilerResults res = providerCore.CompileAssemblyFromSource(parametersCore, template);
@@ -141,7 +141,7 @@ namespace PerformanceComparison_Win {
                     throw (new Exception());
                 }
                 File.Delete(exe);
-                return context.GetResults(test);
+                return context.GetResults();
             }
         }
         Process CreateProcess() {
