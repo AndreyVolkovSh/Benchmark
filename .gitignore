@@ -45,3 +45,14 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#files
+*.pdb
+*.suo
+/Bin/*.exe
+/Bin/*.exe.config
+/Bin/*.exe.manifest
+/Bin/Assembly_Tests/*
+
+#folders
+obj/
