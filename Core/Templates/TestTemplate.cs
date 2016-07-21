@@ -6,6 +6,7 @@ using System.Diagnostics;
 {0};
 
 namespace ProfilerTest {
+    public enum TestState { None, SetUp, Test, TearDown, Close }
     static class Program {
         public static void Main() {
             Application.EnableVisualStyles();
@@ -18,6 +19,8 @@ namespace ProfilerTest {
         bool isCompleted;
         Timer timer;
         System.Diagnostics.Stopwatch perfomance;
+        TestState state;
+        int executionsCount;
         public TestForm() {
             InitializeComponent();
         }
@@ -26,8 +29,10 @@ namespace ProfilerTest {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Text = "TestForm";
             this.timer = new Timer();
-            this.timer.Interval = 1000;
+            this.timer.Interval = 500;
+            this.state = TestState.None;
             this.perfomance = new System.Diagnostics.Stopwatch();
+            this.executionsCount = 20;
         }
         void TimerStart(EventHandler onTick){
             timer.Tick += onTick;
@@ -37,43 +42,86 @@ namespace ProfilerTest {
             timer.Stop();
             timer.Tick -= onTick;            
         }
-        void OnStart(object sender, EventArgs e) {
-            TimerStop(OnStart);
+ 
+        void TestStart() {
+            if(state != TestState.SetUp) return;            
+            TimerStart(OnTestStart);
+        }
+        void OnTestStart(object sender, EventArgs e) {
+            TimerStop(OnTestStart);
+            state = TestState.Test;            
             perfomance.Start();
             {3};
             if(!isCompleted){
                 perfomance.Stop();
-                TimerStart(OnEnd);
-            }
-        }
-        void OnEnd(object sender, EventArgs e) {
-            TimerStop(OnEnd);
-            ApplicationExit();
-        }
-        protected override void OnVisibleChanged(EventArgs e) {
-            base.OnVisibleChanged(e);
-            if(IsHandleCreated)
-                TimerStart(OnStart);
+                TearDown();
+            }            
         }
         void OnTestCompleted(object sender, EventArgs e){
             isCompleted = true;
             perfomance.Stop();
-            TimerStart(OnEnd);
+            TearDown();
         }
-        void ApplicationExit(){
-            Profiler.ProfilerResult result = new Profiler.ProfilerResult();
-            result.Perfomance = (int)perfomance.ElapsedMilliseconds;
-            Profiler.ProfilerContext.Trace("success", EventLogEntryType.Information, result);
+
+        void SetUp() {
+            if(state == TestState.TearDown || state == TestState.None)
+                TimerStart(OnSetUp);
+        }
+        void OnSetUp(object sender, EventArgs e) {
+            state = TestState.SetUp;
+            TimerStop(OnSetUp);
+            {4};
+        }
+        
+        void TearDown() {
+            if(state != TestState.Test) return;            
+            if(--executionsCount == 0)                
+                TimerStart(OnClose);
+            else
+                TimerStart(OnTearDown);
+        }
+        void OnTearDown(object sender, EventArgs e) {            
+            state = TestState.TearDown;
+            TimerStop(OnTearDown);
+            Trace();
+            {5};
+        }
+ 
+        void OnClose(object sender, EventArgs e) {
+            state = TestState.Close;
+            TimerStop(OnClose);
+            Trace();
             Application.Exit();
         }
+        void Trace(){
+            Profiler.ProfilerLogResult result = new Profiler.ProfilerLogResult();
+            result.Perfomance = (int)perfomance.ElapsedMilliseconds;
+            Profiler.ProfilerLog.Trace("success", EventLogEntryType.Information, result);
+        }
+
+        protected override void OnControlAdded(ControlEventArgs e) {
+            base.OnControlAdded(e);
+            TestStart();
+        }
+        protected override void OnControlRemoved(ControlEventArgs e) {
+            base.OnControlRemoved(e);
+            SetUp();
+        }
+ 
+        protected override void OnPaint(PaintEventArgs e) {
+            base.OnPaint(e);            
+            if(state == TestState.None)
+                SetUp();
+        }        
+       
         protected override void Dispose(bool disposing) {
             if(disposing) {
-                {4};
+                {6};
                 timer.Stop();
                 timer.Dispose();
             }
             base.Dispose(disposing);
         }
-    }
+    }    
 }
 */

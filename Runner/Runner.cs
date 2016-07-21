@@ -49,27 +49,27 @@ namespace PerformanceComparison_Win {
         List<TestResults> RunTests(CodeDomContext context, TemplateData templateData) {
             List<TestResults> results = new List<TestResults>();
             foreach(string template in templateData) {
+                ProfilerLog.Clear();
                 string currentTest = templateData.CurrentTest;
-                List<ProfilerLog> logs = context.RunTest(template, currentTest);
+                List<ProfilerLogEntry> logs = context.RunTest(template, currentTest);
                 TestResults result = ConvetToResult(logs, currentTest);
                 results.Add(result);
             }
             return results;
-        }
-        TestResults ConvetToResult(List<ProfilerLog> logs, string testName) {
+        }        
+        TestResults ConvetToResult(List<ProfilerLogEntry> logs, string testName) {
             TestResults result = new TestResults(testName);
-            if(logs == null || logs.Count == 0) return result;
-            result.FirstPerfomance = result.BestPerfomance = result.BadPerfomance = logs[0].GetPerfomance();
-            int averagePerfomance = 0;
-            for(int i = 1; i < logs.Count - 1; i++) {
-                int perfomance = logs[i].GetPerfomance();
-                averagePerfomance += perfomance;
-                if(result.BestPerfomance > perfomance)
-                    result.BestPerfomance = perfomance;
-                if(result.BadPerfomance < perfomance)
-                    result.BadPerfomance = perfomance;
+            if(logs == null || logs.Count == 0) return result;            
+            result.FirstPerfomance = logs[0].Perfomance;
+            logs.Sort(new ProfilerLogEntryComparer()); 
+            result.BestPerfomance = logs[0].Perfomance;
+            int median = logs.Count / 2;
+            if(logs.Count % 2 == 0) {
+                result.MedianPerfomance = (logs[median].Perfomance + logs[median + 1].Perfomance) / 2;
             }
-            result.AveragePerfomance = averagePerfomance / (logs.Count - 1);
+            else
+                result.MedianPerfomance = logs[median].Perfomance;
+            result.BadPerfomance = logs[logs.Count - 1].Perfomance;
             return result;
         }
         bool CheckAssembly(string assembly) {
@@ -101,10 +101,10 @@ namespace PerformanceComparison_Win {
         }
     }
     public class CodeDomContext : IDisposable {
-        const int countStarts = 10;
         CodeDomProvider providerCore;
         CompilerParameters parametersCore;
         public CodeDomContext() {
+            ProfilerLog.Create();
             providerCore = CreateCodeDomProvider();
             CreateCompilerParameters();
         }
@@ -125,36 +125,32 @@ namespace PerformanceComparison_Win {
             parametersCore.ReferencedAssemblies.Add("System.Drawing.dll");
             parametersCore.ReferencedAssemblies.Add("ProfilerCore.dll");
         }
-        public List<ProfilerLog> RunTest(string template, string test) {
-            using(ProfilerContext context = new ProfilerContext()) {
-                string exe = test + ".exe";
-                parametersCore.OutputAssembly = exe;
-                CompilerResults res = providerCore.CompileAssemblyFromSource(parametersCore, template);
-                if(res.NativeCompilerReturnValue == 0) {
-                    File.WriteAllText(exe + ".config", TemplateData.Settings);
-                    using(NGenContext nGen = new NGenContext(exe))
-                        ProcessStart(exe);
-                    File.Delete(exe + ".config");
-                }
-                else {
-                    //log exception
-                    throw (new Exception());
-                }
-                File.Delete(exe);
-                return context.GetResults();
+        public List<ProfilerLogEntry> RunTest(string template, string test) {                        
+            string exe = test + ".exe";
+            parametersCore.OutputAssembly = exe;
+            CompilerResults res = providerCore.CompileAssemblyFromSource(parametersCore, template);
+            if(res.NativeCompilerReturnValue == 0) {
+                File.WriteAllText(exe + ".config", TemplateData.Settings);
+                using(NGenContext nGen = new NGenContext(exe))
+                    ProcessStart(exe);
+                File.Delete(exe + ".config");
             }
+            else {
+                //log exception
+                throw (new Exception());
+            }
+            File.Delete(exe);
+            return ProfilerLog.GetResults();
         }
         Process CreateProcess() {
             Process process = new Process();
             return process;
         }
         void ProcessStart(string fileName) {
-            for(int i = 0; i < countStarts; i++) {
-                using(Process process = new Process()) {
-                    process.StartInfo.FileName = fileName;
-                    process.Start();
-                    process.WaitForExit();
-                }
+            using(Process process = new Process()) {
+                process.StartInfo.FileName = fileName;
+                process.Start();
+                process.WaitForExit();
             }
         }
         #region IDisposable Members
@@ -221,7 +217,7 @@ namespace PerformanceComparison_Win {
             get;
             set;
         }
-        public double AveragePerfomance {
+        public double MedianPerfomance {
             get;
             set;
         }

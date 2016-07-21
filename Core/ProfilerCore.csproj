@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Attributes.cs" />
     <Compile Include="NGenContext.cs" />
-    <Compile Include="ProfilerContext.cs" />
+    <Compile Include="ProfilerLog.cs" />
     <EmbeddedResource Include="Templates\TestTemplate.cs">
       <SubType>Form</SubType>
     </EmbeddedResource>

@@ -16,33 +16,27 @@ namespace Grid.Tests {
             control.Parent = owner;
             t = new Timer();
             t.Interval = 1000;
-            t.Tick += t_Tick;
         }
-
-        void t_Tick(object sender, System.EventArgs e) {
-            t.Stop();
-            control.BeginInvoke(new System.Action(() => RaiseCompleted(control)));
-        }
-        protected override void TearDownCore() {
-            control.Grid.Paint -= Grid_Paint;
+        protected override void TearDownCore() {            
             control.Dispose();
             base.TearDownCore();
         }
         [TestProfiler]
         public void LoadData_Test() {
+            control.Grid.DataSourceChanged += Grid_DataSourceChanged;
             List<Data> data = new List<Data>();
             for(int i = 0; i < 1000; i++) {
                 data.Add(new Data() { A = i.ToString() });
             }
-            control.Grid.Paint += Grid_Paint;
             control.Grid.DataSource = data;
         }
 
-        void Grid_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
-            t.Start();
+        void Grid_DataSourceChanged(object sender, System.EventArgs e) {
+            RaiseCompleted(control);
+            control.Grid.DataSourceChanged -= Grid_DataSourceChanged;
         }
     }
-    public class Filter_Tests : TestBase {        
+    public class Filter_Tests : TestBase {
         DevExpressGrid control;
         protected override void SetUpCore(System.Windows.Forms.Form owner) {
             base.SetUpCore(owner);

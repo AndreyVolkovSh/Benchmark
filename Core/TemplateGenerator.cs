@@ -54,11 +54,10 @@ namespace Profiler.Internal {
             if(completed == null) return string.Empty;
             return name + "." + completed.Name + (unsubscribe ? "-" : "+") + "= OnTestCompleted;" + Environment.NewLine;
         }
-        string GetInitializeTemplate(Type classTest, MethodInfo setUp, EventInfo completed) {
+        string GetInitializeTemplate(Type classTest, EventInfo completed) {
             return
                 GetCreateMethodTemplate("testObject", classTest.FullName) +
-                GetSubscriptionEventTemplate(completed, "testObject") +
-                GetCallMethodTemplate(setUp, "testObject");
+                GetSubscriptionEventTemplate(completed, "testObject");
         }
         string GetDisposeTemplate(MethodInfo tearDown, EventInfo completed) {
             return
@@ -78,9 +77,13 @@ namespace Profiler.Internal {
                 case TemplateFormat.Field:
                     return GetFieldTemplate(classType);
                 case TemplateFormat.Initialize:
-                    return GetInitializeTemplate(classType, setUp, completed);
+                    return GetInitializeTemplate(classType, completed);
                 case TemplateFormat.Start:
                     return GetCallMethodTemplate(test, "testObject");
+                case TemplateFormat.SetUp:
+                    return GetCallMethodTemplate(setUp, "testObject");
+                case TemplateFormat.TearDown:
+                    return GetCallMethodTemplate(tearDown, "testObject");
                 case TemplateFormat.Dispose:
                     return GetDisposeTemplate(tearDown, completed);
                 default:
@@ -93,7 +96,9 @@ namespace Profiler.Internal {
             if(line.EndsWith("{1};")) return TemplateFormat.Field;
             if(line.EndsWith("{2};")) return TemplateFormat.Initialize;
             if(line.EndsWith("{3};")) return TemplateFormat.Start;
-            if(line.EndsWith("{4};")) return TemplateFormat.Dispose;
+            if(line.EndsWith("{4};")) return TemplateFormat.SetUp;
+            if(line.EndsWith("{5};")) return TemplateFormat.TearDown;
+            if(line.EndsWith("{6};")) return TemplateFormat.Dispose;
             return TemplateFormat.Default;
         }
         public string CreateTemplate(Type classType, MethodInfo test, MethodInfo setUp, MethodInfo tearDown, EventInfo completed) {
@@ -119,5 +124,5 @@ namespace Profiler.Internal {
             }
         }
     }
-    enum TemplateFormat { Default, Using, Field, Initialize, Start, Dispose, None }
+    enum TemplateFormat { Default, Using, Field, Initialize, SetUp, Start, TearDown, Dispose, None }
 }
