@@ -62,9 +62,13 @@ namespace ProfilerTest {
                 TimerStart(OnSetUp);
         }
         void OnSetUp(object sender, EventArgs e) {
-            state = TestState.SetUp;
+            System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(Profiler.Runner.PatchLicenses.Task);
+            task.Start();
+            state = TestState.SetUp;            
             TimerStop(OnSetUp);
             {4};
+            task.Wait();
+            task.Dispose();
         }
         
         void TearDown() {
