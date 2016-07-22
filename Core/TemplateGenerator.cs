@@ -11,7 +11,7 @@ namespace Profiler.Internal {
             settingsTemplateCore = CreateSettingsTemplate();
         }
         string CreateSettingsTemplate() {
-            using(StreamReader reader = CreateStreamReader("Profiler.Templates.TestSettings.xml"))
+            using(StreamReader reader = CreateStreamReader(Constants.SettingsFile))
                 return reader.ReadToEnd();
         }
         StreamReader CreateStreamReader(string resourcePath) {
@@ -56,17 +56,17 @@ namespace Profiler.Internal {
         }
         string GetInitializeTemplate(Type classTest, EventInfo completed) {
             return
-                GetCreateMethodTemplate("testObject", classTest.FullName) +
-                GetSubscriptionEventTemplate(completed, "testObject");
+                GetCreateMethodTemplate(Constants.TestObject, classTest.FullName) +
+                GetSubscriptionEventTemplate(completed, Constants.TestObject);
         }
         string GetDisposeTemplate(MethodInfo tearDown, EventInfo completed) {
             return
-                GetSubscriptionEventTemplate(completed, "testObject", true) +
-                GetCallMethodTemplate(tearDown, "testObject") +
-                "testObject = null;";
+                GetSubscriptionEventTemplate(completed, Constants.TestObject, true) +
+                GetCallMethodTemplate(tearDown, Constants.TestObject) +
+                Constants.TestObject + " = null;";
         }
         string GetFieldTemplate(Type classType) {
-            return classType.FullName + " testObject;" + Environment.NewLine;
+            return classType.FullName + " " + Constants.TestObject + ";" + Environment.NewLine;
         }
         string ParseString(string line, Type classType, MethodInfo test, MethodInfo setUp, MethodInfo tearDown, EventInfo completed) {
             switch(GetFormat(line)) {
@@ -79,11 +79,11 @@ namespace Profiler.Internal {
                 case TemplateFormat.Initialize:
                     return GetInitializeTemplate(classType, completed);
                 case TemplateFormat.Start:
-                    return GetCallMethodTemplate(test, "testObject");
+                    return GetCallMethodTemplate(test, Constants.TestObject);
                 case TemplateFormat.SetUp:
-                    return GetCallMethodTemplate(setUp, "testObject");
+                    return GetCallMethodTemplate(setUp, Constants.TestObject);
                 case TemplateFormat.TearDown:
-                    return GetCallMethodTemplate(tearDown, "testObject");
+                    return GetCallMethodTemplate(tearDown, Constants.TestObject);
                 case TemplateFormat.Dispose:
                     return GetDisposeTemplate(tearDown, completed);
                 default:
@@ -103,7 +103,7 @@ namespace Profiler.Internal {
         }
         public string CreateTemplate(Type classType, MethodInfo test, MethodInfo setUp, MethodInfo tearDown, EventInfo completed) {
             string buffer = string.Empty;
-            using(StreamReader reader = CreateStreamReader("Profiler.Templates.TestTemplate.cs")) {
+            using(StreamReader reader = CreateStreamReader(Constants.TemplateFile)) {
                 if(reader == null) return buffer;
                 while(!reader.EndOfStream) {
                     string str = ParseString(reader.ReadLine(), classType, test, setUp, tearDown, completed);

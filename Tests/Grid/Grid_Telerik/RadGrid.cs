@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using Telerik.WinControls.UI;
 
 namespace Grid.Tests
 {
-    public partial class UserControl1: UserControl
+    public partial class RadGridControl: UserControl
     {
-        public UserControl1()
+        public RadGridControl()
         {
             InitializeComponent();
+        }
+        public RadGridView Grid {
+            get { return radGridView1; }
         }
     }
 }

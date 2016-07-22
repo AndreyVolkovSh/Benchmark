@@ -6,7 +6,6 @@ using Profiler;
 namespace Grid.Tests {
     [TestFixtureProfiler]
     public class Data_Tests : TestBase {
-        Timer t;
         DevExpressGrid control;
         protected override void SetUpCore(System.Windows.Forms.Form owner) {
             base.SetUpCore(owner);
@@ -14,8 +13,6 @@ namespace Grid.Tests {
             control.Visible = true;
             control.Dock = System.Windows.Forms.DockStyle.Fill;
             control.Parent = owner;
-            t = new Timer();
-            t.Interval = 1000;
         }
         protected override void TearDownCore() {            
             control.Dispose();

@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace ProfilerTest {
     public enum TestState { None, SetUp, Test, TearDown, Close }
     static class Program {
-        public static void Main() {
+        public static void Main(string[] args) {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new TestForm());
@@ -16,13 +16,12 @@ namespace ProfilerTest {
     }
     public class TestForm : Form {
         {1};
-        bool isCompleted;
         Timer timer;
         System.Diagnostics.Stopwatch perfomance;
         TestState state;
-        int executionsCount;
+        int executionsCount;        
         public TestForm() {
-            InitializeComponent();
+            InitializeComponent();            
         }
         private void InitializeComponent() {
             {2};
@@ -44,21 +43,16 @@ namespace ProfilerTest {
         }
  
         void TestStart() {
-            if(state != TestState.SetUp) return;            
+            if(state != TestState.SetUp) return;
             TimerStart(OnTestStart);
         }
         void OnTestStart(object sender, EventArgs e) {
             TimerStop(OnTestStart);
-            state = TestState.Test;            
+            state = TestState.Test;
             perfomance.Start();
             {3};
-            if(!isCompleted){
-                perfomance.Stop();
-                TearDown();
-            }            
         }
         void OnTestCompleted(object sender, EventArgs e){
-            isCompleted = true;
             perfomance.Stop();
             TearDown();
         }

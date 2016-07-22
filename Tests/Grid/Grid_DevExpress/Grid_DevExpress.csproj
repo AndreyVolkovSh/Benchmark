@@ -54,11 +54,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v16.1" />
+    <Reference Include="DevExpress.Design.v16.1" />
     <Reference Include="DevExpress.Printing.v16.1.Core" />
     <Reference Include="DevExpress.Sparkline.v16.1.Core" />
     <Reference Include="DevExpress.Utils.v16.1" />
     <Reference Include="DevExpress.XtraEditors.v16.1" />
+    <Reference Include="DevExpress.XtraEditors.v16.1.Design" />
     <Reference Include="DevExpress.XtraGrid.v16.1" />
+    <Reference Include="DevExpress.XtraGrid.v16.1.Design" />
     <Reference Include="DevExpress.XtraLayout.v16.1" />
     <Reference Include="DevExpress.XtraPrinting.v16.1" />
     <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
@@ -107,6 +110,7 @@
     <Compile Include="DevExpressGrid.Designer.cs">
       <DependentUpon>DevExpressGrid.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

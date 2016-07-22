@@ -50,7 +50,7 @@ namespace PerformanceComparison_Win {
             List<TestResults> results = new List<TestResults>();
             foreach(string template in templateData) {
                 ProfilerLog.Clear();
-                string currentTest = templateData.CurrentTest;
+                string currentTest = templateData.CurrentTestName;
                 List<ProfilerLogEntry> logs = context.RunTest(template, currentTest);
                 TestResults result = ConvetToResult(logs, currentTest);
                 results.Add(result);
@@ -74,7 +74,7 @@ namespace PerformanceComparison_Win {
         }
         bool CheckAssembly(string assembly) {
             string fileName = Path.GetFileName(assembly);
-            return fileName == "Grid_DevExpress.dll";
+            return fileName == "Grid_Telerik.dll";
         }
         void Run(object sender, EventArgs e) {
             try {
@@ -91,9 +91,9 @@ namespace PerformanceComparison_Win {
                     if(!CheckAssembly(assembly)) continue;
                     if(!File.Exists(assembly))
                         throw (new Exception());
-                    product.Add(RunTests(assembly, "DevExpress"));
+                    product.Add(RunTests(assembly, "Telerik"));
                 }
-                gridControl1.DataSource = product["DevExpress"].Results;
+                gridControl1.DataSource = product["Telerik"].Results;
             }
             catch(Exception ee) {
                 throw (ee);
@@ -139,7 +139,7 @@ namespace PerformanceComparison_Win {
                 //log exception
                 throw (new Exception());
             }
-            File.Delete(exe);
+            //File.Delete(exe);
             return ProfilerLog.GetResults();
         }
         Process CreateProcess() {

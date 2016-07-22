@@ -9,10 +9,6 @@ using Microsoft.Win32;
 
 namespace Profiler {
     public class ProfilerLog {
-        const string logPath = @"Logs\DX_Profiler_Log.evtx";
-        const string logKey = @"SYSTEM\CurrentControlSet\services\eventlog\DX_Profiler_Log";
-        const string logName = "DX_Profiler_Log";
-
         static byte[] ResultToBytes<T>(T result) where T : class {
             if(result == null) return null;
             BinaryFormatter formatter = new BinaryFormatter();
@@ -32,10 +28,10 @@ namespace Profiler {
         }
         public static void Create() {
             if(!FileExists || KeyExists) return;
-            RegistryKey key = Registry.LocalMachine.CreateSubKey(logKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
+            RegistryKey key = Registry.LocalMachine.CreateSubKey(Constants.LogKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
             if(key != null) {
-                RegistryKey subKey = key.CreateSubKey(logName, RegistryKeyPermissionCheck.ReadWriteSubTree);
-                string fullPath = Path.GetFullPath(logPath);
+                RegistryKey subKey = key.CreateSubKey(Constants.LogName, RegistryKeyPermissionCheck.ReadWriteSubTree);
+                string fullPath = Path.GetFullPath(Constants.LogPath);
                 key.SetValue("MaxSize", int.MaxValue, RegistryValueKind.DWord);
                 key.SetValue("Flags", 1, RegistryValueKind.DWord);
                 key.SetValue("File", fullPath, RegistryValueKind.ExpandString);
@@ -55,18 +51,18 @@ namespace Profiler {
             log.WriteEntry(message, type, 0, 0, ResultToBytes(entry));
         }
         static bool FileExists {
-            get { return File.Exists(logPath); }
+            get { return File.Exists(Constants.LogPath); }
         }
         static EventLog EventLog {
             get {
-                EventLog log = new EventLog(logName);
-                log.Source = logName;
+                EventLog log = new EventLog(Constants.LogName);
+                log.Source = Constants.LogName;
                 return log;
             }
         }
         static bool KeyExists {
             get {
-                RegistryKey key = Registry.LocalMachine.OpenSubKey(logKey);
+                RegistryKey key = Registry.LocalMachine.OpenSubKey(Constants.LogKey);
                 if(key == null) return false;
                 key.Close();
                 return true;
@@ -77,7 +73,7 @@ namespace Profiler {
         }
         public static List<ProfilerLogEntry> GetResults() {
             if(!LogExists) return null;
-            string fullPath = Path.GetFullPath(logPath);
+            string fullPath = Path.GetFullPath(Constants.LogPath);
             List<ProfilerLogEntry> results = new List<ProfilerLogEntry>();
             using(EventLogReader reader = new EventLogReader(fullPath, PathType.FilePath)) {
                 EventRecord record = reader.ReadEvent();

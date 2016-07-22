@@ -58,18 +58,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes.cs" />
-    <Compile Include="NGenContext.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="TestApplicationSettings.cs" />
+    <Compile Include="Runner\NGenContext.cs" />
     <Compile Include="ProfilerLog.cs" />
     <EmbeddedResource Include="Templates\TestTemplate.cs">
       <SubType>Form</SubType>
     </EmbeddedResource>
-    <Compile Include="SolutionBuilder.cs" />
+    <Compile Include="Runner\SolutionBuilder.cs" />
     <Compile Include="TemplateGenerator.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="AssemblyData.cs" />
+    <Compile Include="Runner\AssemblyData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v16.1" />
+    <Reference Include="DevExpress.Data.v16.1">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

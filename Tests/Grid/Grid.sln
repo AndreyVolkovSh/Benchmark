@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid_DevExpress", "Grid_DevExpress\Grid_DevExpress.csproj", "{BFF4B9AB-1535-4D45-B39A-1144791BCD8E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E5E43DF4-B293-4E80-8CCF-EF1F87B6E5FA} = {E5E43DF4-B293-4E80-8CCF-EF1F87B6E5FA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid_Telerik", "Grid_Telerik\Grid_Telerik.csproj", "{E5E43DF4-B293-4E80-8CCF-EF1F87B6E5FA}"
 EndProject
