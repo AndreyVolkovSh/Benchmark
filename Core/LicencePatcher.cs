@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Profiler.Internal;
+using Benchmark.Internal;
 
-namespace Profiler {
+namespace Benchmark {
     public class LicencePatcher : IDisposable {
         Task taskCore;
         System.Threading.CancellationTokenSource sourceCore;

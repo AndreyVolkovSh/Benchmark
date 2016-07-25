@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profiler_Win", "Runner\Profiler_Win.csproj", "{20F560C8-121F-4631-A54D-1E0361BCDAF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark_Win", "Runner\Benchmark_Win.csproj", "{20F560C8-121F-4631-A54D-1E0361BCDAF7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C1A752DD-A716-40E0-AB81-0933EA01802D} = {C1A752DD-A716-40E0-AB81-0933EA01802D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfilerCore", "Core\ProfilerCore.csproj", "{C1A752DD-A716-40E0-AB81-0933EA01802D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkCore", "Core\BenchmarkCore.csproj", "{C1A752DD-A716-40E0-AB81-0933EA01802D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

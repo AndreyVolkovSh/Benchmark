@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using Profiler;
-using Profiler.Runner;
+using Benchmark;
+using Benchmark.Runner;
 
 namespace PerformanceComparison_Win {
     public partial class Runner : Form {
@@ -49,19 +49,19 @@ namespace PerformanceComparison_Win {
         List<TestResult> RunTests(CodeDomContext context, TemplateData templateData) {
             List<TestResult> results = new List<TestResult>();
             foreach(string template in templateData) {
-                ProfilerLog.Clear();
+                BenchmarkLog.Clear();
                 string currentTest = templateData.CurrentTestName;
-                List<ProfilerLogEntry> logs = context.RunTest(template, currentTest);
+                List<BenchmarkLogEntry> logs = context.RunTest(template, currentTest);
                 TestResult result = ConvetToResult(logs, currentTest);
                 results.Add(result);
             }
             return results;
         }
-        TestResult ConvetToResult(List<ProfilerLogEntry> logs, string testName) {
+        TestResult ConvetToResult(List<BenchmarkLogEntry> logs, string testName) {
             TestResult result = new TestResult(testName);
             if(logs == null || logs.Count == 0) return result;
             result.FirstPerfomance = logs[0].Perfomance;
-            logs.Sort(new ProfilerLogEntryComparer());
+            logs.Sort(new BenchmarkLogEntryComparer());
             result.BestPerfomance = logs[0].Perfomance;
             int median = logs.Count / 2;
             if(logs.Count % 2 == 0) {
@@ -98,7 +98,7 @@ namespace PerformanceComparison_Win {
         CodeDomProvider providerCore;
         CompilerParameters parametersCore;
         public CodeDomContext() {
-            ProfilerLog.Create();
+            BenchmarkLog.Create();
             providerCore = CreateCodeDomProvider();
             CreateCompilerParameters();
         }
@@ -110,16 +110,16 @@ namespace PerformanceComparison_Win {
         }
         void CreateCompilerParameters() {
             parametersCore = new CompilerParameters();
-            parametersCore.MainClass = "ProfilerTest.Program";
+            parametersCore.MainClass = "BenchmarkTest.Program";
             parametersCore.CompilerOptions = " /target:winexe";
             parametersCore.GenerateInMemory = false;
             parametersCore.GenerateExecutable = true;
             parametersCore.ReferencedAssemblies.Add("System.dll");
             parametersCore.ReferencedAssemblies.Add("System.Windows.Forms.dll");
             parametersCore.ReferencedAssemblies.Add("System.Drawing.dll");
-            parametersCore.ReferencedAssemblies.Add("ProfilerCore.dll");
+            parametersCore.ReferencedAssemblies.Add("BenchmarkCore.dll");
         }
-        public List<ProfilerLogEntry> RunTest(string template, string test) {
+        public List<BenchmarkLogEntry> RunTest(string template, string test) {
             string exe = test + ".exe";
             parametersCore.OutputAssembly = exe;
             CompilerResults res = providerCore.CompileAssemblyFromSource(parametersCore, template);
@@ -134,7 +134,7 @@ namespace PerformanceComparison_Win {
                 throw (new Exception());
             }
             //File.Delete(exe);
-            return ProfilerLog.GetResults();
+            return BenchmarkLog.GetResults();
         }
         Process CreateProcess() {
             Process process = new Process();

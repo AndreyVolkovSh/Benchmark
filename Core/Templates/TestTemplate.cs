@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Diagnostics;
 {0};
 
-namespace ProfilerTest {
+namespace BenchmarkTest {
     public enum TestState { None, SetUp, Test, TearDown, Close }
     static class Program {
         public static void Main(string[] args) {
@@ -62,7 +62,7 @@ namespace ProfilerTest {
             TimerStart(OnSetUp);
         }
         void OnSetUp(object sender, EventArgs e) {
-            using(Profiler.LicencePatcher task = new Profiler.LicencePatcher()){
+            using(Benchmark.LicencePatcher task = new Benchmark.LicencePatcher()){
                 state = TestState.SetUp;
                 TimerStop(OnSetUp);
                 {4};
@@ -90,9 +90,9 @@ namespace ProfilerTest {
             Application.Exit();
         }
         void Trace(){
-            Profiler.ProfilerLogResult result = new Profiler.ProfilerLogResult();
+            Benchmark.BenchmarkLogResult result = new Benchmark.BenchmarkLogResult();
             result.Perfomance = (int)perfomance.ElapsedMilliseconds;
-            Profiler.ProfilerLog.Trace("success", EventLogEntryType.Information, result);
+            Benchmark.BenchmarkLog.Trace("success", EventLogEntryType.Information, result);
         }
 
         protected override void OnControlAdded(ControlEventArgs e) {

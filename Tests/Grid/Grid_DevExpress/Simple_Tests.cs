@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Base;
-using Profiler;
+using Benchmark;
 
 namespace Grid.Tests {
-    [TestFixtureProfiler]
+    [BenchmarkFixture]
     public class Data_Tests : TestBase {
         DevExpressGrid control;
         protected override void SetUpCore(System.Windows.Forms.Form owner) {
@@ -18,7 +18,7 @@ namespace Grid.Tests {
             control.Dispose();
             base.TearDownCore();
         }
-        [TestProfiler]
+        [Benchmark]
         public void LoadData_Test() {
             control.Grid.DataSourceChanged += Grid_DataSourceChanged;
             List<Data> data = new List<Data>();
@@ -56,7 +56,7 @@ namespace Grid.Tests {
             control.Dispose();
             base.TearDownCore();
         }
-        [TestProfiler]
+        [Benchmark]
         public void FindFilterText_Test() {
             ((ColumnView)control.Grid.MainView).FindFilterText = "5";
         }

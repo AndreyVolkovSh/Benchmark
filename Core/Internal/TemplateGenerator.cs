@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Profiler.Internal {
+namespace Benchmark.Internal {
     class TemplateGenerator {
         static TemplateGenerator defaultCore;
         string settingsTemplateCore;

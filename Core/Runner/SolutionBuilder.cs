@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using EnvDTE;
 
-namespace Profiler.Runner {
+namespace Benchmark.Runner {
     public class SolutionBuilder : IDisposable {
         DTE currentDTE;
         bool isDisposingCore;

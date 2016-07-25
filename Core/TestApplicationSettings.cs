@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Profiler {
+namespace Benchmark {
     public class TestApplicationSettings {
         Hashtable settings;
         public TestApplicationSettings() {

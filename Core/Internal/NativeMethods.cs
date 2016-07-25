@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Profiler.Internal {
+namespace Benchmark.Internal {
     [System.Security.SecuritySafeCritical]
     public static class NativeMethods {
         public const int WM_CLOSE = 0x0010;

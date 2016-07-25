@@ -7,8 +7,8 @@
     <ProjectGuid>{C1A752DD-A716-40E0-AB81-0933EA01802D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Profiler</RootNamespace>
-    <AssemblyName>ProfilerCore</AssemblyName>
+    <RootNamespace>Benchmark</RootNamespace>
+    <AssemblyName>BenchmarkCore</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -59,12 +59,13 @@
   <ItemGroup>
     <Compile Include="Attributes.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Internal\Helpers.cs" />
     <Compile Include="LicencePatcher.cs" />
     <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Runner\Registration.cs" />
     <Compile Include="TestApplicationSettings.cs" />
     <Compile Include="Runner\NGenContext.cs" />
-    <Compile Include="ProfilerLog.cs" />
+    <Compile Include="BenchmarkLog.cs" />
     <EmbeddedResource Include="Templates\TestTemplate.cs">
       <SubType>Form</SubType>
     </EmbeddedResource>
@@ -76,14 +77,24 @@
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.XML">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\TestSettings.xml" />

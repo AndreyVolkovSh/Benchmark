@@ -7,8 +7,8 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Win32;
 
-namespace Profiler {
-    public class ProfilerLog {
+namespace Benchmark {
+    public class BenchmarkLog {
         static byte[] ResultToBytes<T>(T result) where T : class {
             if(result == null) return null;
             BinaryFormatter formatter = new BinaryFormatter();
@@ -44,10 +44,10 @@ namespace Profiler {
             EventLog log = EventLog;
             log.Clear();
         }
-        public static void Trace(string message, EventLogEntryType type, ProfilerLogResult result) {
+        public static void Trace(string message, EventLogEntryType type, BenchmarkLogResult result) {
             if(!LogExists) return;
             EventLog log = EventLog;
-            ProfilerLogEntry entry = new ProfilerLogEntry(message, type, result);
+            BenchmarkLogEntry entry = new BenchmarkLogEntry(message, type, result);
             log.WriteEntry(message, type, 0, 0, ResultToBytes(entry));
         }
         static bool FileExists {
@@ -71,10 +71,10 @@ namespace Profiler {
         static bool LogExists {
             get { return FileExists && KeyExists; }
         }
-        public static List<ProfilerLogEntry> GetResults() {
+        public static List<BenchmarkLogEntry> GetResults() {
             if(!LogExists) return null;
             string fullPath = Path.GetFullPath(Constants.LogPath);
-            List<ProfilerLogEntry> results = new List<ProfilerLogEntry>();
+            List<BenchmarkLogEntry> results = new List<BenchmarkLogEntry>();
             using(EventLogReader reader = new EventLogReader(fullPath, PathType.FilePath)) {
                 EventRecord record = reader.ReadEvent();
                 while(record != null) {
@@ -84,21 +84,21 @@ namespace Profiler {
             }
             return results;
         }
-        static ProfilerLogEntry ToResult(IList<EventProperty> properties) {
+        static BenchmarkLogEntry ToResult(IList<EventProperty> properties) {
             if(properties.Count() <= 1) return null;
-            return BytesToResult<ProfilerLogEntry>(properties[1].Value as byte[]);
+            return BytesToResult<BenchmarkLogEntry>(properties[1].Value as byte[]);
         }
     }
     [Serializable]
-    public class ProfilerLogResult {
+    public class BenchmarkLogResult {
         public int Perfomance {
             get;
             set;
         }
     }
     [Serializable]
-    public class ProfilerLogEntry {
-        public ProfilerLogEntry(string message, EventLogEntryType logType, ProfilerLogResult result) {
+    public class BenchmarkLogEntry {
+        public BenchmarkLogEntry(string message, EventLogEntryType logType, BenchmarkLogResult result) {
             Message = message;
             LogType = logType;
             Result = result;
@@ -113,7 +113,7 @@ namespace Profiler {
             get;
             private set;
         }
-        public ProfilerLogResult Result {
+        public BenchmarkLogResult Result {
             get;
             private set;
         }
@@ -122,9 +122,9 @@ namespace Profiler {
             private set;
         }
     }
-    public class ProfilerLogEntryComparer : IComparer<ProfilerLogEntry> {
-        #region IComparer<ProfilerLogEntry> Members
-        public int Compare(ProfilerLogEntry x, ProfilerLogEntry y) {
+    public class BenchmarkLogEntryComparer : IComparer<BenchmarkLogEntry> {
+        #region IComparer<BenchmarkLogEntry> Members
+        public int Compare(BenchmarkLogEntry x, BenchmarkLogEntry y) {
             return Comparer<int>.Default.Compare(x.Perfomance, y.Perfomance);
         }
         #endregion

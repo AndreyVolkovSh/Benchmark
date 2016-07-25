@@ -53,21 +53,45 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v16.1" />
-    <Reference Include="DevExpress.Design.v16.1" />
-    <Reference Include="DevExpress.Printing.v16.1.Core" />
-    <Reference Include="DevExpress.Sparkline.v16.1.Core" />
-    <Reference Include="DevExpress.Utils.v16.1" />
-    <Reference Include="DevExpress.XtraEditors.v16.1" />
-    <Reference Include="DevExpress.XtraEditors.v16.1.Design" />
-    <Reference Include="DevExpress.XtraGrid.v16.1" />
-    <Reference Include="DevExpress.XtraGrid.v16.1.Design" />
-    <Reference Include="DevExpress.XtraLayout.v16.1" />
-    <Reference Include="DevExpress.XtraPrinting.v16.1" />
-    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+    <Reference Include="BenchmarkCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Bin\BenchmarkCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ProfilerCore">
+    <Reference Include="DevExpress.Data.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Design.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v16.1.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v16.1.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v16.1.Design">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1.Design">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
       <Private>False</Private>
     </Reference>
     <Reference Include="System">

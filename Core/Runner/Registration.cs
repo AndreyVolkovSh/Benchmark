@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 
-namespace Profiler.Runner {
+namespace Benchmark.Runner {
     public class Registration {
         static Registration currentCore;
         DataSet currentSet;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Profiler.Internal;
+using Benchmark.Internal;
 
-namespace Profiler.Runner {
+namespace Benchmark.Runner {
     public class TemplateData : IEnumerable<string> {
         int curentIndex;
         public TemplateData() {
@@ -144,10 +144,10 @@ namespace Profiler.Runner {
             return GetAttribute<BenchmarkAttribute>(type) != null;
         }
         bool IsTearDown(MemberInfo type) {
-            return GetAttribute<TearDownProfilerAttribute>(type) != null;
+            return GetAttribute<TearDownAttribute>(type) != null;
         }
         bool IsSetUp(MemberInfo type) {
-            return GetAttribute<SetUpProfilerAttribute>(type) != null;
+            return GetAttribute<SetUpAttribute>(type) != null;
         }
         bool IsCompletedEvent(MemberInfo type) {
             if(type.MemberType != MemberTypes.Event) return false;

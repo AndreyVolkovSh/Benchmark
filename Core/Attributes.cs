@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Profiler {
+namespace Benchmark {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class BenchmarkFixtureAttribute : Attribute {
         public BenchmarkFixtureAttribute() { }

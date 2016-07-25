@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Profiler {
+namespace Benchmark {
     [BenchmarkFixture]
     public class TestBase {
         [TearDown]

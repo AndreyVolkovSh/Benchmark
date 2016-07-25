@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Profiler.Internal {
+namespace Benchmark.Internal {
     public static class ResourceStreamHelper {
         public static Stream GetStream(string name, Type type) {
             return GetStream(GetResourceName(type, name), type.Assembly);

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using Profiler;
+using Benchmark;
 
 namespace Grid.Tests {
-    [TestFixtureProfiler]
+    [BenchmarkFixture]
     public class Data_Tests : TestBase {
         RadGridControl control;
         protected override void SetUpCore(System.Windows.Forms.Form owner) {
@@ -19,7 +19,7 @@ namespace Grid.Tests {
             control.Dispose();
             base.TearDownCore();
         }
-        [TestProfiler]
+        [Benchmark]
         public void LoadData_Test() {
 
             List<Data> data = new List<Data>();
@@ -59,7 +59,7 @@ namespace Grid.Tests {
             control.Dispose();
             base.TearDownCore();
         }
-        [TestProfiler]
+        [Benchmark]
         public void FindFilterText_Test() {
             control.Grid.TableElement.SearchHighlightColor = System.Drawing.Color.LightBlue;
             control.Grid.MasterView.TableSearchRow.Search("5");
