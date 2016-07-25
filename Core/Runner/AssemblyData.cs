@@ -36,7 +36,7 @@ namespace Profiler.Runner {
             get;
             set;
         }
-        public TestFixtureProfilerAttribute Attribute {
+        public BenchmarkFixtureAttribute Attribute {
             get;
             set;
         }
@@ -99,7 +99,7 @@ namespace Profiler.Runner {
         }
         TemplateData CreateTemplate(Type _type) {
             if(_type == null) return null;
-            TestFixtureProfilerAttribute attribute = GetAttribute<TestFixtureProfilerAttribute>(_type);
+            BenchmarkFixtureAttribute attribute = GetAttribute<BenchmarkFixtureAttribute>(_type);
             if(attribute == null) return null;
             MethodInfo tearDown = null, setUp = null;
             EventInfo completed = null;
@@ -129,7 +129,7 @@ namespace Profiler.Runner {
             //    testMethods.AddRange(baseMethods);
             return testMethods.ToArray();
         }
-        TemplateData CreateTemplate(Type _type, MethodInfo setUp, MethodInfo tearDown, EventInfo completed, TestFixtureProfilerAttribute attribute, MethodInfo[] testMethods) {
+        TemplateData CreateTemplate(Type _type, MethodInfo setUp, MethodInfo tearDown, EventInfo completed, BenchmarkFixtureAttribute attribute, MethodInfo[] testMethods) {
             if(_type == null || testMethods == null || testMethods.Length == 0) return null;
             TemplateData template = new TemplateData();
             template.Class = _type;
@@ -141,7 +141,7 @@ namespace Profiler.Runner {
             return template;
         }
         bool IsTest(MemberInfo type) {
-            return GetAttribute<TestProfilerAttribute>(type) != null;
+            return GetAttribute<BenchmarkAttribute>(type) != null;
         }
         bool IsTearDown(MemberInfo type) {
             return GetAttribute<TearDownProfilerAttribute>(type) != null;
@@ -151,7 +151,7 @@ namespace Profiler.Runner {
         }
         bool IsCompletedEvent(MemberInfo type) {
             if(type.MemberType != MemberTypes.Event) return false;
-            return GetAttribute<TestCompletedProfilerAttribute>(type) != null;
+            return GetAttribute<BenchmarkCompletedAttribute>(type) != null;
         }
         T GetAttribute<T>(MemberInfo type) where T : Attribute {
             Attribute attribute = null;

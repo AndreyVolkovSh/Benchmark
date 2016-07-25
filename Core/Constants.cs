@@ -14,6 +14,10 @@ namespace Profiler {
             x86 = "x86",
             NGetInstall = "install",
             NGenUninstall = "uninstall",
-            DTE11 = "VisualStudio.DTE.11.0";
+            DTE11 = "VisualStudio.DTE.11.0",
+            TelerikLicenseCaption = "Evaluation Copy",
+            TelerikLicenseName = "WindowsForms10.Window.8.app.0.141b42a_r12_ad1",
+            DXLicenseCaption = "About DevExpress",
+            DXLicenseName = "WindowsForms10.Window.8.app.0.182b0e9_r36_ad1";
     }
 }

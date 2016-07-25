@@ -2,17 +2,17 @@
 using System.Windows.Forms;
 
 namespace Profiler {
-    [TestFixtureProfiler]
+    [BenchmarkFixture]
     public class TestBase {
-        [TearDownProfiler]
+        [TearDown]
         public void TearDown() {
             TearDownCore();
         }
-        [SetUpProfiler]
+        [SetUp]
         public void SetUp(Form owner) {
             SetUpCore(owner);
         }
-        [TestCompletedProfiler]
+        [BenchmarkCompleted]
         public event EventHandler TestCompleted;
         protected virtual void RaiseCompleted(object sender) {
             if(TestCompleted == null)

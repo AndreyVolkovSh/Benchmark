@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using EnvDTE;
 
 namespace Profiler.Runner {
@@ -27,10 +25,8 @@ namespace Profiler.Runner {
             try {
                 if(!File.Exists(solutionPath))
                     throw (new Exception());
-                Task task = new Task(PatchLicenses.Task);
-                task.Start();
-                currentDTE.Solution.Open(solutionPath);
-                task.Dispose();
+                using(LicencePatcher task = new LicencePatcher())
+                    currentDTE.Solution.Open(solutionPath);
                 Solution dteSolution = currentDTE.Solution;
                 Build_x86(dteSolution);
                 Build_x64(dteSolution);
@@ -41,7 +37,7 @@ namespace Profiler.Runner {
         }
         protected void Build_x86(Solution dteSolution) {
             //ToDo settings
-            SolutionBuild dteBuild = dteSolution.SolutionBuild;            
+            SolutionBuild dteBuild = dteSolution.SolutionBuild;
             dteBuild.Build(true);
             if(dteBuild.BuildState != vsBuildState.vsBuildStateDone)
                 throw (new Exception());
@@ -75,32 +71,6 @@ namespace Profiler.Runner {
             MessageFilter.Revoke();
         }
         #endregion
-    }
-    public static class PatchLicenses {
-        public static void Task() {
-            Timer timer = new Timer();
-            timer.Interval = 200;
-            timer.Tick += (sender, e) => Patch();
-            timer.Start();
-        }
-        public static void Patch() {
-            IntPtr dialogHandle = WinAPI.FindWindow("#32770", "Telerik UI for WPF Trial");
-            if(dialogHandle != IntPtr.Zero) {
-                WinAPI.SendMessage(dialogHandle, WinAPI.WM_CLOSE, 0, 0);
-            }
-            dialogHandle = WinAPI.FindWindow("WindowsForms10.Window.8.app.0.182b0e9_r36_ad1", "About DevExpress");
-            if(dialogHandle != IntPtr.Zero) {
-                WinAPI.SendMessage(dialogHandle, WinAPI.WM_CLOSE, 0, 0);
-            }
-        }
-    }
-    public static class WinAPI {
-        [DllImport("USER32.DLL", EntryPoint = "FindWindow")]
-        public static extern IntPtr FindWindow(string ClassName, string WindowName);
-        [DllImport("USER32.DLL", EntryPoint = "SendMessage")]
-        public static extern uint SendMessage(IntPtr hWnd, uint Msg, uint wParam, uint lParam);
-
-        public const uint WM_CLOSE = 0x0010;
     }
     public static class EnvDTEHelper {
         public static DTE CreateDTE() {

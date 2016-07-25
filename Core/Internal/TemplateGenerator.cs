@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using DevExpress.Utils;
 
 namespace Profiler.Internal {
     class TemplateGenerator {

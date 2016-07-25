@@ -59,16 +59,14 @@ namespace ProfilerTest {
 
         void SetUp() {
             if(state == TestState.TearDown || state == TestState.None)
-                TimerStart(OnSetUp);
+            TimerStart(OnSetUp);
         }
         void OnSetUp(object sender, EventArgs e) {
-            System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(Profiler.Runner.PatchLicenses.Task);
-            task.Start();
-            state = TestState.SetUp;            
-            TimerStop(OnSetUp);
-            {4};
-            task.Wait();
-            task.Dispose();
+            using(Profiler.LicencePatcher task = new Profiler.LicencePatcher()){
+                state = TestState.SetUp;
+                TimerStop(OnSetUp);
+                {4};
+            }
         }
         
         void TearDown() {

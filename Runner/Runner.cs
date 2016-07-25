@@ -34,34 +34,34 @@ namespace PerformanceComparison_Win {
                 throw (exception);
             }
         }
-        RivalResults RunTests(string assembly, string rivalName) {
-            RivalResults rival = new RivalResults(rivalName);
+        List<TestResult> RunTests(string assembly) {
             AssemblyData data = AssemblyData.Load(assembly);
             if(data == null)
                 throw (new Exception());
+            List<TestResult> results = new List<TestResult>();
             using(CodeDomContext context = new CodeDomContext()) {
                 context.LoadAssembly(assembly);
                 foreach(TemplateData templateData in data.Templates)
-                    rival.AddRange(RunTests(context, templateData));
+                    results.AddRange(RunTests(context, templateData));
             }
-            return rival;
+            return results;
         }
-        List<TestResults> RunTests(CodeDomContext context, TemplateData templateData) {
-            List<TestResults> results = new List<TestResults>();
+        List<TestResult> RunTests(CodeDomContext context, TemplateData templateData) {
+            List<TestResult> results = new List<TestResult>();
             foreach(string template in templateData) {
                 ProfilerLog.Clear();
                 string currentTest = templateData.CurrentTestName;
                 List<ProfilerLogEntry> logs = context.RunTest(template, currentTest);
-                TestResults result = ConvetToResult(logs, currentTest);
+                TestResult result = ConvetToResult(logs, currentTest);
                 results.Add(result);
             }
             return results;
-        }        
-        TestResults ConvetToResult(List<ProfilerLogEntry> logs, string testName) {
-            TestResults result = new TestResults(testName);
-            if(logs == null || logs.Count == 0) return result;            
+        }
+        TestResult ConvetToResult(List<ProfilerLogEntry> logs, string testName) {
+            TestResult result = new TestResult(testName);
+            if(logs == null || logs.Count == 0) return result;
             result.FirstPerfomance = logs[0].Perfomance;
-            logs.Sort(new ProfilerLogEntryComparer()); 
+            logs.Sort(new ProfilerLogEntryComparer());
             result.BestPerfomance = logs[0].Perfomance;
             int median = logs.Count / 2;
             if(logs.Count % 2 == 0) {
@@ -72,28 +72,22 @@ namespace PerformanceComparison_Win {
             result.BadPerfomance = logs[logs.Count - 1].Perfomance;
             return result;
         }
-        bool CheckAssembly(string assembly) {
-            string fileName = Path.GetFileName(assembly);
-            return fileName == "Grid_Telerik.dll";
-        }
         void Run(object sender, EventArgs e) {
             try {
                 string rootPath = GetRootPath();
                 BuildSolutions(rootPath);
-                string assemblyPath = rootPath + "\\Bin\\Assembly_Tests";
-                if(!Directory.Exists(assemblyPath))
-                    throw (new Exception());
-                string[] assemblies = Directory.GetFiles(assemblyPath, "*.dll", SearchOption.AllDirectories);
-                if(assemblies == null || assemblies.Length == 0)
-                    throw (new Exception());
-                ProductResults product = new ProductResults("Grid");
-                foreach(string assembly in assemblies) {
-                    if(!CheckAssembly(assembly)) continue;
-                    if(!File.Exists(assembly))
-                        throw (new Exception());
-                    product.Add(RunTests(assembly, "Telerik"));
+                List<ResultEntry> entries = new List<ResultEntry>();
+                foreach(DllInfo dllInfo in Registration.Current.Dlls()) {
+                    if(!File.Exists(dllInfo.Dll))
+                        continue;
+                    List<TestResult> results = RunTests(dllInfo.Dll);
+                    foreach(TestResult result in results) {
+                        ResultEntry entry = new ResultEntry(dllInfo.Product, dllInfo.Rival);
+                        entry.Assign(result);
+                        entries.Add(entry);
+                    }
                 }
-                gridControl1.DataSource = product["Telerik"].Results;
+                gridControl1.DataSource = entries;
             }
             catch(Exception ee) {
                 throw (ee);
@@ -125,7 +119,7 @@ namespace PerformanceComparison_Win {
             parametersCore.ReferencedAssemblies.Add("System.Drawing.dll");
             parametersCore.ReferencedAssemblies.Add("ProfilerCore.dll");
         }
-        public List<ProfilerLogEntry> RunTest(string template, string test) {                        
+        public List<ProfilerLogEntry> RunTest(string template, string test) {
             string exe = test + ".exe";
             parametersCore.OutputAssembly = exe;
             CompilerResults res = providerCore.CompileAssemblyFromSource(parametersCore, template);
@@ -163,48 +157,14 @@ namespace PerformanceComparison_Win {
         #endregion
     }
 
-    public class BaseResults {
-        public BaseResults(string name) {
-            Name = name;
+    public class TestResult {
+        public TestResult(string testName) {
+            TestName = testName;
         }
-        public string Name {
+        public string TestName {
             get;
             private set;
         }
-    }
-    public class BaseResults<T> : BaseResults where T : BaseResults {
-        Dictionary<string, T> resultsCore;
-        public BaseResults(string name)
-            : base(name) {
-            resultsCore = new Dictionary<string, T>();
-        }
-        public void Add(T result) {
-            if(resultsCore.ContainsKey(result.Name))
-                resultsCore[result.Name] = result;
-            else
-                resultsCore.Add(result.Name, result);
-        }
-        public void AddRange(IEnumerable<T> results) {
-            if(results == null) return;
-            foreach(T result in results)
-                Add(result);
-        }
-        public T this[string name] {
-            get {
-                T value;
-                resultsCore.TryGetValue(name, out value);
-                return value;
-            }
-        }
-        public IEnumerable<T> Results {
-            get { return resultsCore.Values; }
-        }
-    }
-    public class ProductResults : BaseResults<RivalResults> {
-        public ProductResults(string name) : base(name) { }
-    }
-    public class TestResults : BaseResults {
-        public TestResults(string name) : base(name) { }
         public int FirstPerfomance {
             get;
             set;
@@ -221,8 +181,27 @@ namespace PerformanceComparison_Win {
             get;
             set;
         }
+        public virtual void Assign(TestResult result) {
+            this.TestName = result.TestName;
+            this.BadPerfomance = result.BadPerfomance;
+            this.BestPerfomance = result.BestPerfomance;
+            this.FirstPerfomance = result.FirstPerfomance;
+            this.MedianPerfomance = result.MedianPerfomance;
+        }
     }
-    public class RivalResults : BaseResults<TestResults> {
-        public RivalResults(string name) : base(name) { }
+    public class ResultEntry : TestResult {
+        public ResultEntry(string product, string rival)
+            : base(string.Empty) {
+            Product = product;
+            Rival = rival;
+        }
+        public string Product {
+            get;
+            private set;
+        }
+        public string Rival {
+            get;
+            private set;
+        }
     }
 }
