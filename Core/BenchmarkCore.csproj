@@ -63,7 +63,7 @@
     <Compile Include="LicencePatcher.cs" />
     <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Runner\Registration.cs" />
-    <Compile Include="TestApplicationSettings.cs" />
+    <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Runner\NGenContext.cs" />
     <Compile Include="BenchmarkLog.cs" />
     <EmbeddedResource Include="Templates\TestTemplate.cs">

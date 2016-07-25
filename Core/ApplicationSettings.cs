@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 namespace Benchmark {
-    public class TestApplicationSettings {
+    public class ApplicationSettings {
         Hashtable settings;
-        public TestApplicationSettings() {
+        public ApplicationSettings() {
             settings = new Hashtable();
         }
-        public static TestApplicationSettings GetSettings(string[] args) {
-            TestApplicationSettings arguments = new TestApplicationSettings();
+        public static ApplicationSettings GetSettings(string[] args) {
+            ApplicationSettings arguments = new ApplicationSettings();
             if(args != null) {
                 arguments.Initialize(args);
             }
@@ -17,7 +17,7 @@ namespace Benchmark {
         protected void Initialize(string[] args) {
             if(args == null) return;
             foreach(string arg in args) {
-                string[] _params = arg.Split(';');
+                string[] _params = arg.Split(':');
                 if(_params == null || _params.Length <= 1) continue;
                 settings.Add(_params[0], _params[1]);
             }

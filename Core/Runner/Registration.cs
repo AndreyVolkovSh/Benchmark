@@ -9,9 +9,9 @@ namespace Benchmark.Runner {
         static Registration currentCore;
         DataSet currentSet;
         Registration() {
-            currentSet = new DataSet("Registration");
-            if(!File.Exists("Data/Registration.xml")) return;
-            currentSet.ReadXml("Data/Registration.xml");
+            currentSet = new DataSet(Constants.Registration);
+            if(!File.Exists(Constants.Registration)) return;
+            currentSet.ReadXml(Constants.RegistrationPath);
         }
         public static Registration Current {
             get {
@@ -21,29 +21,29 @@ namespace Benchmark.Runner {
             }
         }
         public string[] Rivals {
-            get { return Read("Rivals", "Rival"); }
+            get { return Read(Constants.RivalTable, Constants.RivalColumn); }
         }
         public string[] Products {
-            get { return Read("Products", "Product"); }
+            get { return Read(Constants.ProductTable, Constants.ProductColumn); }
         }
         public bool WriteRival(string name) {
-            return Write("Rivals", name);
+            return Write(Constants.RivalTable, name);
         }
         public bool WriteProduct(string name) {
-            return Write("Products", name);
+            return Write(Constants.ProductTable, name);
         }
         public bool AcceptChanges() {
             try {
                 currentSet.AcceptChanges();
-                currentSet.WriteXml("Data/Registration.xml", XmlWriteMode.WriteSchema);
+                currentSet.WriteXml(Constants.RegistrationPath, XmlWriteMode.WriteSchema);
                 return true;
             }
             catch {
                 return false;
             }
         }
-        public IEnumerable<DllInfo> Dlls() {
-            using(DllsEnumerator enumerator = new DllsEnumerator(this)) {
+        public IEnumerable<TestAssembly> Dlls() {
+            using(TestAssemblies enumerator = new TestAssemblies(this)) {
                 yield return enumerator.Current;
                 while(enumerator.MoveNext())
                     yield return enumerator.Current;
@@ -83,9 +83,8 @@ namespace Benchmark.Runner {
             return row[columnName] as T;
         }
     }
-    public class DllInfo {
-        string dllFormat = "Assembly_Tests//{1}//{0}_{1}.dll";
-        public DllInfo(string product, string rival) {
+    public class TestAssembly {
+        public TestAssembly(string product, string rival) {
             Product = product;
             Rival = rival;
         }
@@ -98,14 +97,14 @@ namespace Benchmark.Runner {
             private set;
         }
         public string Dll {
-            get { return string.Format(dllFormat, Product, Rival); }
+            get { return string.Format(Constants.TestAssembliesFormat, Product, Rival); }
         }
     }
-    class DllsEnumerator : IEnumerator<DllInfo> {
+    class TestAssemblies : IEnumerator<TestAssembly> {
         string[] products, rivals;
         int productIndex, rivalIndex;
         int productCount, rivalCount;
-        public DllsEnumerator(Registration registration) {
+        public TestAssemblies(Registration registration) {
             products = registration.Products;
             rivals = registration.Rivals;
             productCount = products.Count();
@@ -113,8 +112,8 @@ namespace Benchmark.Runner {
             Reset();
         }
         #region IEnumerator<string> Members
-        public DllInfo Current {
-            get { return new DllInfo(CurrentProduct, CurrentRival); }
+        public TestAssembly Current {
+            get { return new TestAssembly(CurrentProduct, CurrentRival); }
         }
         string CurrentProduct {
             get { return GetObject(products, productIndex); }

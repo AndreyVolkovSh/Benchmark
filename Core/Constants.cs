@@ -18,6 +18,13 @@ namespace Benchmark {
             TelerikLicenseCaption = "Evaluation Copy",
             TelerikLicenseName = "WindowsForms10.Window.8.app.0.141b42a_r12_ad1",
             DXLicenseCaption = "About DevExpress",
-            DXLicenseName = "WindowsForms10.Window.8.app.0.182b0e9_r36_ad1";
+            DXLicenseName = "WindowsForms10.Window.8.app.0.182b0e9_r36_ad1",
+            Registration = "Registration",
+            RegistrationPath = "Data/Registration.xml",
+            ProductTable = "Products",
+            RivalTable = "Rivals",
+            ProductColumn = "Product",
+            RivalColumn = "Rival",
+            TestAssembliesFormat = "Assembly_Tests//{1}//{0}_{1}.dll";
     }
 }
