@@ -27,40 +27,27 @@ namespace Benchmark {
             }
         }
         public static void Create() {
-            if(!FileExists || KeyExists) return;
-            RegistryKey key = Registry.LocalMachine.CreateSubKey(Constants.LogKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
-            if(key != null) {
-                RegistryKey subKey = key.CreateSubKey(Constants.LogName, RegistryKeyPermissionCheck.ReadWriteSubTree);
-                string fullPath = Path.GetFullPath(Constants.LogPath);
-                key.SetValue("MaxSize", int.MaxValue, RegistryValueKind.DWord);
-                key.SetValue("Flags", 1, RegistryValueKind.DWord);
-                key.SetValue("File", fullPath, RegistryValueKind.ExpandString);
-                subKey.Close();
-            }
-            key.Close();
+            if(LogExists) return;
+            EventLog.CreateEventSource(Constants.LogName, Constants.LogName);
+
         }
         public static void Clear() {
             if(!LogExists) return;
-            EventLog log = EventLog;
-            log.Clear();
+            using(EventLog log = GetEventLog())
+                log.Clear();
         }
         public static void Trace(string message, EventLogEntryType type, BenchmarkLogResult result) {
             if(!LogExists) return;
-            EventLog log = EventLog;
             BenchmarkLogEntry entry = new BenchmarkLogEntry(message, type, result);
-            log.WriteEntry(message, type, 0, 0, ResultToBytes(entry));
+            using(EventLog log = GetEventLog())
+                log.WriteEntry(message, type, 0, 0, ResultToBytes(entry));
         }
-        static bool FileExists {
-            get { return File.Exists(Constants.LogPath); }
+        static EventLog GetEventLog() {
+            EventLog log = new EventLog(Constants.LogName);
+            log.Source = Constants.LogName;
+            return log;
         }
-        static EventLog EventLog {
-            get {
-                EventLog log = new EventLog(Constants.LogName);
-                log.Source = Constants.LogName;
-                return log;
-            }
-        }
-        static bool KeyExists {
+        static bool LogExists {
             get {
                 RegistryKey key = Registry.LocalMachine.OpenSubKey(Constants.LogKey);
                 if(key == null) return false;
@@ -68,21 +55,20 @@ namespace Benchmark {
                 return true;
             }
         }
-        static bool LogExists {
-            get { return FileExists && KeyExists; }
-        }
         public static List<BenchmarkLogEntry> GetResults() {
             if(!LogExists) return null;
-            string fullPath = Path.GetFullPath(Constants.LogPath);
-            List<BenchmarkLogEntry> results = new List<BenchmarkLogEntry>();
-            using(EventLogReader reader = new EventLogReader(fullPath, PathType.FilePath)) {
-                EventRecord record = reader.ReadEvent();
-                while(record != null) {
-                    results.Add(ToResult(record.Properties));
-                    record = reader.ReadEvent();
+            using(EventLogConfiguration config = new EventLogConfiguration(Constants.LogName)) {
+                string fullPath = Path.GetFullPath(config.LogFilePath);
+                List<BenchmarkLogEntry> results = new List<BenchmarkLogEntry>();
+                using(EventLogReader reader = new EventLogReader(fullPath, PathType.FilePath)) {
+                    EventRecord record = reader.ReadEvent();
+                    while(record != null) {
+                        results.Add(ToResult(record.Properties));
+                        record = reader.ReadEvent();
+                    }
                 }
+                return results;
             }
-            return results;
         }
         static BenchmarkLogEntry ToResult(IList<EventProperty> properties) {
             if(properties.Count() <= 1) return null;

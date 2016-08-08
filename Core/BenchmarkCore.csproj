@@ -60,7 +60,7 @@
     <Compile Include="Attributes.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Internal\Helpers.cs" />
-    <Compile Include="LicencePatcher.cs" />
+    <Compile Include="LicensePatcher.cs" />
     <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Runner\Registration.cs" />
     <Compile Include="ApplicationSettings.cs" />

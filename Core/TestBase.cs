@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 
 namespace Benchmark {
-    [BenchmarkFixture]
     public class TestBase {
         [TearDown]
         public void TearDown() {

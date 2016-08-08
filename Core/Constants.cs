@@ -4,8 +4,7 @@ namespace Benchmark {
         public const string
             SettingsFile = "Benchmark.Templates.TestSettings.xml",
             TestObject = "testObject",
-            TemplateFile = "Benchmark.Templates.TestTemplate.cs",
-            LogPath = @"Logs\DX_Benchmark_Log.evtx",
+            TemplateFile = "Benchmark.Templates.TestTemplate.cs",            
             LogKey = @"SYSTEM\CurrentControlSet\services\eventlog\DX_Benchmark_Log",
             LogName = "DX_Benchmark_Log",
             BaseClass = "System.Object",

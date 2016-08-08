@@ -25,7 +25,7 @@ namespace Benchmark.Runner {
             try {
                 if(!File.Exists(solutionPath))
                     throw (new Exception());
-                using(LicencePatcher task = new LicencePatcher())
+                using(LicensePatcher task = new LicensePatcher())
                     currentDTE.Solution.Open(solutionPath);
                 Solution dteSolution = currentDTE.Solution;
                 Build_x86(dteSolution);

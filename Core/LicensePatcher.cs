@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Benchmark.Internal;
 
 namespace Benchmark {
-    public class LicencePatcher : IDisposable {
+    public class LicensePatcher : IDisposable {
         Task taskCore;
         System.Threading.CancellationTokenSource sourceCore;
-        public LicencePatcher() {
+        public LicensePatcher() {
             sourceCore = new System.Threading.CancellationTokenSource();
             taskCore = new Task(() => Action(sourceCore.Token));
             taskCore.Start();
