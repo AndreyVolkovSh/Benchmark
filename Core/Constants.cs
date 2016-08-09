@@ -4,13 +4,15 @@ namespace Benchmark {
         public const string
             SettingsFile = "Benchmark.Templates.TestSettings.xml",
             TestObject = "testObject",
-            TemplateFile = "Benchmark.Templates.TestTemplate.cs",            
+            TemplateFile = "Benchmark.Templates.TestTemplate.cs",
             LogKey = @"SYSTEM\CurrentControlSet\services\eventlog\DX_Benchmark_Log",
             LogName = "DX_Benchmark_Log",
             BaseClass = "System.Object",
             NGenFormat = @"NGen\{0}\ngen.exe",
             x64 = "x64",
             x86 = "x86",
+            EXE = ".exe",
+            Config = ".config",
             NGetInstall = "install",
             NGenUninstall = "uninstall",
             DTE11 = "VisualStudio.DTE.11.0",
@@ -24,6 +26,13 @@ namespace Benchmark {
             RivalTable = "Rivals",
             ProductColumn = "Product",
             RivalColumn = "Rival",
-            TestAssembliesFormat = "Assembly_Tests//{1}//{0}_{1}.dll";
+            TestAssembliesFormat = "Assembly_Tests//{1}//{0}_{1}.dll",
+            TestsPathFormat = "{0}\\Tests\\",
+            MainClass = "BenchmarkTest.Program",
+            CompilerOptions = " /target:winexe",
+            SystemDll = "System.dll",
+            WindowsFormsDll = "System.Windows.Forms.dll",
+            DrawingDll = "System.Drawing.dll",
+            BenchmarkCoreDll = "BenchmarkCore.dll";
     }
 }

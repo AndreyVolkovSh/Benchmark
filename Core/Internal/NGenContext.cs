@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Benchmark.Runner {
+namespace Benchmark.Internal {
     public class NGenContext : IDisposable {
         string fileNameCore;
         public NGenContext(string fileName) {

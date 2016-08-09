@@ -5,18 +5,18 @@ using System.IO;
 using System.Linq;
 
 namespace Benchmark.Runner {
-    public class Registration {
-        static Registration currentCore;
+    public class Registrator {
+        static Registrator currentCore;
         DataSet currentSet;
-        Registration() {
+        Registrator() {
             currentSet = new DataSet(Constants.Registration);
-            if(!File.Exists(Constants.Registration)) return;
+            if(!File.Exists(Constants.RegistrationPath)) return;
             currentSet.ReadXml(Constants.RegistrationPath);
         }
-        public static Registration Current {
+        public static Registrator Current {
             get {
                 if(currentCore == null)
-                    currentCore = new Registration();
+                    currentCore = new Registrator();
                 return currentCore;
             }
         }
@@ -42,8 +42,8 @@ namespace Benchmark.Runner {
                 return false;
             }
         }
-        public IEnumerable<TestAssembly> Dlls() {
-            using(TestAssemblies enumerator = new TestAssemblies(this)) {
+        public IEnumerable<RegistratorEntry> GetEntries() {
+            using(RegistratorEntries enumerator = new RegistratorEntries(this)) {
                 yield return enumerator.Current;
                 while(enumerator.MoveNext())
                     yield return enumerator.Current;
@@ -65,7 +65,6 @@ namespace Benchmark.Runner {
         }
         string[] Read(string tableName, string columnName) {
             try {
-
                 DataTable table = GetTable(tableName);
                 if(table == null) return null;
                 List<string> values = new List<string>();
@@ -83,8 +82,8 @@ namespace Benchmark.Runner {
             return row[columnName] as T;
         }
     }
-    public class TestAssembly {
-        public TestAssembly(string product, string rival) {
+    public class RegistratorEntry {
+        public RegistratorEntry(string product, string rival) {
             Product = product;
             Rival = rival;
         }
@@ -96,24 +95,24 @@ namespace Benchmark.Runner {
             get;
             private set;
         }
-        public string Dll {
+        public string Assembly {
             get { return string.Format(Constants.TestAssembliesFormat, Product, Rival); }
         }
     }
-    class TestAssemblies : IEnumerator<TestAssembly> {
+    class RegistratorEntries : IEnumerator<RegistratorEntry> {
         string[] products, rivals;
         int productIndex, rivalIndex;
         int productCount, rivalCount;
-        public TestAssemblies(Registration registration) {
-            products = registration.Products;
-            rivals = registration.Rivals;
+        public RegistratorEntries(Registrator registrator) {
+            products = registrator.Products;
+            rivals = registrator.Rivals;
             productCount = products.Count();
             rivalCount = rivals.Count();
             Reset();
         }
         #region IEnumerator<string> Members
-        public TestAssembly Current {
-            get { return new TestAssembly(CurrentProduct, CurrentRival); }
+        public RegistratorEntry Current {
+            get { return new RegistratorEntry(CurrentProduct, CurrentRival); }
         }
         string CurrentProduct {
             get { return GetObject(products, productIndex); }

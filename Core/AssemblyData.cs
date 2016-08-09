@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Benchmark.Internal;
 
-namespace Benchmark.Runner {
+namespace Benchmark {
     public class TemplateData : IEnumerable<string> {
         int curentIndex;
         public TemplateData() {

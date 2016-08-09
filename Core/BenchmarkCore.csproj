@@ -59,20 +59,23 @@
   <ItemGroup>
     <Compile Include="Attributes.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Internal\CodeDomContext.cs" />
     <Compile Include="Internal\Helpers.cs" />
     <Compile Include="LicensePatcher.cs" />
     <Compile Include="Internal\NativeMethods.cs" />
-    <Compile Include="Runner\Registration.cs" />
+    <Compile Include="Runner\Registrator.cs" />
     <Compile Include="ApplicationSettings.cs" />
-    <Compile Include="Runner\NGenContext.cs" />
+    <Compile Include="Internal\NGenContext.cs" />
     <Compile Include="BenchmarkLog.cs" />
     <EmbeddedResource Include="Templates\TestTemplate.cs">
       <SubType>Form</SubType>
     </EmbeddedResource>
+    <Compile Include="Runner\TestResult.cs" />
+    <Compile Include="Runner\Launcher.cs" />
     <Compile Include="Runner\SolutionBuilder.cs" />
     <Compile Include="Internal\TemplateGenerator.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="Runner\AssemblyData.cs" />
+    <Compile Include="AssemblyData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
