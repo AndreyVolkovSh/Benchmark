@@ -4,21 +4,29 @@ namespace Benchmark {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class BenchmarkFixtureAttribute : Attribute {
         public BenchmarkFixtureAttribute() { }
+        public string Category {
+            get;
+            set;
+        }
     }
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class BenchmarkAttribute : Attribute {
         public BenchmarkAttribute() { }
+        public string Name {
+            get;
+            set;
+        }
     }
     [AttributeUsage(AttributeTargets.Event, AllowMultiple = false)]
     public class BenchmarkCompletedAttribute : Attribute {
         public BenchmarkCompletedAttribute() { }
     }
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class TearDownAttribute : Attribute {
-        public TearDownAttribute() { }
+    public class BenchmarkTearDownAttribute : Attribute {
+        public BenchmarkTearDownAttribute() { }
     }
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class SetUpAttribute : Attribute {
-        public SetUpAttribute() { }
+    public class BenchmarkSetUpAttribute : Attribute {
+        public BenchmarkSetUpAttribute() { }
     }
 }

@@ -5,19 +5,8 @@ using System.Reflection;
 namespace Benchmark.Internal {
     class TemplateGenerator {
         static TemplateGenerator defaultCore;
-        string settingsTemplateCore;
-        protected TemplateGenerator() {
-            settingsTemplateCore = CreateSettingsTemplate();
-        }
-        string CreateSettingsTemplate() {
-            using(StreamReader reader = CreateStreamReader(Constants.SettingsFile))
-                return reader.ReadToEnd();
-        }
-        StreamReader CreateStreamReader(string resourcePath) {
-            Stream stream = ResourceStreamHelper.GetStream(resourcePath, typeof(TemplateGenerator).Assembly);
-            if(stream == null) return null;
-            return new StreamReader(stream);
-        }
+
+        protected TemplateGenerator() { }
         bool ParameterIsValid(string parameter) {
             return !string.IsNullOrEmpty(parameter);
         }
@@ -102,7 +91,7 @@ namespace Benchmark.Internal {
         }
         public string CreateTemplate(Type classType, MethodInfo test, MethodInfo setUp, MethodInfo tearDown, EventInfo completed) {
             string buffer = string.Empty;
-            using(StreamReader reader = CreateStreamReader(Constants.TemplateFile)) {
+            using(StreamReader reader = ResourceHelper.CreateStreamReader(Constants.TemplateFile)) {
                 if(reader == null) return buffer;
                 while(!reader.EndOfStream) {
                     string str = ParseString(reader.ReadLine(), classType, test, setUp, tearDown, completed);
@@ -111,9 +100,6 @@ namespace Benchmark.Internal {
                 }
             }
             return buffer;
-        }
-        public string SettingsTemplate {
-            get { return settingsTemplateCore; }
         }
         public static TemplateGenerator Default {
             get {

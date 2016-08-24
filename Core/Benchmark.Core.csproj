@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{20F560C8-121F-4631-A54D-1E0361BCDAF7}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{C1A752DD-A716-40E0-AB81-0933EA01802D}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Benchmark</RootNamespace>
-    <AssemblyName>Benchmark_Win</AssemblyName>
+    <AssemblyName>Benchmark.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,6 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -43,106 +44,52 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Dlls\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BenchmarkCore">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Data.v16.1">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v16.1.Core">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Sparkline.v16.1.Core">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v16.1">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v16.1">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v16.1">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraLayout.v16.1">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v16.1">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
-      <Private>False</Private>
-    </Reference>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Internal\ProjectCompiler.cs" />
+    <Compile Include="Internal\Helpers.cs" />
+    <Compile Include="Internal\LicensePatcher.cs" />
+    <Compile Include="Internal\NativeMethods.cs" />
+    <Compile Include="Runner\Registrator.cs" />
+    <Compile Include="Runner\Settings.cs" />
+    <Compile Include="Internal\NGenContext.cs" />
+    <Compile Include="BenchmarkLog.cs" />
+    <EmbeddedResource Include="Templates\TestForm.cs" />
+    <Compile Include="Runner\TestResult.cs" />
+    <Compile Include="Runner\Launcher.cs" />
+    <Compile Include="Internal\SolutionBuilder.cs" />
+    <Compile Include="Internal\TemplateGenerator.cs" />
+    <EmbeddedResource Include="Templates\TestProject.csproj" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="AssemblyLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Data.Entity">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Data.Linq">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSharp">
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Drawing">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Runner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Runner.Designer.cs">
-      <DependentUpon>Runner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Runner.resx">
-      <DependentUpon>Runner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <Reference Include="System.XML">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -160,16 +107,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.4.0">
-      <Visible>False</Visible>
-      <ProductName>SQL Server Compact 4.0 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
       <Visible>False</Visible>
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\TestProject.csproj.user" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

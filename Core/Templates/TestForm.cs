@@ -28,12 +28,12 @@ namespace BenchmarkTest {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Text = "TestForm";
             this.timer = new Timer();
-            this.timer.Interval = 500;
             this.state = TestState.None;
             this.perfomance = new System.Diagnostics.Stopwatch();
-            this.executionsCount = 20;
+            this.executionsCount = 6;
         }
-        void TimerStart(EventHandler onTick){
+        void TimerStart(EventHandler onTick, int interval = 500){
+            timer.Interval = interval;
             timer.Tick += onTick;
             timer.Start();
         }
@@ -44,7 +44,7 @@ namespace BenchmarkTest {
  
         void TestStart() {
             if(state != TestState.SetUp) return;
-            TimerStart(OnTestStart);
+            TimerStart(OnTestStart, 1000);
         }
         void OnTestStart(object sender, EventArgs e) {
             TimerStop(OnTestStart);
@@ -62,7 +62,7 @@ namespace BenchmarkTest {
             TimerStart(OnSetUp);
         }
         void OnSetUp(object sender, EventArgs e) {
-            using(Benchmark.LicencePatcher task = new Benchmark.LicencePatcher()){
+            using(Benchmark.Internal.LicensePatcher task = new Benchmark.Internal.LicensePatcher()){
                 state = TestState.SetUp;
                 TimerStop(OnSetUp);
                 {4};

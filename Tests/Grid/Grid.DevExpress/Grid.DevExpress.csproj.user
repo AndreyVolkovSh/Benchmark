@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ReferencePath>$(SolutionDir)Bin\;$(SolutionDir)Bin\Assembly_DevExpress\</ReferencePath>
-    <ProjectView>ShowAllFiles</ProjectView>
-    <PublishUrlHistory />
+    <ReferencePath>$(SolutionDir)..\..\Bin\;$(SolutionDir)..\..\Bin\Assemblies\;$(SolutionDir)..\..\Bin\Assemblies\DevExpress\;</ReferencePath>
+    <PublishUrlHistory>publish\</PublishUrlHistory>
     <InstallUrlHistory />
     <SupportUrlHistory />
     <UpdateUrlHistory />
@@ -11,9 +10,6 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartAction>Project</StartAction>
-    <StartProgram>D:\Profiler_Win\Bin\LoadData_Test _1.exe</StartProgram>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
 </Project>

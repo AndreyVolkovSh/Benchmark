@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Benchmark.Internal;
 
-namespace Benchmark {
+namespace Benchmark.Internal {
     public class LicensePatcher : IDisposable {
         Task taskCore;
         System.Threading.CancellationTokenSource sourceCore;

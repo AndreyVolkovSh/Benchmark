@@ -1,20 +1,14 @@
 ﻿
 namespace Benchmark.Runner {
     public class TestResult {
-        public TestResult(string testName) {
-            TestName = testName;
-        }
-        public TestResult(string testName, string category) {
-            TestName = testName;
-            Category = category;
-        }
+        public TestResult() { }
         public string Category {
             get;
             set;
         }
         public string TestName {
             get;
-            private set;
+            set;
         }
         public int FirstPerfomance {
             get;
@@ -36,7 +30,7 @@ namespace Benchmark.Runner {
             get;
             set;
         }
-        public string Rival {
+        public string Vender {
             get;
             set;
         }
@@ -47,7 +41,7 @@ namespace Benchmark.Runner {
             this.BestPerfomance = result.BestPerfomance;
             this.FirstPerfomance = result.FirstPerfomance;
             this.MedianPerfomance = result.MedianPerfomance;
-            this.Rival = result.Rival;
+            this.Vender = result.Vender;
             this.Product = result.Product;
         }
     }

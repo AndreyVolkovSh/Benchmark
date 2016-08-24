@@ -58,7 +58,7 @@ namespace Benchmark {
         public static List<BenchmarkLogEntry> GetResults() {
             if(!LogExists) return null;
             using(EventLogConfiguration config = new EventLogConfiguration(Constants.LogName)) {
-                string fullPath = Path.GetFullPath(config.LogFilePath);
+                string fullPath = config.LogFilePath;
                 List<BenchmarkLogEntry> results = new List<BenchmarkLogEntry>();
                 using(EventLogReader reader = new EventLogReader(fullPath, PathType.FilePath)) {
                     EventRecord record = reader.ReadEvent();

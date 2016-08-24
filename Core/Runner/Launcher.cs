@@ -1,57 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Benchmark.Internal;
 
 namespace Benchmark.Runner {
     public class Launcher {
-        public static List<TestResult> Start(string[] args) {
+        public static void BuildSolutions(string settings) {
+            string rootPath = GetRootPath();
+            BuildSolutions(rootPath, settings);
+        }
+        public static List<TestResult> Start(Settings settings, IEnumerable<TestInfo> tests) {
             try {
-                string rootPath = GetRootPath();
-                BuildSolutions(rootPath);
                 List<TestResult> results = new List<TestResult>();
-                foreach(RegistratorEntry entry in Registrator.Current.GetEntries()) {
-                    if(!File.Exists(entry.Assembly))
-                        continue;
-                    List<TestResult> tempResults = StartTests(entry.Assembly);
-                    foreach(TestResult result in tempResults) {
-                        result.Rival = entry.Rival;
-                        result.Product = entry.Product;
-                        results.Add(result);
+                using(ProjectCompiler compiler = ProjectCompiler.Compile(tests, settings.ToBuildSettings())) {
+                    using(NGenContext nGen = new NGenContext(settings.EnableNGen)) {
+                        nGen.PlatformTarget_x64 = settings.Platform == Platform.x64;
+                        foreach(TestInfo test in tests) {
+                            string path = test.Path;
+                            nGen.Install(path);
+                            if(!File.Exists(path)) continue;
+                            results.Add(StartTest(test));
+                        }
                     }
+                    return results;
                 }
-                return results;
             }
             catch(Exception ee) {
                 throw (ee);
             }
         }
-        static List<TestResult> StartTests(string assembly) {
-            AssemblyData data = AssemblyData.Load(assembly);
-            if(data == null)
-                throw (new Exception());
-            List<TestResult> results = new List<TestResult>();
-            using(CodeDomContext context = new CodeDomContext()) {
-                context.LoadAssembly(assembly);
-                foreach(TemplateData templateData in data.Templates)
-                    results.AddRange(StartTests(context, templateData));
-            }
-            return results;
+        //public static List<TestResult> Start(string[] args) {
+        //    // assemblies; categories;
+        //    return Start(Settings.Create(args));
+        //}
+        //static List<TestResult> StartTests(string assembly) {
+        //    AssemblyLoader assemblyInfo = AssemblyLoader.Load(assembly);
+        //    if(assemblyInfo == null)
+        //        throw (new Exception());
+        //    List<TestResult> results = new List<TestResult>();
+        //    List<TestInfo> tests = ProjectCompiler.Compile(assemblyInfo, null);
+        //    using(NGenContext nGen = new NGenContext(true)) {
+        //        nGen.PlatformTarget_x64 = false;
+        //        nGen.Install(assembly);
+        //        foreach(TestInfo test in tests) {
+        //            nGen.Install(test.TestEXE);
+        //            results.Add(StartTest(test));
+        //        }
+        //    }
+        //    return results;
+        //}
+        static TestResult StartTest(TestInfo test) {
+            BenchmarkLog.Clear();
+            ProcessStart(test.Path);
+            List<BenchmarkLogEntry> logs = BenchmarkLog.GetResults();
+            TestResult result = ConvetToResult(logs);
+            result.TestName = test.Name;
+            result.Category = test.Category;
+            result.Vender = test.Vender;
+            result.Product = test.Product;
+            return result;
         }
-        static List<TestResult> StartTests(CodeDomContext context, TemplateData templateData) {
-            List<TestResult> results = new List<TestResult>();
-            foreach(string template in templateData) {
-                BenchmarkLog.Clear();
-                string currentTest = templateData.CurrentTestName;
-                List<BenchmarkLogEntry> logs = context.StartTest(template, currentTest);
-                TestResult result = ConvetToResult(logs, currentTest, templateData.Class.Name);
-                results.Add(result);
+        static void ProcessStart(string fileName) {
+            using(Process process = new Process()) {
+                process.StartInfo.FileName = fileName;
+                process.Start();
+                process.WaitForExit();
             }
-            return results;
         }
-        static TestResult ConvetToResult(List<BenchmarkLogEntry> logs, string testName, string category) {
-            TestResult result = new TestResult(testName, category);
+        static TestResult ConvetToResult(List<BenchmarkLogEntry> logs) {
+            TestResult result = new TestResult();
             if(logs == null || logs.Count == 0) return result;
             result.FirstPerfomance = logs[0].Perfomance;
             logs.Sort(new BenchmarkLogEntryComparer());
@@ -73,10 +92,10 @@ namespace Benchmark.Runner {
         static string GetRootPath() {
             return Path.GetDirectoryName(Application.StartupPath);
         }
-        static void BuildSolutions(string rootPath) {
+        static void BuildSolutions(string rootPath, string settings) {
             string solutionsPath = GetSolutionsPath(rootPath);
             try {
-                SolutionBuilder.BuildAll(solutionsPath);
+                Benchmark.Internal.SolutionBuilder.BuildAll(solutionsPath, settings);
             }
             catch(Exception exception) {
                 //log exception  

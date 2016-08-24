@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace Benchmark {
     public class TestBase {
-        [TearDown]
+        [BenchmarkTearDown]
         public void TearDown() {
             TearDownCore();
         }
-        [SetUp]
+        [BenchmarkSetUp]
         public void SetUp(Form owner) {
             SetUpCore(owner);
         }
