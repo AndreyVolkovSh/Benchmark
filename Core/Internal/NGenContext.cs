@@ -5,11 +5,10 @@ using System.Diagnostics;
 namespace Benchmark.Internal {
     public class NGenContext : IDisposable {
         HashSet<string> cache;
-        bool enabledCore;
-        public NGenContext() : this(true) { }
-        public NGenContext(bool enabled) {
+        public NGenContext() : this(Platform.AnyCPU) { }
+        public NGenContext(Platform platform) {
             cache = new HashSet<string>();
-            enabledCore = enabled;
+            PlatformTarget_x64 = platform == Platform.x64;
         }
         void StartNGen(string command, string filePath) {
             using(Process process = new Process()) {
@@ -23,7 +22,7 @@ namespace Benchmark.Internal {
             }
         }
         public void Install(string filePath) {
-            if(!enabledCore || cache.Contains(filePath)) return;
+            if(cache.Contains(filePath)) return;
             cache.Add(filePath);
             StartNGen(Constants.NGetInstall, filePath);
         }
@@ -36,12 +35,15 @@ namespace Benchmark.Internal {
             string platform = PlatformTarget_x64 ? Constants.x64 : Constants.x86;
             return string.Format(Constants.NGenFormat, platform);
         }
-        public bool PlatformTarget_x64 {
+        bool PlatformTarget_x64 {
             get;
             set;
         }
         #region IDisposable Members
-        void IDisposable.Dispose() {
+        bool isDisposing;
+        public void Dispose() {
+            if(isDisposing) return;
+            isDisposing = true;
             foreach(string value in cache)
                 StartNGen(Constants.NGenUninstall, value);
             cache.Clear();

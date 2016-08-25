@@ -9,6 +9,10 @@ namespace Benchmark {
             get;
             set;
         }
+        public string AssemblyPath {
+            get;
+            internal set;
+        }
         public string AssemblyName {
             get;
             internal set;
@@ -94,6 +98,10 @@ namespace Benchmark {
         public List<TypeLoader> Types {
             get { return typesCore; }
         }
+        public string FullPath {
+            get;
+            private set;
+        }
         public string AssemblyName {
             get;
             private set;
@@ -113,6 +121,7 @@ namespace Benchmark {
                     testInfo.Product = Product;
                     testInfo.Vender = Vender;
                     testInfo.AssemblyName = AssemblyName;
+                    testInfo.AssemblyPath = FullPath;
                     yield return testInfo;
                 }
             }
@@ -121,6 +130,7 @@ namespace Benchmark {
             try {
                 Assembly assembly = Assembly.LoadFrom(assemblyPath);
                 AssemblyLoader data = new AssemblyLoader();
+                data.FullPath = assemblyPath;
                 data.Initialize(assembly);
                 return data;
             }
@@ -130,14 +140,27 @@ namespace Benchmark {
         }
         void Initialize(Assembly assembly) {
             AssemblyName = assembly.GetName().Name;
+            AssemblyBenchmark benchmarkAttribute = AttributeHelper.GetAssemblyAttribute<AssemblyBenchmark>(assembly);
+            if(benchmarkAttribute != null) {
+                Product = benchmarkAttribute.Product;
+                Vender = benchmarkAttribute.Vender;
+            }
+            CheckProduct(assembly);
+            CheckVender(assembly);
+            Type[] types = assembly.GetExportedTypes();
+            typesCore = CreateTypeInfo(types);
+        }
+        void CheckProduct(Assembly assembly) {
+            if(!string.IsNullOrEmpty(Product)) return;
             AssemblyProductAttribute productAttribute = AttributeHelper.GetAssemblyAttribute<AssemblyProductAttribute>(assembly);
             if(productAttribute != null)
                 Product = productAttribute.Product;
+        }
+        void CheckVender(Assembly assembly) {
+            if(!string.IsNullOrEmpty(Vender)) return;
             AssemblyCompanyAttribute companyAttribute = AttributeHelper.GetAssemblyAttribute<AssemblyCompanyAttribute>(assembly);
             if(companyAttribute != null)
                 Vender = companyAttribute.Company;
-            Type[] types = assembly.GetExportedTypes();
-            typesCore = CreateTypeInfo(types);
         }
         List<TypeLoader> CreateTypeInfo(Type[] types) {
             List<TypeLoader> typesInfo = new List<TypeLoader>();

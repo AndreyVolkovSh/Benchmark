@@ -53,7 +53,7 @@ ngen.log
 /Bin/*.exe
 /Bin/*.exe.config
 /Bin/*.exe.manifest
-/Bin/Assembly_Tests/*
+/Bin/Assemblies/Tests/*
 
 #folders
 obj/

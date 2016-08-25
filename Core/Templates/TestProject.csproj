@@ -43,7 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="{1}">
-      <HintPath>..\..\Assemblies\Tests\{2}</HintPath>
+      <HintPath>{2}</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

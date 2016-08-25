@@ -78,6 +78,10 @@
       <HintPath>..\Bin\Dlls\DevExpress.Pdf.v16.1.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.PivotGrid.v16.1.Core, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\Dlls\DevExpress.PivotGrid.v16.1.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Printing.v16.1.Core.dll</HintPath>
@@ -142,6 +146,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraNavBar.v16.1.Design.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\Dlls\DevExpress.XtraPivotGrid.v16.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\Dlls\DevExpress.XtraPivotGrid.v16.1.Design.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

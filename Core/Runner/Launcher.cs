@@ -14,15 +14,10 @@ namespace Benchmark.Runner {
         public static List<TestResult> Start(Settings settings, IEnumerable<TestInfo> tests) {
             try {
                 List<TestResult> results = new List<TestResult>();
-                using(ProjectCompiler compiler = ProjectCompiler.Compile(tests, settings.ToBuildSettings())) {
-                    using(NGenContext nGen = new NGenContext(settings.EnableNGen)) {
-                        nGen.PlatformTarget_x64 = settings.Platform == Platform.x64;
-                        foreach(TestInfo test in tests) {
-                            string path = test.Path;
-                            nGen.Install(path);
-                            if(!File.Exists(path)) continue;
-                            results.Add(StartTest(test));
-                        }
+                using(ProjectCompiler compiler = ProjectCompiler.Compile(tests, settings)) {
+                    foreach(TestInfo test in tests) {
+                        if(!File.Exists(test.Path)) continue;
+                        results.Add(StartTest(test));
                     }
                     return results;
                 }
@@ -95,7 +90,7 @@ namespace Benchmark.Runner {
         static void BuildSolutions(string rootPath, string settings) {
             string solutionsPath = GetSolutionsPath(rootPath);
             try {
-                Benchmark.Internal.SolutionBuilder.BuildAll(solutionsPath, settings);
+                Benchmark.Internal.SolutionBuilder.BuildSolutions(solutionsPath, settings);
             }
             catch(Exception exception) {
                 //log exception  

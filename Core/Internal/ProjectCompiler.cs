@@ -4,11 +4,12 @@ using System.IO;
 
 namespace Benchmark.Internal {
     class ProjectCompiler : IDisposable {
+        NGenContext nGen;
+        Settings settingsCore;
         static string projectTemlateCore, projectTemlate_UserCore;
-        void Compile(IEnumerable<TestInfo> tests) {
-            if(tests == null) return;
-            foreach(TestInfo test in tests)
-                Compile(test);
+        public ProjectCompiler(Settings settings) {
+            settingsCore = settings;
+            nGen = new NGenContext(settingsCore.Platform);
         }
         DirectoryInfo GetFolder(string path) {
             DirectoryInfo folder = new DirectoryInfo(path);
@@ -21,26 +22,30 @@ namespace Benchmark.Internal {
                 DirectoryInfo tempFolder = GetFolder(Constants.TempFolder);
                 string testFullName = test.FullName;
                 DirectoryInfo projectFolder = GetFolder(Constants.TempFolder + testFullName);
-                PatchProject(projectFolder.FullName, test);
+                string path = PatchProject(projectFolder.FullName, test);
+                SolutionBuilder.Build(path, settingsCore.ToBuildSettings());
+                if(settingsCore.EnableNGen)
+                    nGen.Install(test.Path);
             }
             catch {
                 //log
             }
         }
-        void PatchProject(string path, TestInfo test) {
+        string PatchProject(string path, TestInfo test) {
             string fullName = test.FullName;
             string projectTemplate = ProjectTemlate.Replace("{0}", fullName)
                 .Replace("{1}", test.AssemblyName)
-                .Replace("{2}", String.Format(Constants.HintPathFormat, test.Vender, test.AssemblyName));
+                .Replace("{2}", test.AssemblyPath);
             string projectTemlate_User = ProjectTemlate_User.Replace("{0}", test.Vender);
+            string projPath = path + @"\TestProject.csproj";
             File.WriteAllText(path + @"\TestForm.cs", test.Template);
-            File.WriteAllText(path + @"\TestProject.csproj", projectTemplate);
+            File.WriteAllText(projPath, projectTemplate);
             File.WriteAllText(path + @"\TestProject.csproj.user", projectTemlate_User);
+            return projPath;
         }
-        public static ProjectCompiler Compile(IEnumerable<TestInfo> tests, string settings) {
-            ProjectCompiler project = new ProjectCompiler();
-            project.Compile(tests);
-            SolutionBuilder.BuildAll(Constants.TempFolder, settings, true);
+        public static ProjectCompiler Compile(IEnumerable<TestInfo> tests, Settings settings) {
+            ProjectCompiler project = new ProjectCompiler(settings);
+            TaskManager.Current.RunTasks<TestInfo>(tests, project.Compile);
             return project;
         }
         static string ProjectTemlate {
@@ -66,6 +71,7 @@ namespace Benchmark.Internal {
         }
         protected virtual void OnDispose() {
             try {
+                nGen.Dispose();
                 Directory.Delete(Constants.TempFolder, true);
             }
             catch {

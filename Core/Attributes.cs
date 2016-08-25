@@ -29,4 +29,15 @@ namespace Benchmark {
     public class BenchmarkSetUpAttribute : Attribute {
         public BenchmarkSetUpAttribute() { }
     }
+    [AttributeUsage(AttributeTargets.Assembly)]
+    public class AssemblyBenchmark : Attribute {
+        public string Product {
+            get;
+            set;
+        }
+        public string Vender {
+            get;
+            set;
+        }
+    }
 }

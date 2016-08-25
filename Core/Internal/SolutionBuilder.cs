@@ -3,19 +3,20 @@ using System.Diagnostics;
 using System.IO;
 
 namespace Benchmark.Internal {
-    class SolutionBuilder : IDisposable {
-        bool isDisposingCore;
+    class SolutionBuilder {        
         public SolutionBuilder() { }
-        public static void BuildAll(string path, string buildSettings, bool proj = false) {
-            string[] solutions = GetAllFiles(path, proj);
-            if(solutions == null || solutions.Length == 0)
-                throw (new Exception());
-            using(SolutionBuilder build = new SolutionBuilder()) {
-                foreach(string solution in solutions)
-                    build.Build(solution, buildSettings);
-            }
+        public static void BuildSolutions(string path, string buildSettings) {
+            BuildAll(GetAllFiles(path, "*sln"), buildSettings);
         }
-        public void Build(string solutionPath, string buildSettings) {
+        public static void BuildProjects(string path, string buildSettings) {
+            BuildAll(GetAllFiles(path, "*.*proj"), buildSettings);
+        }
+        static void BuildAll(string[] all, string buildSettings) {
+            if(all == null || all.Length == 0)
+                throw (new Exception());
+            TaskManager.Current.RunTasks(all, (x) => Build(x, buildSettings));
+        }
+        public static void Build(string solutionPath, string buildSettings) {
             using(Process build = new Process()) {
                 build.EnableRaisingEvents = true;
                 build.StartInfo.Arguments = solutionPath + " " + buildSettings;
@@ -24,21 +25,10 @@ namespace Benchmark.Internal {
                 build.WaitForExit();
             }
         }
-        public static string[] GetAllFiles(string path, bool proj) {
-            string filter = proj ? "*.*proj" : "*sln";
+        public static string[] GetAllFiles(string path, string filter) {            
             if(Directory.Exists(path))
                 return Directory.GetFiles(path, filter, SearchOption.AllDirectories);
             return null;
         }
-        #region IDisposable Members
-        public void Dispose() {
-            if(isDisposingCore) return;
-            isDisposingCore = true;
-            OnDispose();
-        }
-        protected virtual void OnDispose() {
-
-        }
-        #endregion
     }
 }

@@ -25,7 +25,8 @@ namespace Benchmark {
             TestsPathFormat = "{0}\\Tests\\",
             TestFullNameFormat = "{0}.{1}.{2}.{3}",
             TempFolder = "Temp\\",
-            HintPathFormat = "{0}\\{1}.dll",
-            BuildBat = "BuildSolution.bat";
+            BuildBat = "BuildSolution.bat",
+            FrameworkKey = "SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\",
+            ToolVersionKey = "SOFTWARE\\Microsoft\\MSBuild\\";
     }
 }

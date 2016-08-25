@@ -8,7 +8,7 @@ using DevExpress.XtraEditors;
 using System.Linq;
 using System.Collections;
 
-namespace Benchmark.Win {
+namespace Benchmark.Win {    
     public partial class Runner : Form {
         Assemblies history;
         DataSource dataSourceCore;
@@ -39,7 +39,7 @@ namespace Benchmark.Win {
         }
         void OnStart(object sender, EventArgs e) {
             IEnumerable<TestInfo> tests = dataSourceCore.Source.Where((x) => x.Enabled);
-            gridControl.DataSource = Launcher.Start(Settings, tests);
+            pivotGridControl.DataSource = Launcher.Start(Settings, tests);
         }
         Settings Settings {
             get { return mvvmContext.GetViewModel<Settings>(); }
@@ -78,11 +78,11 @@ namespace Benchmark.Win {
             productsTreeList.EndUpdate();
         }
         void LoadAssemblies(IEnumerable<FileInfo> files) {
-            foreach(FileInfo file in files) {
-                string fullName = file.FullName;
-                AssemblyLoader loader = AssemblyLoader.Load(fullName);
-                dataSourceCore.AddTests(fullName, loader.GetTests());
-            }
+            TaskManager.Current.RunTasks(files, LoadAssemblies);
+        }
+        void LoadAssemblies(FileInfo file) {
+            AssemblyLoader loader = AssemblyLoader.Load(file.FullName);
+            dataSourceCore.AddTests(loader.FullPath, loader.GetTests());
         }
         void UnloadAssemblies(IEnumerable<FileInfo> files) {
             foreach(FileInfo file in files)
