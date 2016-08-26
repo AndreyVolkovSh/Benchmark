@@ -54,6 +54,7 @@ ngen.log
 /Bin/*.exe.config
 /Bin/*.exe.manifest
 /Bin/Assemblies/Tests/*
+/Bin/Temp/*
 
 #folders
 obj/

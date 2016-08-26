@@ -16,6 +16,10 @@ namespace Benchmark {
             get;
             set;
         }
+        public bool ManualMode {
+            get;
+            set;
+        }
     }
     [AttributeUsage(AttributeTargets.Event, AllowMultiple = false)]
     public class BenchmarkCompletedAttribute : Attribute {
