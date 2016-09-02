@@ -12,13 +12,26 @@ using DevExpress.Xpo.DB;
 namespace Grid.Tests {
     public partial class TestGridGroupingSorting : UserControl {
         public EventHandler Completed;
+        public EventHandler Ready;
+        int lockRaise = 0;
         public TestGridGroupingSorting() {
             IDataStore store = XpoDefault.GetConnectionProvider(connection, AutoCreateOption.DatabaseAndSchema);
             store = new WaitCursorWrapper(store);
             XpoDefault.DataLayer = new SimpleDataLayer(store);
             InitializeComponent();
+            xpServerCollectionSource1.Session.ObjectsLoaded += Session_ObjectsLoaded;
         }
-        string connection = @"data source=(localdb)\v11.0;Initial Catalog=C:\USERS\VOLKOV.ANDREY\SERVERMODEGRIDPROJECTS1000K.MDF;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+        protected override void DestroyHandle() {
+            base.DestroyHandle();
+            xpServerCollectionSource1.Session.ObjectsLoaded -= Session_ObjectsLoaded;
+        }
+        void Session_ObjectsLoaded(object sender, ObjectsManipulationEventArgs e) {
+            if(lockRaise > 0) return;
+            if(Ready != null)
+                Ready(this, EventArgs.Empty);
+            lockRaise++;
+        }
+        string connection = "data source=(localdb)\\v11.0;integrated security=SSPI;initial catalog=ServerModeGridProjects500K";
         void ClearSortingGrouping() {
             gridView1.BeginUpdate();
             gridView1.ClearGrouping();
@@ -30,6 +43,7 @@ namespace Grid.Tests {
                 Session session = new Session();
                 session.ConnectionString = connection;
                 session.Connect();
+                session.ObjectsLoaded += Session_ObjectsLoaded;
                 e.Session = session;
                 e.Tag = session;
             }
@@ -40,9 +54,11 @@ namespace Grid.Tests {
         }
 
         private void xpAsyncServerModeSource1_DismissSession(object sender, ResolveSessionEventArgs e) {
-            IDisposable session = e.Tag as IDisposable;
-            if(session != null)
+            Session session = e.Tag as Session;
+            if(session != null) {
                 session.Dispose();
+                session.ObjectsLoaded -= Session_ObjectsLoaded;
+            }
         }
 
         public void InstantFeedbackUI() {

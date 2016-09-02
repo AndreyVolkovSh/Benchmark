@@ -8,6 +8,10 @@ namespace Benchmark {
             get;
             set;
         }
+        public bool ManualMode {
+            get;
+            set;
+        }
     }
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class BenchmarkAttribute : Attribute {
@@ -24,6 +28,10 @@ namespace Benchmark {
     [AttributeUsage(AttributeTargets.Event, AllowMultiple = false)]
     public class BenchmarkCompletedAttribute : Attribute {
         public BenchmarkCompletedAttribute() { }
+    }
+    [AttributeUsage(AttributeTargets.Event, AllowMultiple = false)]
+    public class BenchmarkReadyAttribute : Attribute {
+        public BenchmarkReadyAttribute() { }
     }
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class BenchmarkTearDownAttribute : Attribute {

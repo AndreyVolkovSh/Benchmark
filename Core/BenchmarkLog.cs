@@ -77,7 +77,7 @@ namespace Benchmark {
     }
     [Serializable]
     public class BenchmarkLogResult {
-        public int Perfomance {
+        public double Perfomance {
             get;
             set;
         }
@@ -89,7 +89,7 @@ namespace Benchmark {
             LogType = logType;
             Result = result;
         }
-        public int Perfomance {
+        public double Perfomance {
             get {
                 if(Result == null) return -1;
                 return Result.Perfomance;
@@ -111,7 +111,11 @@ namespace Benchmark {
     public class BenchmarkLogEntryComparer : IComparer<BenchmarkLogEntry> {
         #region IComparer<BenchmarkLogEntry> Members
         public int Compare(BenchmarkLogEntry x, BenchmarkLogEntry y) {
-            return Comparer<int>.Default.Compare(x.Perfomance, y.Perfomance);
+            if(x.LogType == y.LogType)
+                return Comparer<double>.Default.Compare(x.Perfomance, y.Perfomance);
+            if(x.LogType == EventLogEntryType.Warning)
+                return 1;
+            return -1;
         }
         #endregion
     }

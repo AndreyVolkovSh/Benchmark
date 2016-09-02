@@ -64,7 +64,6 @@
     <Compile Include="Internal\Helpers.cs" />
     <Compile Include="Internal\LicensePatcher.cs" />
     <Compile Include="Internal\NativeMethods.cs" />
-    <Compile Include="Runner\Registrator.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Internal\NGenContext.cs" />
     <Compile Include="BenchmarkLog.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Internal\TemplateGenerator.cs" />
     <EmbeddedResource Include="Templates\TestProject.csproj" />
     <Compile Include="TaskManager.cs" />
+    <EmbeddedResource Include="Templates\ManualTestForm.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="AssemblyLoader.cs" />
   </ItemGroup>

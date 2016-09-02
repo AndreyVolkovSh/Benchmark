@@ -15,7 +15,7 @@ namespace Benchmark.Internal {
                 Patch();
         }
         void Patch() {
-            IntPtr dialogHandle = NativeMethods.FindWindow(Constants.TelerikLicenseName, Constants.TelerikLicenseCaption);
+            IntPtr dialogHandle = NativeMethods.FindWindow(null, Constants.TelerikLicenseCaption);
             if(dialogHandle != IntPtr.Zero) {
                 NativeMethods.SendMessage(dialogHandle, NativeMethods.WM_CLOSE, 0, 0);
             }

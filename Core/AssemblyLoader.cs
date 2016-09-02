@@ -75,21 +75,25 @@ namespace Benchmark {
             get;
             internal set;
         }
+        public EventInfo Ready {
+            get;
+            internal set;
+        }
         internal IEnumerable<TestInfo> GetTests() {
             if(Tests == null) yield break;
             foreach(MethodInfo test in Tests) {
                 TestInfo info = new TestInfo();
-                info.Template = TemplateGenerator.Default.CreateTemplate(Class, test, SetUp, TearDown, Completed);
+                BenchmarkAttribute attribute = AttributeHelper.GetAttribute<BenchmarkAttribute>(test);
+                bool manual = Attribute.ManualMode || attribute.ManualMode;
                 info.Category = Category;
-                info.Name = GetTestName(test);
+                info.Name = GetTestName(attribute, test.Name);
+                info.Template = TemplateGenerator.Default.CreateTemplate(test, this);
                 yield return info;
             }
         }
-        string GetTestName(MethodInfo test) {
-            if(test == null) return string.Empty;
-            BenchmarkAttribute attribute = AttributeHelper.GetAttribute<BenchmarkAttribute>(test);
+        string GetTestName(BenchmarkAttribute attribute, string defaultName) {
             if(attribute == null) return string.Empty;
-            return string.IsNullOrEmpty(attribute.Name) ? test.Name : attribute.Name;
+            return string.IsNullOrEmpty(attribute.Name) ? defaultName : attribute.Name;
         }
     }
     public class AssemblyLoader {
@@ -148,7 +152,7 @@ namespace Benchmark {
             CheckProduct(assembly);
             CheckVender(assembly);
             Type[] types = assembly.GetExportedTypes();
-            typesCore = CreateTypeInfo(types);
+            typesCore = CreateTypeLoaders(types);
         }
         void CheckProduct(Assembly assembly) {
             if(!string.IsNullOrEmpty(Product)) return;
@@ -162,56 +166,50 @@ namespace Benchmark {
             if(companyAttribute != null)
                 Vender = companyAttribute.Company;
         }
-        List<TypeLoader> CreateTypeInfo(Type[] types) {
+        List<TypeLoader> CreateTypeLoaders(Type[] types) {
             List<TypeLoader> typesInfo = new List<TypeLoader>();
             if(types == null) return typesInfo;
             foreach(Type _type in types)
-                AddToCollection<TypeLoader>(typesInfo, CreateTypeInfo(_type));
+                AddToCollection<TypeLoader>(typesInfo, CreateTypeLoader(_type));
             return typesInfo;
         }
-        TypeLoader CreateTypeInfo(Type _type) {
+        TypeLoader CreateTypeLoader(Type _type) {
             if(_type == null) return null;
             BenchmarkFixtureAttribute attribute = AttributeHelper.GetAttribute<BenchmarkFixtureAttribute>(_type);
             if(attribute == null) return null;
-            MethodInfo setUp = null, tearDown = null;
-            EventInfo completed = null;
-            MethodInfo[] testMethods = FindTestMethods(_type, ref setUp, ref tearDown, ref completed);
-            return CreateTypeInfo(_type, setUp, tearDown, completed, attribute, testMethods);
+            TypeLoader typeLoader = new TypeLoader();
+            typeLoader.Class = _type;
+            typeLoader.Attribute = attribute;
+            if(FindTestMethods(_type, typeLoader))
+                return typeLoader;
+            return null;
         }
-        MethodInfo[] FindTestMethods(Type _type, ref MethodInfo setUp, ref MethodInfo tearDown, ref EventInfo completed) {
-            if(_type == null || _type.FullName == Constants.BaseClass) return null;
+        bool FindTestMethods(Type _type, TypeLoader typeLoader) {
+            if(_type == null) return false;
             MemberInfo[] members = _type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
-            if(members == null) return null;
+            if(members == null) return false;
             List<MethodInfo> testMethods = new List<MethodInfo>();
             foreach(MemberInfo member in members) {
                 if(member.MemberType == MemberTypes.Method) {
                     MethodInfo method = (MethodInfo)member;
-                    if(tearDown == null)
-                        tearDown = CheckMethodInfo<BenchmarkTearDownAttribute>(method);
-                    if(setUp == null)
-                        setUp = CheckMethodInfo<BenchmarkSetUpAttribute>(method);
+                    if(typeLoader.TearDown == null)
+                        typeLoader.TearDown = CheckMethodInfo<BenchmarkTearDownAttribute>(method);
+                    if(typeLoader.SetUp == null)
+                        typeLoader.SetUp = CheckMethodInfo<BenchmarkSetUpAttribute>(method);
                     AddToCollection<MethodInfo>(testMethods, CheckMethodInfo<BenchmarkAttribute>(method));
                 }
-                else if(completed == null)
-                    completed = CheckEventInfo<BenchmarkCompletedAttribute>(member as EventInfo);
+                CheckEvents(member, typeLoader);
             }
-            //MethodInfo[] baseMethods = FindTestMethods(_type.BaseType, ref setUp, ref tearDown, ref completed);
-            //if(baseMethods != null)
-            //    testMethods.AddRange(baseMethods);
-            return testMethods.ToArray();
+            typeLoader.Tests = testMethods.ToArray();
+            return testMethods != null && testMethods.Count > 0;
         }
-        TypeLoader CreateTypeInfo(Type _type, MethodInfo setUp, MethodInfo tearDown, EventInfo completed, BenchmarkFixtureAttribute attribute, MethodInfo[] testMethods) {
-            if(_type == null || testMethods == null || testMethods.Length == 0) return null;
-            TypeLoader template = new TypeLoader();
-            template.Class = _type;
-            template.SetUp = setUp;
-            template.TearDown = tearDown;
-            template.Completed = completed;
-            template.Attribute = attribute;
-            template.Tests = testMethods;
-            return template;
+        void CheckEvents(MemberInfo member, TypeLoader typeLoader) {
+            if(member == null || member.MemberType != MemberTypes.Event) return;
+            if(typeLoader.Completed == null)
+                typeLoader.Completed = CheckEventInfo<BenchmarkCompletedAttribute>((EventInfo)member);
+            if(typeLoader.Ready == null)
+                typeLoader.Ready = CheckEventInfo<BenchmarkReadyAttribute>((EventInfo)member);
         }
-
         MethodInfo CheckMethodInfo<U>(MethodInfo method) where U : Attribute {
             return CheckMemberInfo<MethodInfo, U>(method);
         }

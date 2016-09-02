@@ -50,6 +50,7 @@ Temporary Items
 ngen.log
 *.pdb
 *.suo
+*.bak
 /Bin/*.exe
 /Bin/*.exe.config
 /Bin/*.exe.manifest

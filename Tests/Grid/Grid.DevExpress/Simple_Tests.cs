@@ -19,20 +19,15 @@ namespace Grid.Tests {
             base.TearDownCore();
         }
         [Benchmark]
-        public void LoadData_Test() {
-            control.Grid.DataSourceChanged += Grid_DataSourceChanged;
+        public void LoadData_Test() {            
             List<Data> data = new List<Data>();
             for(int i = 0; i < 1000; i++) {
                 data.Add(new Data() { A = i.ToString() });
             }
             control.Grid.DataSource = data;
         }
-
-        void Grid_DataSourceChanged(object sender, System.EventArgs e) {
-            RaiseCompleted(control);
-            control.Grid.DataSourceChanged -= Grid_DataSourceChanged;
-        }
     }
+    [BenchmarkFixture]
     public class Filter_Tests : TestBase {
         DevExpressGrid control;
         protected override void SetUpCore(System.Windows.Forms.Form owner) {
@@ -43,16 +38,11 @@ namespace Grid.Tests {
                 data.Add(new Data() { A = i.ToString() });
             }
             control.Grid.DataSource = data;
-            ((ColumnView)control.Grid.MainView).Layout += Filter_Tests_Layout;
             control.Visible = true;
             control.Dock = System.Windows.Forms.DockStyle.Fill;
             control.Parent = owner;
         }
-        void Filter_Tests_Layout(object sender, System.EventArgs e) {
-            RaiseCompleted(control);
-        }
         protected override void TearDownCore() {
-            ((DevExpress.XtraGrid.Views.Base.ColumnView)control.Grid.MainView).Layout -= Filter_Tests_Layout;
             control.Dispose();
             base.TearDownCore();
         }
@@ -75,12 +65,8 @@ namespace Grid.Tests {
             control = new TestGridGroupingSorting();
             control.Visible = true;
             control.Dock = System.Windows.Forms.DockStyle.Fill;
-            control.Parent = owner;
-            control.Completed += OnCompleted;
-        }
-        protected void OnCompleted(object sender, System.EventArgs e) {
-            RaiseCompleted(sender);
-        }
+            control.Parent = owner;            
+        }       
         [Benchmark]
         public void Group_1() {
             control.Group_1();
@@ -98,30 +84,56 @@ namespace Grid.Tests {
             control.Sort_2();
         }
         protected override void TearDownCore() {
-            control.Completed -= OnCompleted;
             control.Dispose();
             base.TearDownCore();
         }
     }
-    [BenchmarkFixture]
+    [BenchmarkFixture(Category="InstantFeedback", ManualMode=true)]
     public class InstantFeedbackUITests : GridGroupingSortingTests {
         protected override void SetUpCore(Form owner) {
-            base.SetUpCore(owner);
+            base.SetUpCore(owner);            
+            control.Ready += OnReady;
+            control.Completed += OnCompleted;
             control.InstantFeedbackUI();
         }
+        void OnReady(object sender, System.EventArgs e) {
+            RaiseReady(sender);
+        }
+        protected void OnCompleted(object sender, System.EventArgs e) {
+            RaiseCompleted(sender);
+        }
+        protected override void TearDownCore() {
+            control.Completed -= OnCompleted;
+            control.Ready -= OnReady;
+            base.TearDownCore();
+        }
     }
-    [BenchmarkFixture]
+    [BenchmarkFixture(Category = "Sql")]
     public class SQLTableTests : GridGroupingSortingTests {
         protected override void SetUpCore(Form owner) {
             base.SetUpCore(owner);
             control.SQLTable();
         }
+
     }
-    [BenchmarkFixture]
+    [BenchmarkFixture(Category = "ServerMode", ManualMode = true)]
     public class ServerModeTests : GridGroupingSortingTests {
         protected override void SetUpCore(Form owner) {
             base.SetUpCore(owner);
+            control.Ready += OnReady;
+            control.Completed += OnCompleted;
             control.ServerMode();
+        }
+        void OnReady(object sender, System.EventArgs e) {
+            RaiseReady(sender);
+        }
+        protected void OnCompleted(object sender, System.EventArgs e) {
+            RaiseCompleted(sender);
+        }
+        protected override void TearDownCore() {
+            control.Completed -= OnCompleted;
+            control.Ready -= OnReady;
+            base.TearDownCore();
         }
     }
 }

@@ -15,8 +15,15 @@ namespace Benchmark {
         public event EventHandler TestCompleted;
         protected virtual void RaiseCompleted(object sender) {
             if(TestCompleted == null)
-                return;            
+                return;
             TestCompleted(sender, EventArgs.Empty);
+        }
+        [BenchmarkReady]
+        public event EventHandler Ready;
+        protected virtual void RaiseReady(object sender) {
+            if(Ready == null)
+                return;
+            Ready(sender, EventArgs.Empty);
         }
         protected virtual void TearDownCore() { }
         protected virtual void SetUpCore(Form owner) { }

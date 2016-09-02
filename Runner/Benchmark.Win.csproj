@@ -54,121 +54,126 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.BonusSkins.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Data.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Data.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Design.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Design.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Mvvm.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Pdf.v16.1.Core, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Pdf.v16.1.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v16.1.Core, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.PivotGrid.v16.1.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Printing.v16.1.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Sparkline.v16.1.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Utils.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.Utils.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraBars.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraBars.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraEditors.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraEditors.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraGrid.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraGrid.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraLayout.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraLayout.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraNavBar.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraNavBar.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraPivotGrid.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraPivotGrid.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v16.1, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraTreeList.v16.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v16.1.Design, Version=16.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Dlls\DevExpress.XtraTreeList.v16.1.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore">
@@ -222,6 +227,16 @@
       <DependentUpon>AssemblyManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Assemblies.cs" />
+    <Compile Include="RequeryResults.cs" />
+    <Compile Include="ViewModels\DocumentManagerViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
+    <Compile Include="ViewModels\ResultViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\TabBaseViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TabProductViewModel.cs" />
+    <Compile Include="ViewModels\TabSettingsViewModel.cs" />
+    <Compile Include="ViewModels\TabVenderViewModel.cs" />
     <Compile Include="ProductTreeList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -233,6 +248,64 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\TestsViewModel.cs" />
+    <Compile Include="Views\DocumentManagerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DocumentManagerView.Designer.cs">
+      <DependentUpon>DocumentManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DocumentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DocumentView.Designer.cs">
+      <DependentUpon>DocumentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SettingsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SettingsView.Designer.cs">
+      <DependentUpon>SettingsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabBaseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TabBaseView.Designer.cs">
+      <DependentUpon>TabBaseView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabProductView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TabProductView.Designer.cs">
+      <DependentUpon>TabProductView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabVenderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TabVenderView.Designer.cs">
+      <DependentUpon>TabVenderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabSettingsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TabSettingsView.Designer.cs">
+      <DependentUpon>TabSettingsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TestsView.Designer.cs">
+      <DependentUpon>TestsView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AssemblyManager.resx">
       <DependentUpon>AssemblyManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,6 +322,36 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\DocumentManagerView.resx">
+      <DependentUpon>DocumentManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DocumentView.resx">
+      <DependentUpon>DocumentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ResultView.resx">
+      <DependentUpon>ResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SettingsView.resx">
+      <DependentUpon>SettingsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TabBaseView.resx">
+      <DependentUpon>TabBaseView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TabProductView.resx">
+      <DependentUpon>TabProductView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TabVenderView.resx">
+      <DependentUpon>TabVenderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TabSettingsView.resx">
+      <DependentUpon>TabSettingsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TestsView.resx">
+      <DependentUpon>TestsView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -291,6 +394,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

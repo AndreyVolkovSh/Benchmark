@@ -7,7 +7,6 @@ using System.Collections.Generic;
 {0};
 
 namespace BenchmarkTest {
-    public enum TestState { None, SetUp, Test, TearDown, Close }
     static class Program {
         public static void Main(string[] args) {
             Application.EnableVisualStyles();
@@ -36,18 +35,21 @@ namespace BenchmarkTest {
             testRunning = 0;
         }
         void Test() {
-            this.perfomance.Start();
+            perfomance.Start();
             {3};
-            this.perfomance.Stop();
+        }
+        void OnCompleted(object sender, EventArgs e) {
+            perfomance.Stop();
             TearDown();
         }
         void SetUp() {
             testRunning++;
-            using(Benchmark.Internal.LicensePatcher task = new Benchmark.Internal.LicensePatcher()){
+            using(Benchmark.Internal.LicensePatcher task = new Benchmark.Internal.LicensePatcher())
                 {4};
-            }
+        }
+        void OnReady(object sender, EventArgs e) {
             Test();
-        } 
+        }
         void TearDown() {
             if(isDisposing) return;
             Trace();
@@ -72,7 +74,7 @@ namespace BenchmarkTest {
             if(min / averadge < deviation)
                 results.RemoveAt(0);
             return results.Count == resultCount;
-        }        
+        }
         double GetAveradge() {
             int averadgeIndex = resultCount / 2;
             if(resultCount % 2 == 0)
@@ -109,6 +111,6 @@ namespace BenchmarkTest {
             }
             base.Dispose(disposing);
         }
-    }    
+    }
 }
 */

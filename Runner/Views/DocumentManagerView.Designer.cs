@@ -1,11 +1,11 @@
-﻿namespace Benchmark.Win {
-    partial class Runner {
-        /// <summary>
+﻿namespace Benchmark.Win.Views {
+    partial class DocumentManagerView {
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -16,39 +16,35 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.mainView1 = new Benchmark.Win.Views.MainView();
+            this.components = new System.ComponentModel.Container();
+            this.mvvmContext = new DevExpress.Utils.MVVM.MVVMContext(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).BeginInit();
             this.SuspendLayout();
             // 
-            // mainView1
+            // mvvmContext
             // 
-            this.mainView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainView1.Location = new System.Drawing.Point(0, 0);
-            this.mainView1.Name = "mainView1";
-            this.mainView1.Size = new System.Drawing.Size(768, 459);
-            this.mainView1.TabIndex = 0;
+            this.mvvmContext.ContainerControl = this;
             // 
-            // Runner
+            // BaseTabView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 459);
-            this.Controls.Add(this.mainView1);
-            this.Name = "Runner";
-            this.Text = "Form1";
+            this.Name = "BaseTabView";
+            this.Size = new System.Drawing.Size(459, 412);
+            ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).EndInit();
             this.ResumeLayout(false);
 
         }
+
         #endregion
 
-        private Views.MainView mainView1;
-
-
+        private DevExpress.Utils.MVVM.MVVMContext mvvmContext;
     }
 }

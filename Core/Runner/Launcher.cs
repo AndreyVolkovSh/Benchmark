@@ -7,10 +7,6 @@ using Benchmark.Internal;
 
 namespace Benchmark.Runner {
     public class Launcher {
-        public static void BuildSolutions(string settings) {
-            string rootPath = GetRootPath();
-            BuildSolutions(rootPath, settings);
-        }
         public static List<TestResult> Start(Settings settings, IEnumerable<TestInfo> tests) {
             try {
                 List<TestResult> results = new List<TestResult>();
@@ -70,25 +66,28 @@ namespace Benchmark.Runner {
             result.FirstPerfomance = logs[0].Perfomance;
             logs.Sort(new BenchmarkLogEntryComparer());
             result.BestPerfomance = logs[0].Perfomance;
-            int median = logs.Count / 2;
-            result.MedianPerfomance = CalcMedianPerfomance(logs);
-            result.BadPerfomance = logs[logs.Count - 1].Perfomance;
+            result.MedianPerfomance = logs[logs.Count - 1].Perfomance;
+            result.BadPerfomance = logs[logs.Count - 2].Perfomance;
             return result;
         }
-        static double CalcMedianPerfomance(IList<BenchmarkLogEntry> logs) {
-            int median = logs.Count / 2;
-            if(logs.Count % 2 == 0)
-                return (logs[median].Perfomance + logs[median + 1].Perfomance) / 2;
-            return logs[median].Perfomance;
-        }
+        //static double CalcMedianPerfomance(IList<BenchmarkLogEntry> logs) {
+        //    int median = logs.Count / 2;
+        //    if(logs.Count % 2 == 0)
+        //        return (logs[median].Perfomance + logs[median + 1].Perfomance) / 2;
+        //    return logs[median].Perfomance;
+        //}
         static string GetSolutionsPath(string rootPath) {
             return String.Format(Constants.TestsPathFormat, rootPath);
         }
         static string GetRootPath() {
             return Path.GetDirectoryName(Application.StartupPath);
         }
-        static void BuildSolutions(string rootPath, string settings) {
-            string solutionsPath = GetSolutionsPath(rootPath);
+        public static string GetTestsPath() {
+            string rootPath = GetRootPath();
+            return GetSolutionsPath(rootPath);
+        }
+        public static void BuildSolutions(string settings) {
+            string solutionsPath = GetTestsPath();
             try {
                 Benchmark.Internal.SolutionBuilder.BuildSolutions(solutionsPath, settings);
             }

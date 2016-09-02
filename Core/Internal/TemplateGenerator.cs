@@ -5,8 +5,8 @@ using System.Reflection;
 namespace Benchmark.Internal {
     class TemplateGenerator {
         static TemplateGenerator defaultCore;
-
         protected TemplateGenerator() { }
+        bool Manual { get; set; }
         bool ParameterIsValid(string parameter) {
             return !string.IsNullOrEmpty(parameter);
         }
@@ -42,38 +42,44 @@ namespace Benchmark.Internal {
             if(completed == null) return string.Empty;
             return name + "." + completed.Name + (unsubscribe ? "-" : "+") + "= OnTestCompleted;" + Environment.NewLine;
         }
-        string GetInitializeTemplate(Type classTest, EventInfo completed) {
+        string GetInitializeTemplate(TypeLoader typeLoader) {
             return
-                GetCreateMethodTemplate(Constants.TestObject, classTest.FullName) +
-                GetSubscriptionEventTemplate(completed, Constants.TestObject);
+                GetCreateMethodTemplate(Constants.TestObject, typeLoader.Class.FullName) +
+                (Manual ?
+                GetSubscriptionEventTemplate(typeLoader.Completed, Constants.TestObject) +
+                GetSubscriptionEventTemplate(typeLoader.Ready, Constants.TestObject) :
+                string.Empty);
         }
-        string GetDisposeTemplate(MethodInfo tearDown, EventInfo completed) {
+        string GetDisposeTemplate(TypeLoader typeLoader) {
             return
-                GetSubscriptionEventTemplate(completed, Constants.TestObject, true) +
-                GetCallMethodTemplate(tearDown, Constants.TestObject) +
+                (Manual ?
+                GetSubscriptionEventTemplate(typeLoader.Completed, Constants.TestObject, true) +
+                GetSubscriptionEventTemplate(typeLoader.Ready, Constants.TestObject, true) :
+                string.Empty) +
+                GetCallMethodTemplate(typeLoader.TearDown, Constants.TestObject) +
                 Constants.TestObject + " = null;";
         }
         string GetFieldTemplate(Type classType) {
             return classType.FullName + " " + Constants.TestObject + ";" + Environment.NewLine;
         }
-        string ParseString(string line, Type classType, MethodInfo test, MethodInfo setUp, MethodInfo tearDown, EventInfo completed) {
+        string ParseString(string line, MethodInfo test, TypeLoader typeLoader) {
             switch(GetFormat(line)) {
                 case TemplateFormat.None:
                     return string.Empty;
                 case TemplateFormat.Using:
                     return GetUsingTemplate(null);
                 case TemplateFormat.Field:
-                    return GetFieldTemplate(classType);
+                    return GetFieldTemplate(typeLoader.Class);
                 case TemplateFormat.Initialize:
-                    return GetInitializeTemplate(classType, completed);
+                    return GetInitializeTemplate(typeLoader);
                 case TemplateFormat.Start:
                     return GetCallMethodTemplate(test, Constants.TestObject);
                 case TemplateFormat.SetUp:
-                    return GetCallMethodTemplate(setUp, Constants.TestObject);
+                    return GetCallMethodTemplate(typeLoader.SetUp, Constants.TestObject);
                 case TemplateFormat.TearDown:
-                    return GetCallMethodTemplate(tearDown, Constants.TestObject);
+                    return GetCallMethodTemplate(typeLoader.TearDown, Constants.TestObject);
                 case TemplateFormat.Dispose:
-                    return GetDisposeTemplate(tearDown, completed);
+                    return GetDisposeTemplate(typeLoader);
                 default:
                     return line + Environment.NewLine;
             }
@@ -89,12 +95,22 @@ namespace Benchmark.Internal {
             if(line.EndsWith("{6};")) return TemplateFormat.Dispose;
             return TemplateFormat.Default;
         }
-        public string CreateTemplate(Type classType, MethodInfo test, MethodInfo setUp, MethodInfo tearDown, EventInfo completed) {
+        public string CreateTemplate(MethodInfo test, TypeLoader typeLoader, bool manual = false) {
+            try {
+                Manual = manual;
+                return CreateTemplateCore(test, typeLoader);
+            }
+            finally {
+                Manual = false;
+            }
+        }
+        string CreateTemplateCore(MethodInfo test, TypeLoader typeLoader) {
             string buffer = string.Empty;
-            using(StreamReader reader = ResourceHelper.CreateStreamReader(Constants.TemplateFile)) {
+            string fileName = Manual ? Constants.TemplateManualFile : Constants.TemplateFile;
+            using(StreamReader reader = ResourceHelper.CreateStreamReader(fileName)) {
                 if(reader == null) return buffer;
                 while(!reader.EndOfStream) {
-                    string str = ParseString(reader.ReadLine(), classType, test, setUp, tearDown, completed);
+                    string str = ParseString(reader.ReadLine(), test, typeLoader);
                     if(!string.IsNullOrEmpty(str))
                         buffer += str;
                 }

@@ -10,15 +10,15 @@ namespace Benchmark.Runner {
             get;
             set;
         }
-        public int FirstPerfomance {
+        public double FirstPerfomance {
             get;
             set;
         }
-        public int BestPerfomance {
+        public double BestPerfomance {
             get;
             set;
         }
-        public int BadPerfomance {
+        public double BadPerfomance {
             get;
             set;
         }
