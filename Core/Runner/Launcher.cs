@@ -10,6 +10,7 @@ namespace Benchmark.Runner {
         public static List<TestResult> Start(Settings settings, IEnumerable<TestInfo> tests) {
             try {
                 List<TestResult> results = new List<TestResult>();
+                BenchmarkLog.Create();
                 using(ProjectCompiler compiler = ProjectCompiler.Compile(tests, settings)) {
                     foreach(TestInfo test in tests) {
                         if(!File.Exists(test.Path)) continue;
