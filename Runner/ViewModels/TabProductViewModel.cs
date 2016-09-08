@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
+using Benchmark.Runner;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class TabProductViewModel : TabBaseViewModel {
         public TabProductViewModel() {
             EditLabel = "New product:";
@@ -12,15 +13,13 @@ namespace Benchmark.Win.ViewModels {
             set;
         }
         public override void OnAdd() {
-            if(TabBaseData.Products.Contains(Product)) return;
-            GenerateProduct();
+            RegistrationService.Service.RegisterProduct(Product, GetDataChecked());
         }
-        protected void GenerateProduct() { }
-        protected override BindingList<TabBaseViewModel.Node> GetDataSource() {
-            if(TabBaseData.Venders == null) return null;
-            BindingList<TabBaseViewModel.Node> nodes = new BindingList<TabBaseViewModel.Node>();
-            foreach(string vender in TabBaseData.Venders)
-                nodes.Add(new TabBaseViewModel.Node(vender));
+        protected override BindingList<Common.CheckedItem> GetDataSource() {
+            if(RegistrationService.Service.Venders == null) return null;
+            BindingList<Common.CheckedItem> nodes = new BindingList<Common.CheckedItem>();
+            foreach(string vender in RegistrationService.Service.Venders)
+                nodes.Add(new Common.CheckedItem(vender));
             return nodes;
         }
         protected override object GetTitle() {

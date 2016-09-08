@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Benchmark.Common;
 
 namespace Benchmark.Internal {
-    class SolutionBuilder {        
+    class SolutionBuilder {
         public SolutionBuilder() { }
         public static void BuildSolutions(string path, string buildSettings) {
-            BuildAll(GetAllFiles(path, "*sln"), buildSettings);
+            BuildAll(GetAllFiles(path, Resolution.SLN), buildSettings);
         }
         public static void BuildProjects(string path, string buildSettings) {
-            BuildAll(GetAllFiles(path, "*.*proj"), buildSettings);
+            BuildAll(GetAllFiles(path, Resolution.ALLProj), buildSettings);
         }
         static void BuildAll(string[] all, string buildSettings) {
             if(all == null || all.Length == 0)
@@ -20,12 +21,12 @@ namespace Benchmark.Internal {
             using(Process build = new Process()) {
                 build.EnableRaisingEvents = true;
                 build.StartInfo.Arguments = solutionPath + " " + buildSettings;
-                build.StartInfo.FileName = Constants.BuildBat;
+                build.StartInfo.FileName = CommonConstants.BuildBat;
                 build.Start();
                 build.WaitForExit();
             }
         }
-        public static string[] GetAllFiles(string path, string filter) {            
+        public static string[] GetAllFiles(string path, string filter) {
             if(Directory.Exists(path))
                 return Directory.GetFiles(path, filter, SearchOption.AllDirectories);
             return null;

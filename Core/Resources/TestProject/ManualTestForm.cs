@@ -1,13 +1,11 @@
-﻿/*
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
 using System.Collections.Generic;
-{0};
+{Using}
 
 namespace BenchmarkTest {
-    public enum TestState { None, SetUp, Test, TearDown, Close }
     static class Program {
         public static void Main(string[] args) {
             Application.EnableVisualStyles();
@@ -16,7 +14,7 @@ namespace BenchmarkTest {
         }
     }
     public class TestForm : Form {
-        {1};
+        {Field}
         double deviation;
         int resultCount, testRunning;
         List<double> results;        
@@ -26,9 +24,8 @@ namespace BenchmarkTest {
             InitializeComponent();
         }
         private void InitializeComponent() {
-            {2};
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "TestForm";
+            {Initialize}
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;            
             this.perfomance = new System.Diagnostics.Stopwatch();
             results = new List<double>();
             resultCount = 10;
@@ -36,18 +33,21 @@ namespace BenchmarkTest {
             testRunning = 0;
         }
         void Test() {
-            this.perfomance.Start();
-            {3};
-            this.perfomance.Stop();
+            perfomance.Start();
+            {Test}
+        }
+        void OnCompleted(object sender, EventArgs e) {
+            perfomance.Stop();
             TearDown();
         }
         void SetUp() {
             testRunning++;
-            using(Benchmark.Internal.LicensePatcher task = new Benchmark.Internal.LicensePatcher()){
-                {4};
-            }
+            using(Benchmark.Common.LicensePatcher task = new Benchmark.Common.LicensePatcher())
+                {SetUp}
+        }
+        void OnReady(object sender, EventArgs e) {
             Test();
-        } 
+        }
         void TearDown() {
             if(isDisposing) return;
             Trace();
@@ -56,7 +56,7 @@ namespace BenchmarkTest {
                 Application.Exit();
             }
             else {
-                {5};
+                {TearDown}
                 testRunning--;
                 Invalidate();
             }
@@ -72,7 +72,7 @@ namespace BenchmarkTest {
             if(min / averadge < deviation)
                 results.RemoveAt(0);
             return results.Count == resultCount;
-        }        
+        }
         double GetAveradge() {
             int averadgeIndex = resultCount / 2;
             if(resultCount % 2 == 0)
@@ -93,9 +93,9 @@ namespace BenchmarkTest {
             Trace("normalized", normalize, EventLogEntryType.Warning);
         }
         void Trace(string message, double perfomance, EventLogEntryType type) {
-            Benchmark.BenchmarkLogResult result = new Benchmark.BenchmarkLogResult();
+            Benchmark.Common.BenchmarkLogResult result = new Benchmark.Common.BenchmarkLogResult();
             result.Perfomance = perfomance;
-            Benchmark.BenchmarkLog.Trace(message, type, result);
+            Benchmark.Common.BenchmarkLog.Trace(message, type, result);
         }
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
@@ -105,10 +105,9 @@ namespace BenchmarkTest {
         protected override void Dispose(bool disposing) {
             if(disposing) {
                 isDisposing = disposing;
-                {6};
+                {Dispose}
             }
             base.Dispose(disposing);
         }
-    }    
+    }
 }
-*/

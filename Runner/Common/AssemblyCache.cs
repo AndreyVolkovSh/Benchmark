@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Benchmark.Win {
-    public class Assemblies : IList<FileInfo> {
+namespace Benchmark.Common {
+    public class AssemblyCache : IList<FileInfo> {
         HashSet<string> assemblyNameCache;
         HashSet<FileInfo> assembliesCore;
-        public Assemblies() {
+        public AssemblyCache() {
             assemblyNameCache = new HashSet<string>();
             assembliesCore = new HashSet<FileInfo>();
         }

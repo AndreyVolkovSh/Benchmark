@@ -4,7 +4,7 @@ using System.IO;
 namespace Benchmark.Internal {
     public static class ResourceHelper {
         public static Stream GetStream(string name, Type type) {
-            return GetStream(GetResourceName(type, name), type.Assembly);
+            return GetStream(name, type.Assembly);
         }
         public static Stream GetStream(string name, System.Reflection.Assembly asm) {
             return asm.GetManifestResourceStream(name);
@@ -16,16 +16,15 @@ namespace Benchmark.Internal {
                 return bytes;
             }
         }
-        public static string GetResourceName(Type baseType, string name) {
-            return string.Format("{0}.{1}", baseType.Namespace, name);
-        }
-        public static StreamReader CreateStreamReader(string resourcePath) {
-            Stream stream = ResourceHelper.GetStream(resourcePath, typeof(ResourceHelper).Assembly);
+        public static StreamReader CreateStreamReader(Type type, string name) {
+            if(type == null)
+                type = typeof(ResourceHelper);
+            Stream stream = ResourceHelper.GetStream(name, type.Assembly);
             if(stream == null) return null;
             return new StreamReader(stream);
         }
-        public static string GetString(string resourcePath) {
-            StreamReader stream = CreateStreamReader(resourcePath);
+        public static string GetString(Type type, string resourcePath) {
+            StreamReader stream = CreateStreamReader(type, resourcePath);
             if(stream == null) return null;
             return stream.ReadToEnd();
         }

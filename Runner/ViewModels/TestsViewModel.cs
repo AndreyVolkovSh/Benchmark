@@ -5,36 +5,40 @@ using System.Windows.Forms;
 using System.Linq;
 using Benchmark.Runner;
 using DevExpress.Mvvm.POCO;
+using Benchmark.Common;
+using DevExpress.Mvvm;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class TestsViewModel : DocumentViewModel {
-        Assemblies historyCore;
+        AssemblyCache historyCore;
         TestSource testSourceCore;
         public TestsViewModel() {
-            historyCore = new Assemblies();
+            historyCore = new AssemblyCache();
             testSourceCore = new TestSource();
         }
         public virtual bool IsSourceChanged {
             get;
             set;
         }
-        public List<TestInfo> Tests {
+        public List<TestLoader> Tests {
             get { return testSourceCore.Tests; }
         }
         public virtual void OnStart() {
-            IEnumerable<TestInfo> tests = testSourceCore.Tests.Where((x) => x.Enabled);
+            IEnumerable<TestLoader> tests = testSourceCore.Tests.Where((x) => x.Enabled);
             ParentModel.Results = Launcher.Start(ParentModel.Settings, tests);
         }
         public virtual void OnAddAssemblies() {
-            using(AssemblyManager window = new AssemblyManager(historyCore)) {
-                DialogResult result = window.ShowDialog();
-                if(result == DialogResult.OK || result == DialogResult.Yes)
-                    UpdateAssemblies(window.Assemblies);
-            }
+            IDialogService service = this.GetRequiredService<IDialogService>();
+            if(service == null) return;
+            AssemblyManagerViewModel model = new AssemblyManagerViewModel(historyCore);
+            MessageResult result = service.ShowDialog(MessageButton.OKCancel, "Assembly manager", "AssemblyManagerView", model);
+            if(result == MessageResult.OK || result == MessageResult.Yes)
+                UpdateAssemblies(model.Assemblies);
         }
-        public virtual void OnReset() { }
-        public virtual void OnUpdate() { }
-        void UpdateAssemblies(Assemblies hashSet) {
+        public virtual void OnRefresh() {
+            UpdateAssemblies(historyCore);
+        }
+        void UpdateAssemblies(AssemblyCache hashSet) {
             List<FileInfo> unLoad = new List<FileInfo>();
             FileInfo[] files = new FileInfo[historyCore.Count];
             historyCore.CopyTo(files, 0);
@@ -76,11 +80,11 @@ namespace Benchmark.Win.ViewModels {
         }
     }
     class TestSource {
-        Dictionary<string, IEnumerable<TestInfo>> cacheCore = new Dictionary<string, IEnumerable<TestInfo>>();
-        List<TestInfo> sourceCore;
+        Dictionary<string, IEnumerable<TestLoader>> cacheCore = new Dictionary<string, IEnumerable<TestLoader>>();
+        List<TestLoader> sourceCore;
 
-        public void AddTests(string key, IEnumerable<TestInfo> tests) {
-            IEnumerable<TestInfo> value;
+        public void AddTests(string key, IEnumerable<TestLoader> tests) {
+            IEnumerable<TestLoader> value;
             if(cacheCore.TryGetValue(key, out value))
                 cacheCore[key] = tests;
             else
@@ -91,7 +95,7 @@ namespace Benchmark.Win.ViewModels {
             cacheCore.Clear();
             ResetSource();
         }
-        public List<TestInfo> Tests {
+        public List<TestLoader> Tests {
             get {
                 if(sourceCore == null || sourceCore.Count == 0)
                     sourceCore = GenerateSource();
@@ -99,14 +103,14 @@ namespace Benchmark.Win.ViewModels {
             }
         }
         public void RemoveTests(string key) {
-            IEnumerable<TestInfo> value;
+            IEnumerable<TestLoader> value;
             if(cacheCore.TryGetValue(key, out value)) {
                 cacheCore.Remove(key);
                 ResetSource();
             }
         }
-        List<TestInfo> GenerateSource() {
-            List<TestInfo> source = new List<TestInfo>();
+        List<TestLoader> GenerateSource() {
+            List<TestLoader> source = new List<TestLoader>();
             foreach(var item in cacheCore)
                 source.AddRange(item.Value);
             source.Sort((x, y)

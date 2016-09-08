@@ -4,7 +4,7 @@ using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
 using DevExpress.XtraTreeList.Nodes;
 
-namespace Benchmark.Win {
+namespace Benchmark.Common {
     public class ProductTreeList : TreeList {
         string rootNodeFormat = "{0}/{1}";
         public ProductTreeList() {
@@ -15,6 +15,8 @@ namespace Benchmark.Win {
             OptionsBehavior.ReadOnly = true;
             OptionsBehavior.Editable = false;
             OptionsBehavior.AllowPixelScrolling = DevExpress.Utils.DefaultBoolean.True;
+            OptionsBehavior.EnableFiltering = true;
+            OptionsBehavior.ExpandNodesOnFiltering = true;
             GenerateColumns();
         }
         protected void GenerateColumns() {
@@ -32,11 +34,11 @@ namespace Benchmark.Win {
             venderColumn.Visible = true;
             Columns.Add(venderColumn);
         }
-        public void PopulateNodes(IEnumerable<TestInfo> tests) {
+        public void PopulateNodes(IEnumerable<TestLoader> tests) {
             Nodes.Clear();
             string targetKey = string.Empty;
             TreeListNode currentNode = null;
-            foreach(TestInfo test in tests) {
+            foreach(TestLoader test in tests) {
                 string sourceKey = string.Format(rootNodeFormat, test.Product, test.Category);
                 if(targetKey != sourceKey) {
                     targetKey = sourceKey;
@@ -54,7 +56,7 @@ namespace Benchmark.Win {
             return AppendNode(new object[] { value, vender }, parent, tag);
         }
         protected override TreeListNode CreateNode(int nodeID, TreeListNodes owner, object tag) {
-            if(tag is TestInfo)
+            if(tag is TestLoader)
                 return new TestNode(nodeID, owner);
             return base.CreateNode(nodeID, owner, tag);
         }
@@ -70,8 +72,8 @@ namespace Benchmark.Win {
                 Test.Enabled = Checked;
             }
         }
-        TestInfo Test {
-            get { return Tag as TestInfo; }
+        TestLoader Test {
+            get { return Tag as TestLoader; }
         }
         public override bool HasChildren {
             get { return false; }

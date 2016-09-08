@@ -1,4 +1,4 @@
-﻿namespace Benchmark.Win.Views {
+﻿namespace Benchmark.Views {
     partial class TestsView {
         /// <summary> 
         /// Required designer variable.
@@ -24,68 +24,59 @@
         /// </summary>
         private void InitializeComponent() {
             this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
-            this.resetButton = new DevExpress.XtraEditors.SimpleButton();
+            this.searchControl = new DevExpress.XtraEditors.SearchControl();
+            this.productsTreeList = new Benchmark.Common.ProductTreeList();
+            this.refreshButton = new DevExpress.XtraEditors.SimpleButton();
             this.addAssemblyButton = new DevExpress.XtraEditors.SimpleButton();
             this.startButton = new DevExpress.XtraEditors.SimpleButton();
-            this.productsTreeList = new Benchmark.Win.ProductTreeList();
             this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.productsItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem = new DevExpress.XtraLayout.EmptySpaceItem();
             this.startItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.addAssemblyItem = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.resetItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.refreshItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.searchItem = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
             this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsTreeList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addAssemblyItem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.resetItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.refreshItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchItem)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl
             // 
-            this.layoutControl.Controls.Add(this.resetButton);
+            this.layoutControl.Controls.Add(this.searchControl);
+            this.layoutControl.Controls.Add(this.refreshButton);
             this.layoutControl.Controls.Add(this.addAssemblyButton);
             this.layoutControl.Controls.Add(this.startButton);
             this.layoutControl.Controls.Add(this.productsTreeList);
             this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl.Location = new System.Drawing.Point(0, 0);
             this.layoutControl.Name = "layoutControl";
-            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1059, 254, 450, 350);
+            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1059, 254, 530, 350);
             this.layoutControl.Root = this.layoutControlGroup;
-            this.layoutControl.Size = new System.Drawing.Size(661, 417);
+            this.layoutControl.Size = new System.Drawing.Size(705, 418);
             this.layoutControl.TabIndex = 2;
             this.layoutControl.Text = "layoutControl";
             // 
-            // resetButton
+            // searchControl
             // 
-            this.resetButton.Location = new System.Drawing.Point(491, 379);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(79, 26);
-            this.resetButton.StyleController = this.layoutControl;
-            this.resetButton.TabIndex = 10;
-            this.resetButton.Text = "Reset";
-            // 
-            // addAssemblyButton
-            // 
-            this.addAssemblyButton.Location = new System.Drawing.Point(574, 379);
-            this.addAssemblyButton.Name = "addAssemblyButton";
-            this.addAssemblyButton.Size = new System.Drawing.Size(75, 26);
-            this.addAssemblyButton.StyleController = this.layoutControl;
-            this.addAssemblyButton.TabIndex = 9;
-            this.addAssemblyButton.Text = "Add assembly";
-            // 
-            // startButton
-            // 
-            this.startButton.Location = new System.Drawing.Point(12, 379);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(73, 26);
-            this.startButton.StyleController = this.layoutControl;
-            this.startButton.TabIndex = 8;
-            this.startButton.Text = "Start";
+            this.searchControl.Client = this.productsTreeList;
+            this.searchControl.Location = new System.Drawing.Point(446, 384);
+            this.searchControl.Name = "searchControl";
+            this.searchControl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.searchControl.Properties.Client = this.productsTreeList;
+            this.searchControl.Size = new System.Drawing.Size(247, 20);
+            this.searchControl.StyleController = this.layoutControl;
+            this.searchControl.TabIndex = 11;
             // 
             // productsTreeList
             // 
@@ -93,8 +84,35 @@
             this.productsTreeList.Cursor = System.Windows.Forms.Cursors.Default;
             this.productsTreeList.Location = new System.Drawing.Point(12, 12);
             this.productsTreeList.Name = "productsTreeList";
-            this.productsTreeList.Size = new System.Drawing.Size(637, 363);
+            this.productsTreeList.Size = new System.Drawing.Size(681, 367);
             this.productsTreeList.TabIndex = 4;
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(168, 383);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(79, 23);
+            this.refreshButton.StyleController = this.layoutControl;
+            this.refreshButton.TabIndex = 10;
+            this.refreshButton.Text = "Refresh";
+            // 
+            // addAssemblyButton
+            // 
+            this.addAssemblyButton.Location = new System.Drawing.Point(89, 383);
+            this.addAssemblyButton.Name = "addAssemblyButton";
+            this.addAssemblyButton.Size = new System.Drawing.Size(75, 23);
+            this.addAssemblyButton.StyleController = this.layoutControl;
+            this.addAssemblyButton.TabIndex = 9;
+            this.addAssemblyButton.Text = "Add assembly";
+            // 
+            // startButton
+            // 
+            this.startButton.Location = new System.Drawing.Point(12, 383);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(73, 23);
+            this.startButton.StyleController = this.layoutControl;
+            this.startButton.TabIndex = 8;
+            this.startButton.Text = "Start";
             // 
             // layoutControlGroup
             // 
@@ -102,13 +120,14 @@
             this.layoutControlGroup.GroupBordersVisible = false;
             this.layoutControlGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.productsItem,
+            this.emptySpaceItem,
             this.startItem,
             this.addAssemblyItem,
-            this.emptySpaceItem6,
-            this.resetItem});
+            this.refreshItem,
+            this.searchItem});
             this.layoutControlGroup.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup.Name = "layoutControlGroup";
-            this.layoutControlGroup.Size = new System.Drawing.Size(661, 417);
+            this.layoutControlGroup.Name = "Root";
+            this.layoutControlGroup.Size = new System.Drawing.Size(705, 418);
             this.layoutControlGroup.TextVisible = false;
             // 
             // productsItem
@@ -118,23 +137,34 @@
             this.productsItem.AppearanceItemCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.productsItem.Control = this.productsTreeList;
             this.productsItem.Location = new System.Drawing.Point(0, 0);
-            this.productsItem.MinSize = new System.Drawing.Size(104, 40);
+            this.productsItem.MinSize = new System.Drawing.Size(104, 24);
             this.productsItem.Name = "productsItem";
-            this.productsItem.Size = new System.Drawing.Size(641, 367);
+            this.productsItem.Size = new System.Drawing.Size(685, 371);
             this.productsItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.productsItem.Text = "Products";
             this.productsItem.TextLocation = DevExpress.Utils.Locations.Top;
             this.productsItem.TextSize = new System.Drawing.Size(0, 0);
             this.productsItem.TextVisible = false;
             // 
+            // emptySpaceItem
+            // 
+            this.emptySpaceItem.AllowHotTrack = false;
+            this.emptySpaceItem.Location = new System.Drawing.Point(239, 371);
+            this.emptySpaceItem.MaxSize = new System.Drawing.Size(0, 27);
+            this.emptySpaceItem.MinSize = new System.Drawing.Size(104, 27);
+            this.emptySpaceItem.Name = "emptySpaceItem";
+            this.emptySpaceItem.Size = new System.Drawing.Size(195, 27);
+            this.emptySpaceItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.emptySpaceItem.TextSize = new System.Drawing.Size(0, 0);
+            // 
             // startItem
             // 
             this.startItem.Control = this.startButton;
-            this.startItem.Location = new System.Drawing.Point(0, 367);
-            this.startItem.MaxSize = new System.Drawing.Size(77, 30);
-            this.startItem.MinSize = new System.Drawing.Size(77, 30);
+            this.startItem.Location = new System.Drawing.Point(0, 371);
+            this.startItem.MaxSize = new System.Drawing.Size(77, 27);
+            this.startItem.MinSize = new System.Drawing.Size(77, 27);
             this.startItem.Name = "startItem";
-            this.startItem.Size = new System.Drawing.Size(77, 30);
+            this.startItem.Size = new System.Drawing.Size(77, 27);
             this.startItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.startItem.TextSize = new System.Drawing.Size(0, 0);
             this.startItem.TextVisible = false;
@@ -142,37 +172,40 @@
             // addAssemblyItem
             // 
             this.addAssemblyItem.Control = this.addAssemblyButton;
-            this.addAssemblyItem.Location = new System.Drawing.Point(562, 367);
-            this.addAssemblyItem.MaxSize = new System.Drawing.Size(79, 30);
-            this.addAssemblyItem.MinSize = new System.Drawing.Size(79, 30);
+            this.addAssemblyItem.Location = new System.Drawing.Point(77, 371);
+            this.addAssemblyItem.MaxSize = new System.Drawing.Size(79, 27);
+            this.addAssemblyItem.MinSize = new System.Drawing.Size(79, 27);
             this.addAssemblyItem.Name = "addAssemblyItem";
-            this.addAssemblyItem.Size = new System.Drawing.Size(79, 30);
+            this.addAssemblyItem.Size = new System.Drawing.Size(79, 27);
             this.addAssemblyItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.addAssemblyItem.TextSize = new System.Drawing.Size(0, 0);
             this.addAssemblyItem.TextVisible = false;
             // 
-            // emptySpaceItem6
+            // refreshItem
             // 
-            this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(77, 367);
-            this.emptySpaceItem6.MaxSize = new System.Drawing.Size(0, 30);
-            this.emptySpaceItem6.MinSize = new System.Drawing.Size(104, 30);
-            this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(402, 30);
-            this.emptySpaceItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.refreshItem.Control = this.refreshButton;
+            this.refreshItem.Location = new System.Drawing.Point(156, 371);
+            this.refreshItem.MaxSize = new System.Drawing.Size(83, 27);
+            this.refreshItem.MinSize = new System.Drawing.Size(83, 27);
+            this.refreshItem.Name = "refreshItem";
+            this.refreshItem.Size = new System.Drawing.Size(83, 27);
+            this.refreshItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.refreshItem.TextSize = new System.Drawing.Size(0, 0);
+            this.refreshItem.TextVisible = false;
             // 
-            // resetItem
+            // searchItem
             // 
-            this.resetItem.Control = this.resetButton;
-            this.resetItem.Location = new System.Drawing.Point(479, 367);
-            this.resetItem.MaxSize = new System.Drawing.Size(83, 30);
-            this.resetItem.MinSize = new System.Drawing.Size(83, 30);
-            this.resetItem.Name = "resetItem";
-            this.resetItem.Size = new System.Drawing.Size(83, 30);
-            this.resetItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.resetItem.TextSize = new System.Drawing.Size(0, 0);
-            this.resetItem.TextVisible = false;
+            this.searchItem.Control = this.searchControl;
+            this.searchItem.Location = new System.Drawing.Point(434, 371);
+            this.searchItem.MaxSize = new System.Drawing.Size(251, 27);
+            this.searchItem.MinSize = new System.Drawing.Size(251, 27);
+            this.searchItem.Name = "searchItem";
+            this.searchItem.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 3, 2);
+            this.searchItem.Size = new System.Drawing.Size(251, 27);
+            this.searchItem.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.searchItem.Text = "Search:";
+            this.searchItem.TextSize = new System.Drawing.Size(0, 0);
+            this.searchItem.TextVisible = false;
             // 
             // TestsView
             // 
@@ -180,16 +213,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.layoutControl);
             this.Name = "TestsView";
-            this.Size = new System.Drawing.Size(661, 417);
+            this.Size = new System.Drawing.Size(705, 418);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
             this.layoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsTreeList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.startItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addAssemblyItem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.resetItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.refreshItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchItem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -197,15 +232,17 @@
         #endregion
 
         private DevExpress.XtraLayout.LayoutControl layoutControl;
-        private DevExpress.XtraEditors.SimpleButton resetButton;
+        private DevExpress.XtraEditors.SimpleButton refreshButton;
         private DevExpress.XtraEditors.SimpleButton addAssemblyButton;
         private DevExpress.XtraEditors.SimpleButton startButton;
-        private ProductTreeList productsTreeList;
+        private Common.ProductTreeList productsTreeList;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup;
         private DevExpress.XtraLayout.LayoutControlItem productsItem;
         private DevExpress.XtraLayout.LayoutControlItem startItem;
         private DevExpress.XtraLayout.LayoutControlItem addAssemblyItem;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
-        private DevExpress.XtraLayout.LayoutControlItem resetItem;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem;
+        private DevExpress.XtraLayout.LayoutControlItem refreshItem;
+        private DevExpress.XtraEditors.SearchControl searchControl;
+        private DevExpress.XtraLayout.LayoutControlItem searchItem;
     }
 }

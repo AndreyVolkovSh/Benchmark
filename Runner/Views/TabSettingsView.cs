@@ -1,7 +1,8 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.Common;
+using Benchmark.ViewModels;
 using DevExpress.XtraEditors;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class TabSettingsView : DocumentView {
         public TabSettingsView() {
             InitializeComponent();

@@ -1,4 +1,4 @@
-﻿namespace Benchmark.Win.Views {
+﻿namespace Benchmark.Views {
     partial class TabProductView {
         /// <summary> 
         /// Required designer variable.

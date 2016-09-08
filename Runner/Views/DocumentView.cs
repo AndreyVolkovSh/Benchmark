@@ -2,7 +2,7 @@
 using DevExpress.Mvvm;
 using DevExpress.Utils.MVVM;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class DocumentView : UserControl {
         public DocumentView() {
             InitializeComponent();

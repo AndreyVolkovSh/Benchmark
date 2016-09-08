@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Benchmark.Common;
 
 namespace Benchmark.Internal {
-    public class NGenContext : IDisposable {
+    class NGenContext : IDisposable {
         HashSet<string> cache;
         public NGenContext() : this(Platform.AnyCPU) { }
         public NGenContext(Platform platform) {
@@ -24,16 +25,16 @@ namespace Benchmark.Internal {
         public void Install(string filePath) {
             if(cache.Contains(filePath)) return;
             cache.Add(filePath);
-            StartNGen(Constants.NGetInstall, filePath);
+            StartNGen(Commands.NGetInstall, filePath);
         }
         public void Unstall(string filePath) {
             if(!cache.Contains(filePath)) return;
             cache.Remove(filePath);
-            StartNGen(Constants.NGenUninstall, filePath);
+            StartNGen(Commands.NGenUninstall, filePath);
         }
         protected string GetFullPath() {
-            string platform = PlatformTarget_x64 ? Constants.x64 : Constants.x86;
-            return string.Format(Constants.NGenFormat, platform);
+            string platform = PlatformTarget_x64 ? "x64" : "x86";
+            return string.Format(Formats.NGenPath, platform);
         }
         bool PlatformTarget_x64 {
             get;
@@ -45,7 +46,7 @@ namespace Benchmark.Internal {
             if(isDisposing) return;
             isDisposing = true;
             foreach(string value in cache)
-                StartNGen(Constants.NGenUninstall, value);
+                StartNGen(Commands.NGenUninstall, value);
             cache.Clear();
         }
         #endregion

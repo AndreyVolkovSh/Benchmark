@@ -1,11 +1,12 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.Runner;
+using Benchmark.ViewModels;
 using DevExpress.Utils.MVVM.Services;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class MainView : DocumentManagerView {
         public MainView() {
             InitializeComponent();
-            InitializeContext<MainViewModel>();            
+            InitializeContext<MainViewModel>();
         }
         protected override DocumentManagerService GetDocumentService() {
             return DocumentManagerService.Create(xtraTabControl);

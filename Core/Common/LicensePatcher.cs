@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Benchmark.Internal;
 
-namespace Benchmark.Internal {
+namespace Benchmark.Common {
     public class LicensePatcher : IDisposable {
         Task taskCore;
         System.Threading.CancellationTokenSource sourceCore;
@@ -15,11 +16,11 @@ namespace Benchmark.Internal {
                 Patch();
         }
         void Patch() {
-            IntPtr dialogHandle = NativeMethods.FindWindow(null, Constants.TelerikLicenseCaption);
+            IntPtr dialogHandle = NativeMethods.FindWindow(null, LicenseConstants.TelerikLicenseCaption);
             if(dialogHandle != IntPtr.Zero) {
                 NativeMethods.SendMessage(dialogHandle, NativeMethods.WM_CLOSE, 0, 0);
             }
-            dialogHandle = NativeMethods.FindWindow(Constants.DXLicenseName, Constants.DXLicenseCaption);
+            dialogHandle = NativeMethods.FindWindow(LicenseConstants.DXLicenseName, LicenseConstants.DXLicenseCaption);
             if(dialogHandle != IntPtr.Zero) {
                 NativeMethods.SendMessage(dialogHandle, NativeMethods.WM_CLOSE, 0, 0);
             }

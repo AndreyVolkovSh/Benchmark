@@ -59,24 +59,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\ResourceService.cs" />
     <Compile Include="Internal\ProjectCompiler.cs" />
     <Compile Include="Internal\Helpers.cs" />
-    <Compile Include="Internal\LicensePatcher.cs" />
+    <Compile Include="Common\LicensePatcher.cs" />
     <Compile Include="Internal\NativeMethods.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Common\Settings.cs" />
     <Compile Include="Internal\NGenContext.cs" />
-    <Compile Include="BenchmarkLog.cs" />
-    <EmbeddedResource Include="Templates\TestForm.cs" />
+    <Compile Include="Common\BenchmarkLog.cs" />
+    <EmbeddedResource Include="Resources\TestProject\TestForm.cs" />
+    <EmbeddedResource Include="Resources\TestsProject\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Resources\TestsProject\SimpleTests.cs" />
+    <Compile Include="Runner\RegistrationService.cs" />
+    <Compile Include="Runner\SolutionInfo.cs" />
     <Compile Include="Runner\TestResult.cs" />
     <Compile Include="Runner\Launcher.cs" />
     <Compile Include="Internal\SolutionBuilder.cs" />
-    <Compile Include="Internal\TemplateGenerator.cs" />
-    <EmbeddedResource Include="Templates\TestProject.csproj" />
-    <Compile Include="TaskManager.cs" />
-    <EmbeddedResource Include="Templates\ManualTestForm.cs" />
+    <Compile Include="Internal\TestBuilder.cs" />
+    <EmbeddedResource Include="Resources\TestProject\TestProject.csproj" />
+    <Compile Include="Common\TaskManager.cs" />
+    <EmbeddedResource Include="Resources\TestProject\ManualTestForm.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="AssemblyLoader.cs" />
+    <Compile Include="Common\AssemblyLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -115,7 +120,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Templates\TestProject.csproj.user" />
+    <EmbeddedResource Include="Resources\TestProject\TestProject.csproj.user" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TestsProject\Project.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TestsProject\Project.csproj.user" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TestsProject\Solution.sln" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

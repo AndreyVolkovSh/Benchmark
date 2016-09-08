@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
-using Benchmark.Win.ViewModels;
+using Benchmark.ViewModels;
 using DevExpress.Utils.MVVM;
 using DevExpress.Utils.MVVM.Services;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class DocumentManagerView : UserControl {
         public DocumentManagerView() {
             InitializeComponent();

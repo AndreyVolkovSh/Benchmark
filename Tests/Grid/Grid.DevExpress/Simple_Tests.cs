@@ -19,7 +19,7 @@ namespace Grid.Tests {
             base.TearDownCore();
         }
         [Benchmark]
-        public void LoadData_Test() {            
+        public void LoadData_Test() {
             List<Data> data = new List<Data>();
             for(int i = 0; i < 1000; i++) {
                 data.Add(new Data() { A = i.ToString() });
@@ -65,8 +65,8 @@ namespace Grid.Tests {
             control = new TestGridGroupingSorting();
             control.Visible = true;
             control.Dock = System.Windows.Forms.DockStyle.Fill;
-            control.Parent = owner;            
-        }       
+            control.Parent = owner;
+        }
         [Benchmark]
         public void Group_1() {
             control.Group_1();
@@ -88,10 +88,10 @@ namespace Grid.Tests {
             base.TearDownCore();
         }
     }
-    [BenchmarkFixture(Category="InstantFeedback", ManualMode=true)]
+    [BenchmarkFixture(Category = "InstantFeedback", ManualMode = true)]
     public class InstantFeedbackUITests : GridGroupingSortingTests {
         protected override void SetUpCore(Form owner) {
-            base.SetUpCore(owner);            
+            base.SetUpCore(owner);
             control.Ready += OnReady;
             control.Completed += OnCompleted;
             control.InstantFeedbackUI();

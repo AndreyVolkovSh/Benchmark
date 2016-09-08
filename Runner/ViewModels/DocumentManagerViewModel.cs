@@ -1,7 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public abstract class DocumentManagerViewModel {
         protected bool isLoading;
         public void OnLoad() {
@@ -10,9 +10,10 @@ namespace Benchmark.Win.ViewModels {
             OnLoadCore();
         }
         protected abstract void OnLoadCore();
-        protected void NewTab(string documentType) {
+        protected IDocument NewTab(string documentType) {
             IDocument document = DocumentManagerService.CreateDocument(documentType, null, this);
             document.Show();
+            return document;
         }
         protected IDocumentManagerService DocumentManagerService {
             get { return this.GetRequiredService<IDocumentManagerService>(); }

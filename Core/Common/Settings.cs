@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Win32;
 
-namespace Benchmark {
+namespace Benchmark.Common {
     public enum Platform { AnyCPU, x86, x64 }
     public class Settings {
         Frameworks frameworksCore;
@@ -51,7 +49,7 @@ namespace Benchmark {
             set;
         }
         public string ToBuildSettings() {
-            return string.Format("{0} {1} {2}", Thread, Framework.Version, ToolVersion);
+            return string.Format(Formats.Args, Thread, Framework.Version, ToolVersion);
         }
         public List<string> GetToolVersions() {
             return toolVersions;
@@ -63,7 +61,7 @@ namespace Benchmark {
             return new Frameworks();
         }
         List<string> CreateToolVersions() {
-            string keyName = Constants.ToolVersionKey;
+            string keyName = RegisterKeys.ToolVersion;
             List<string> versions = new List<string>();
             string[] tools = new string[] { "4.0", "12.0", "14.0" };
             using(RegistryKey MSBuild = Registry.LocalMachine.OpenSubKey(keyName)) {
@@ -93,7 +91,7 @@ namespace Benchmark {
             FilterVersion();
         }
         int GetLastVersion() {
-            string keyName = Constants.FrameworkKey;
+            string keyName = RegisterKeys.Framework;
             using(RegistryKey ndpKey = Registry.LocalMachine.OpenSubKey(keyName)) {
                 if(ndpKey == null) return -1;
                 using(RegistryKey full = ndpKey.OpenSubKey("Full\\")) {

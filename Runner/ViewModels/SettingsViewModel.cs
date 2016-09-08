@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class SettingsViewModel : DocumentManagerViewModel, IDocumentContent {
         protected override void OnLoadCore() {
             NewTab("TabSettingsView");

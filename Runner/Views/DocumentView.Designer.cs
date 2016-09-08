@@ -1,4 +1,4 @@
-﻿namespace Benchmark.Win.Views {
+﻿namespace Benchmark.Views {
     partial class DocumentView {
         /// <summary> 
         /// Required designer variable.

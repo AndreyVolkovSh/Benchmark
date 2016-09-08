@@ -1,4 +1,4 @@
-﻿namespace Benchmark.Win.Views {
+﻿namespace Benchmark.Views {
     partial class TabBaseView {
         /// <summary> 
         /// Required designer variable.
@@ -28,12 +28,14 @@
             this.textEditLabel = new DevExpress.XtraEditors.LabelControl();
             this.treeList = new DevExpress.XtraTreeList.TreeList();
             this.nameColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.searchControl = new DevExpress.XtraEditors.SearchControl();
             ((System.ComponentModel.ISupportInitialize)(this.treeList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(40, 357);
+            this.addButton.Location = new System.Drawing.Point(40, 393);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(76, 23);
             this.addButton.TabIndex = 9;
@@ -62,6 +64,7 @@
             this.nameColumn});
             this.treeList.Location = new System.Drawing.Point(97, 62);
             this.treeList.Name = "treeList";
+            this.treeList.OptionsBehavior.EnableFiltering = true;
             this.treeList.OptionsView.ShowCheckBoxes = true;
             this.treeList.OptionsView.ShowColumns = false;
             this.treeList.OptionsView.ShowHorzLines = false;
@@ -80,17 +83,31 @@
             this.nameColumn.Visible = true;
             this.nameColumn.VisibleIndex = 0;
             // 
+            // searchControl
+            // 
+            this.searchControl.Client = this.treeList;
+            this.searchControl.Location = new System.Drawing.Point(97, 331);
+            this.searchControl.Name = "searchControl";
+            this.searchControl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.searchControl.Properties.Client = this.treeList;
+            this.searchControl.Size = new System.Drawing.Size(233, 20);
+            this.searchControl.TabIndex = 11;
+            // 
             // TabBaseView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.searchControl);
             this.Controls.Add(this.treeList);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.checkedListLabel);
             this.Controls.Add(this.textEditLabel);
             this.Name = "TabBaseView";
-            this.Size = new System.Drawing.Size(366, 407);
+            this.Size = new System.Drawing.Size(366, 469);
             ((System.ComponentModel.ISupportInitialize)(this.treeList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,5 +120,6 @@
         private DevExpress.XtraEditors.LabelControl textEditLabel;
         private DevExpress.XtraTreeList.TreeList treeList;
         private DevExpress.XtraTreeList.Columns.TreeListColumn nameColumn;
+        private DevExpress.XtraEditors.SearchControl searchControl;
     }
 }

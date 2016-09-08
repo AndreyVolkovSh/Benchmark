@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Reflection;
 using Benchmark.Internal;
 
-namespace Benchmark {
-    public class TestInfo {
+namespace Benchmark.Common {
+    public class TestLoader {
         public bool Enabled {
             get;
             set;
+        }
+        public MethodInfo Test {
+            get;
+            internal set;
         }
         public string AssemblyPath {
             get;
@@ -34,14 +38,18 @@ namespace Benchmark {
             internal set;
         }
         public string Path {
-            get { return Constants.TempFolder + FullName + Constants.EXE; }
+            get { return Folders.Temp + FullName + Resolution.EXE; }
         }
         public string Template {
             get;
             internal set;
         }
+        public bool ManualMode {
+            get;
+            internal set;
+        }
         public string FullName {
-            get { return String.Format(Constants.TestFullNameFormat, Vender, Product, Category, Name); }
+            get { return String.Format(Formats.TestFullName, Vender, Product, Category, Name); }
         }
     }
     public class TypeLoader {
@@ -79,16 +87,16 @@ namespace Benchmark {
             get;
             internal set;
         }
-        internal IEnumerable<TestInfo> GetTests() {
+        internal IEnumerable<TestLoader> GetTests() {
             if(Tests == null) yield break;
             foreach(MethodInfo test in Tests) {
-                TestInfo info = new TestInfo();
+                TestLoader testLoader = new TestLoader();
                 BenchmarkAttribute attribute = AttributeHelper.GetAttribute<BenchmarkAttribute>(test);
-                bool manual = Attribute.ManualMode || attribute.ManualMode;
-                info.Category = Category;
-                info.Name = GetTestName(attribute, test.Name);
-                info.Template = TemplateGenerator.Default.CreateTemplate(test, this);
-                yield return info;
+                testLoader.ManualMode = Attribute.ManualMode || attribute.ManualMode;
+                testLoader.Category = Category;
+                testLoader.Name = GetTestName(attribute, test.Name);
+                testLoader.Test = test;
+                yield return testLoader;
             }
         }
         string GetTestName(BenchmarkAttribute attribute, string defaultName) {
@@ -118,15 +126,16 @@ namespace Benchmark {
             get;
             private set;
         }
-        public IEnumerable<TestInfo> GetTests() {
+        public IEnumerable<TestLoader> GetTests() {
             if(Types == null) yield break;
-            foreach(TypeLoader typeInfo in Types) {
-                foreach(TestInfo testInfo in typeInfo.GetTests()) {
-                    testInfo.Product = Product;
-                    testInfo.Vender = Vender;
-                    testInfo.AssemblyName = AssemblyName;
-                    testInfo.AssemblyPath = FullPath;
-                    yield return testInfo;
+            foreach(TypeLoader typeLoader in Types) {
+                foreach(TestLoader testLoader in typeLoader.GetTests()) {
+                    testLoader.Product = Product;
+                    testLoader.Vender = Vender;
+                    testLoader.AssemblyName = AssemblyName;
+                    testLoader.AssemblyPath = FullPath;
+                    TestBuilder.Build(testLoader, typeLoader);
+                    yield return testLoader;
                 }
             }
         }

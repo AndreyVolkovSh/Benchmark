@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public abstract class DocumentViewModel : IDocumentContent {
         #region IDocumentContent Members
         IDocumentOwner IDocumentContent.DocumentOwner {

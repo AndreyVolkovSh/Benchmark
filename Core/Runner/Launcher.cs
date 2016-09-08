@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Benchmark.Common;
 using Benchmark.Internal;
 
 namespace Benchmark.Runner {
     public class Launcher {
-        public static List<TestResult> Start(Settings settings, IEnumerable<TestInfo> tests) {
+        public static List<TestResult> Start(Settings settings, IEnumerable<TestLoader> tests) {
             try {
                 List<TestResult> results = new List<TestResult>();
                 BenchmarkLog.Create();
                 using(ProjectCompiler compiler = ProjectCompiler.Compile(tests, settings)) {
-                    foreach(TestInfo test in tests) {
+                    foreach(TestLoader test in tests) {
                         if(!File.Exists(test.Path)) continue;
                         results.Add(StartTest(test));
                     }
@@ -43,7 +44,7 @@ namespace Benchmark.Runner {
         //    }
         //    return results;
         //}
-        static TestResult StartTest(TestInfo test) {
+        static TestResult StartTest(TestLoader test) {
             BenchmarkLog.Clear();
             ProcessStart(test.Path);
             List<BenchmarkLogEntry> logs = BenchmarkLog.GetResults();
@@ -71,21 +72,15 @@ namespace Benchmark.Runner {
             result.BadPerfomance = logs[logs.Count - 2].Perfomance;
             return result;
         }
-        //static double CalcMedianPerfomance(IList<BenchmarkLogEntry> logs) {
-        //    int median = logs.Count / 2;
-        //    if(logs.Count % 2 == 0)
-        //        return (logs[median].Perfomance + logs[median + 1].Perfomance) / 2;
-        //    return logs[median].Perfomance;
-        //}
-        static string GetSolutionsPath(string rootPath) {
-            return String.Format(Constants.TestsPathFormat, rootPath);
+        static string GetTestsPath(string rootPath) {
+            return String.Format(Formats.TestsPath, rootPath);
         }
         static string GetRootPath() {
             return Path.GetDirectoryName(Application.StartupPath);
         }
         public static string GetTestsPath() {
             string rootPath = GetRootPath();
-            return GetSolutionsPath(rootPath);
+            return GetTestsPath(rootPath);
         }
         public static void BuildSolutions(string settings) {
             string solutionsPath = GetTestsPath();

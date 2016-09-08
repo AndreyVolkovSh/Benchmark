@@ -31,7 +31,7 @@ namespace Grid.Tests {
                 Ready(this, EventArgs.Empty);
             lockRaise++;
         }
-        string connection = "data source=(localdb)\\v11.0;integrated security=SSPI;initial catalog=ServerModeGridProjects500K";
+        string connection = "data source=(localdb)\\v11.0;integrated security=SSPI;initial catalog=ServerModeGridProjects";
         void ClearSortingGrouping() {
             gridView1.BeginUpdate();
             gridView1.ClearGrouping();

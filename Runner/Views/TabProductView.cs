@@ -1,6 +1,6 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.ViewModels;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class TabProductView : TabBaseView {
         public TabProductView() {
             InitializeComponent();
@@ -9,6 +9,8 @@ namespace Benchmark.Win.Views {
         protected override void OnLoad(System.EventArgs e) {
             base.OnLoad(e);
             OnLoadContext<TabProductViewModel>();
+            var fluentAPI = GetFluentAPI<TabProductViewModel>();
+            fluentAPI.SetBinding(textEdit, x => x.Text, y => y.Product);
         }
     }
 }

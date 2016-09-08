@@ -1,4 +1,4 @@
-﻿namespace Benchmark.Win.Views {
+﻿namespace Benchmark.Views {
     partial class TabSettingsView {
         /// <summary> 
         /// Required designer variable.
@@ -39,7 +39,7 @@
             // 
             // toolVersionLabel
             // 
-            this.toolVersionLabel.Location = new System.Drawing.Point(40, 75);
+            this.toolVersionLabel.Location = new System.Drawing.Point(19, 96);
             this.toolVersionLabel.Name = "toolVersionLabel";
             this.toolVersionLabel.Size = new System.Drawing.Size(62, 13);
             this.toolVersionLabel.TabIndex = 25;
@@ -47,7 +47,7 @@
             // 
             // frameworkLabel
             // 
-            this.frameworkLabel.Location = new System.Drawing.Point(40, 49);
+            this.frameworkLabel.Location = new System.Drawing.Point(19, 62);
             this.frameworkLabel.Name = "frameworkLabel";
             this.frameworkLabel.Size = new System.Drawing.Size(57, 13);
             this.frameworkLabel.TabIndex = 24;
@@ -55,7 +55,7 @@
             // 
             // platformLabel
             // 
-            this.platformLabel.Location = new System.Drawing.Point(40, 27);
+            this.platformLabel.Location = new System.Drawing.Point(19, 28);
             this.platformLabel.Name = "platformLabel";
             this.platformLabel.Size = new System.Drawing.Size(44, 13);
             this.platformLabel.TabIndex = 23;
@@ -63,7 +63,7 @@
             // 
             // platformComboBox
             // 
-            this.platformComboBox.Location = new System.Drawing.Point(176, 24);
+            this.platformComboBox.Location = new System.Drawing.Point(97, 25);
             this.platformComboBox.Name = "platformComboBox";
             this.platformComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -72,7 +72,7 @@
             // 
             // frameworkLookUp
             // 
-            this.frameworkLookUp.Location = new System.Drawing.Point(176, 50);
+            this.frameworkLookUp.Location = new System.Drawing.Point(97, 59);
             this.frameworkLookUp.Name = "frameworkLookUp";
             this.frameworkLookUp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -83,7 +83,7 @@
             // 
             // toolVersionLookUp
             // 
-            this.toolVersionLookUp.Location = new System.Drawing.Point(176, 76);
+            this.toolVersionLookUp.Location = new System.Drawing.Point(97, 93);
             this.toolVersionLookUp.Name = "toolVersionLookUp";
             this.toolVersionLookUp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -93,7 +93,7 @@
             // enableNGen
             // 
             this.enableNGen.EditValue = true;
-            this.enableNGen.Location = new System.Drawing.Point(176, 102);
+            this.enableNGen.Location = new System.Drawing.Point(97, 128);
             this.enableNGen.Name = "enableNGen";
             this.enableNGen.Properties.Caption = "Enable nGen";
             this.enableNGen.Size = new System.Drawing.Size(103, 19);
@@ -101,7 +101,7 @@
             // 
             // buildSolutionsButton
             // 
-            this.buildSolutionsButton.Location = new System.Drawing.Point(40, 357);
+            this.buildSolutionsButton.Location = new System.Drawing.Point(40, 393);
             this.buildSolutionsButton.Name = "buildSolutionsButton";
             this.buildSolutionsButton.Size = new System.Drawing.Size(78, 24);
             this.buildSolutionsButton.TabIndex = 22;
@@ -120,7 +120,7 @@
             this.Controls.Add(this.enableNGen);
             this.Controls.Add(this.buildSolutionsButton);
             this.Name = "TabSettingsView";
-            this.Size = new System.Drawing.Size(440, 397);
+            this.Size = new System.Drawing.Size(438, 441);
             ((System.ComponentModel.ISupportInitialize)(this.platformComboBox.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.frameworkLookUp.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolVersionLookUp.Properties)).EndInit();

@@ -1,5 +1,5 @@
 ﻿
-namespace Benchmark.Win {
+namespace Benchmark.Common {
     public class RequeryResults {
     }
 }

@@ -1,7 +1,7 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.ViewModels;
 using DevExpress.XtraEditors;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class TabVenderView : TabBaseView {
         public TabVenderView() {
             InitializeComponent();
@@ -13,6 +13,7 @@ namespace Benchmark.Win.Views {
             OnLoadContext<TabVenderViewModel>();
             var fluentAPI = GetFluentAPI<TabVenderViewModel>();
             fluentAPI.SetBinding(lookUpEdit.Properties, x => x.DataSource, y => y.Venders);
+            fluentAPI.SetBinding(lookUpEdit, x => x.Text, y => y.Vender);
         }
         void InitializeLookUp(LookUpEdit lookUp) {
             lookUpEdit.Text = string.Empty;

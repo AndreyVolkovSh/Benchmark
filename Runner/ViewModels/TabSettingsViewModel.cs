@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Benchmark.Common;
 using Benchmark.Runner;
 using DevExpress.Mvvm.POCO;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class TabSettingsViewModel : DocumentViewModel {
         public TabSettingsViewModel() { }
         Settings Settings {

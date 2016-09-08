@@ -2,7 +2,7 @@
 using Benchmark.Runner;
 using DevExpress.Mvvm.POCO;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class ResultViewModel : DocumentViewModel {
         protected override object GetTitle() {
             return "Results";
@@ -11,7 +11,7 @@ namespace Benchmark.Win.ViewModels {
             get;
             set;
         }
-        public void OnResultsChanged(RequeryResults results) {
+        public void OnResultsChanged(Common.RequeryResults results) {
             Source = this.GetParentViewModel<MainViewModel>().Results;
         }
     }

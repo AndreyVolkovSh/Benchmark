@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Win32;
 
-namespace Benchmark {
+namespace Benchmark.Common {
     public class BenchmarkLog {
         static byte[] ResultToBytes<T>(T result) where T : class {
             if(result == null) return null;
@@ -28,7 +28,7 @@ namespace Benchmark {
         }
         public static void Create() {
             if(LogExists) return;
-            EventLog.CreateEventSource(Constants.LogName, Constants.LogName);
+            EventLog.CreateEventSource(CommonConstants.LogName, CommonConstants.LogName);
 
         }
         public static void Clear() {
@@ -43,13 +43,13 @@ namespace Benchmark {
                 log.WriteEntry(message, type, 0, 0, ResultToBytes(entry));
         }
         static EventLog GetEventLog() {
-            EventLog log = new EventLog(Constants.LogName);
-            log.Source = Constants.LogName;
+            EventLog log = new EventLog(CommonConstants.LogName);
+            log.Source = CommonConstants.LogName;
             return log;
         }
         static bool LogExists {
             get {
-                RegistryKey key = Registry.LocalMachine.OpenSubKey(Constants.LogKey);
+                RegistryKey key = Registry.LocalMachine.OpenSubKey(RegisterKeys.LogKey);
                 if(key == null) return false;
                 key.Close();
                 return true;
@@ -57,7 +57,7 @@ namespace Benchmark {
         }
         public static List<BenchmarkLogEntry> GetResults() {
             if(!LogExists) return null;
-            using(EventLogConfiguration config = new EventLogConfiguration(Constants.LogName)) {
+            using(EventLogConfiguration config = new EventLogConfiguration(CommonConstants.LogName)) {
                 string fullPath = config.LogFilePath;
                 List<BenchmarkLogEntry> results = new List<BenchmarkLogEntry>();
                 using(EventLogReader reader = new EventLogReader(fullPath, PathType.FilePath)) {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Benchmark {
+namespace Benchmark.Common {
     public class TaskManager {
         static object lockerCore = new object();
         static TaskManager managerCore;

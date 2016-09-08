@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using Benchmark.Common;
 using Benchmark.Runner;
 using DevExpress.Mvvm;
-using DevExpress.Mvvm.POCO;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class MainViewModel : DocumentManagerViewModel {
         Settings settingsCore;
         public MainViewModel() {

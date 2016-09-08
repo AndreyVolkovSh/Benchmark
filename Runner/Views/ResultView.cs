@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Benchmark.Runner;
-using Benchmark.Win.ViewModels;
+using Benchmark.ViewModels;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public class ResultView : DocumentView {
         public ResultView() {
             InitializeComponent();
@@ -14,13 +14,13 @@ namespace Benchmark.Win.Views {
             base.OnLoad(e);
             var fluentAPI = GetFluentAPI<ResultViewModel>();
             fluentAPI.SetBinding(pivotGridControl, x => x.DataSource, y => y.Source);
-            Messenger.Default.Register<RequeryResults>(this, Context.GetViewModel<ResultViewModel>().OnResultsChanged);
+            Messenger.Default.Register<Common.RequeryResults>(this, Context.GetViewModel<ResultViewModel>().OnResultsChanged);
         }
         protected override void Dispose(bool disposing) {
             if(disposing && (components != null)) {
                 components.Dispose();
             }
-            Messenger.Default.Unregister<RequeryResults>(this, Context.GetViewModel<ResultViewModel>().OnResultsChanged);
+            Messenger.Default.Unregister<Common.RequeryResults>(this, Context.GetViewModel<ResultViewModel>().OnResultsChanged);
             base.Dispose(disposing);
         }
 

@@ -1,6 +1,6 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.ViewModels;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class TestsView : DocumentView {
         public TestsView() {
             InitializeComponent();
@@ -11,7 +11,7 @@ namespace Benchmark.Win.Views {
             var fluentAPI = GetFluentAPI<TestsViewModel>();
             fluentAPI.BindCommand(addAssemblyButton, x => x.OnAddAssemblies());
             fluentAPI.BindCommand(startButton, x => x.OnStart());
-            fluentAPI.BindCommand(resetButton, x => x.OnReset());
+            fluentAPI.BindCommand(refreshButton, x => x.OnRefresh());
             fluentAPI.SetTrigger(x => x.IsSourceChanged, UpdateTreeList);
         }
         void UpdateTreeList(bool value) {

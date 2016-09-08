@@ -1,7 +1,7 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.ViewModels;
 using DevExpress.Utils.MVVM.Services;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class SettingsView : DocumentManagerView {
         public SettingsView() {
             InitializeComponent();

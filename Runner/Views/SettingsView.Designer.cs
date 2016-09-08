@@ -1,4 +1,4 @@
-﻿namespace Benchmark.Win.Views {
+﻿namespace Benchmark.Views {
     partial class SettingsView {
         /// <summary> 
         /// Required designer variable.

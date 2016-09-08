@@ -1,6 +1,6 @@
-﻿using Benchmark.Win.ViewModels;
+﻿using Benchmark.ViewModels;
 
-namespace Benchmark.Win.Views {
+namespace Benchmark.Views {
     public partial class TabBaseView : DocumentView {
         public TabBaseView() {
             InitializeComponent();

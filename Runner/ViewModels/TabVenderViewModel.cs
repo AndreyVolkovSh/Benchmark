@@ -1,31 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using Benchmark.Runner;
 
-namespace Benchmark.Win.ViewModels {
+namespace Benchmark.ViewModels {
     public class TabVenderViewModel : TabBaseViewModel {
         public TabVenderViewModel() {
             EditLabel = "Vender:";
             CheckedListLabel = "Products:";
             ButtonText = "Add vender";
         }
-        public virtual List<string> Venders {
+        public virtual IEnumerable<string> Venders {
+            get;
+            set;
+        }
+        public string Vender {
             get;
             set;
         }
         public override void OnAdd() {
-            GenerateVender();
+            RegistrationService.Service.RegisterVender(Vender, GetDataChecked());
         }
         public override void Update() {
             base.Update();
-            Venders = TabBaseData.Venders;
+            Venders = RegistrationService.Service.Venders;
         }
-        protected void GenerateVender() {
-        }
-        protected override BindingList<TabBaseViewModel.Node> GetDataSource() {
-            if(TabBaseData.Venders == null) return null;
-            BindingList<TabBaseViewModel.Node> nodes = new BindingList<TabBaseViewModel.Node>();
-            foreach(string vender in TabBaseData.Products)
-                nodes.Add(new TabBaseViewModel.Node(vender));
+        protected override BindingList<Common.CheckedItem> GetDataSource() {
+            if(RegistrationService.Service.Venders == null) return null;
+            BindingList<Common.CheckedItem> nodes = new BindingList<Common.CheckedItem>();
+            foreach(string vender in RegistrationService.Service.Products)
+                nodes.Add(new Common.CheckedItem(vender));
             return nodes;
         }
         protected override object GetTitle() {
