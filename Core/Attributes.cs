@@ -42,7 +42,7 @@ namespace Benchmark {
         public BenchmarkSetUpAttribute() { }
     }
     [AttributeUsage(AttributeTargets.Assembly)]
-    public class AssemblyBenchmark : Attribute {
+    public class BenchmarkAssemblyAttribute : Attribute {
         public string Product {
             get;
             set;

@@ -153,7 +153,7 @@ namespace Benchmark.Common {
         }
         void Initialize(Assembly assembly) {
             AssemblyName = assembly.GetName().Name;
-            AssemblyBenchmark benchmarkAttribute = AttributeHelper.GetAssemblyAttribute<AssemblyBenchmark>(assembly);
+            BenchmarkAssemblyAttribute benchmarkAttribute = AttributeHelper.GetAssemblyAttribute<BenchmarkAssemblyAttribute>(assembly);
             if(benchmarkAttribute != null) {
                 Product = benchmarkAttribute.Product;
                 Vender = benchmarkAttribute.Vender;
