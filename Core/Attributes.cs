@@ -47,7 +47,7 @@ namespace Benchmark {
             get;
             set;
         }
-        public string Vender {
+        public string Scope {
             get;
             set;
         }

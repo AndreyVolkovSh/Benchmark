@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ReferencePath>$(SolutionDir)..\..\Bin\;$(SolutionDir)..\..\Bin\Assemblies\;$(SolutionDir)..\..\Bin\Assemblies\{Scope}\;</ReferencePath>
+    <ReferencePath>$(SolutionDir)..\..\Bin\;$(SolutionDir)..\..\Bin\Assemblies\;$(SolutionDir)..\..\Bin\Assemblies\Infragistics\;</ReferencePath>
     <PublishUrlHistory>publish\</PublishUrlHistory>
     <InstallUrlHistory />
     <SupportUrlHistory />

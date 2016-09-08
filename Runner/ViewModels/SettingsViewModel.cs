@@ -5,7 +5,7 @@ namespace Benchmark.ViewModels {
         protected override void OnLoadCore() {
             NewTab("TabSettingsView");
             NewTab("TabProductView");
-            NewTab("TabVenderView");
+            NewTab("TabScopeView");
         }
       
         #region IDocumentContent Members

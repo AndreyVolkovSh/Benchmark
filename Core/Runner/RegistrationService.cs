@@ -4,7 +4,7 @@ using Benchmark.Common;
 
 namespace Benchmark.Runner {
     public class RegistrationService {
-        HashSet<string> vendersCore, productsCore;
+        HashSet<string> scopesCore, productsCore;
         static RegistrationService serviceCore;
         public static RegistrationService Service {
             get {
@@ -22,11 +22,11 @@ namespace Benchmark.Runner {
         public IEnumerable<string> Products {
             get { return productsCore; }
         }
-        public IEnumerable<string> Venders {
-            get { return vendersCore; }
+        public IEnumerable<string> Scopes {
+            get { return scopesCore; }
         }
         public void Update() {
-            UpdateVenders();
+            UpdateScopes();
             UpdateProducts();
         }
         DirectoryInfo[] GetDirectories(string path) {
@@ -34,13 +34,13 @@ namespace Benchmark.Runner {
             if(!info.Exists) return null;
             return info.GetDirectories();
         }
-        void UpdateVenders() {
-            vendersCore = new HashSet<string>();
+        void UpdateScopes() {
+            scopesCore = new HashSet<string>();
             DirectoryInfo[] directories = GetDirectories(Folders.Assemblies);
             if(directories == null) return;
             foreach(var direstory in directories) {
                 if(Folders.Tests.Contains(direstory.Name)) continue;
-                vendersCore.Add(direstory.Name);
+                scopesCore.Add(direstory.Name);
             }
         }
         void UpdateProducts() {
@@ -50,24 +50,24 @@ namespace Benchmark.Runner {
             foreach(var direstory in directories)
                 productsCore.Add(direstory.Name);
         }
-        public void RegisterVender(string vender, IEnumerable<string> products) {
-            if(string.IsNullOrEmpty(vender)) return;
+        public void RegisterScope(string scope, IEnumerable<string> products) {
+            if(string.IsNullOrEmpty(scope)) return;
             try {
-                if(!vendersCore.Contains(vender)) return;
-                AddVender(vender, products);
-                UpdateVenders();
+                if(!scopesCore.Contains(scope)) return;
+                AddScope(scope, products);
+                UpdateScopes();
             }
             catch {
                 //log
             }
         }
-        void AddVender(string vender, IEnumerable<string> products) {
-            AddProjects(vender, products);
+        void AddScope(string scope, IEnumerable<string> products) {
+            AddProjects(scope, products);
         }
-        public void RegisterProduct(string product, IEnumerable<string> venders) {
+        public void RegisterProduct(string product, IEnumerable<string> scopes) {
             if(productsCore.Contains(product) || string.IsNullOrEmpty(product)) return;
             try {
-                Create(product, venders);
+                Create(product, scopes);
                 UpdateProducts();
             }
             catch {
@@ -75,22 +75,22 @@ namespace Benchmark.Runner {
                 //RemoveFolder;
             }
         }
-        void AddProjects(string vender, IEnumerable<string> products) {
+        void AddProjects(string scope, IEnumerable<string> products) {
             foreach(string product in products) {
-                new SolutionInfo(product).AddProject(CreateProjectInfo(product, vender));
+                new SolutionInfo(product).AddProject(CreateProjectInfo(product, scope));
             }
         }
-        void Create(string product, IEnumerable<string> venders) {
-            new SolutionInfo(product, CreateProjects(product, venders)).Save();
+        void Create(string product, IEnumerable<string> scopes) {
+            new SolutionInfo(product, CreateProjects(product, scopes)).Save();
         }
-        IEnumerable<ProjectInfo> CreateProjects(string product, IEnumerable<string> venders) {
+        IEnumerable<ProjectInfo> CreateProjects(string product, IEnumerable<string> scopes) {
             List<ProjectInfo> projects = new List<ProjectInfo>();
-            foreach(string vender in venders)
-                projects.Add(CreateProjectInfo(product, vender));
+            foreach(string scope in scopes)
+                projects.Add(CreateProjectInfo(product, scope));
             return projects;
         }
-        ProjectInfo CreateProjectInfo(string product, string vender) {
-            return new ProjectInfo(product, vender);
+        ProjectInfo CreateProjectInfo(string product, string scope) {
+            return new ProjectInfo(product, scope);
         }
     }
 }

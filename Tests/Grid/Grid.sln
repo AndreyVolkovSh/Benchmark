@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid.DevExpress", "Grid.DevExpress\Grid.DevExpress.csproj", "{BFF4B9AB-1535-4D45-B39A-1144791BCD8E}"
@@ -8,11 +8,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid.DevExpress", "Grid.Dev
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid.Telerik", "Grid.Telerik\Grid.Telerik.csproj", "{E5E43DF4-B293-4E80-8CCF-EF1F87B6E5FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid.Infragistics", "Grid.Infragistics\Grid.Infragistics.csproj", "ed162640-f04e-4e65-b3ac-72cf76ca7a1b"	
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
+	ed162640-f04e-4e65-b3ac-72cf76ca7a1b.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+ed162640-f04e-4e65-b3ac-72cf76ca7a1b.Debug|Any CPU.Build.0 = Debug|Any CPU
+ed162640-f04e-4e65-b3ac-72cf76ca7a1b.Release|Any CPU.ActiveCfg = Release|Any CPU
+ed162640-f04e-4e65-b3ac-72cf76ca7a1b.Release|Any CPU.Build.0 = Release|Any CPUEndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BFF4B9AB-1535-4D45-B39A-1144791BCD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFF4B9AB-1535-4D45-B39A-1144791BCD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU

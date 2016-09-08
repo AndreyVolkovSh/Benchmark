@@ -3,36 +3,36 @@ using System.ComponentModel;
 using Benchmark.Runner;
 
 namespace Benchmark.ViewModels {
-    public class TabVenderViewModel : TabBaseViewModel {
-        public TabVenderViewModel() {
-            EditLabel = "Vender:";
+    public class TabScopeViewModel : TabBaseViewModel {
+        public TabScopeViewModel() {
+            EditLabel = "Scope:";
             CheckedListLabel = "Products:";
-            ButtonText = "Add vender";
+            ButtonText = "Add scope";
         }
-        public virtual IEnumerable<string> Venders {
+        public virtual IEnumerable<string> Scopes {
             get;
             set;
         }
-        public string Vender {
+        public string Scope {
             get;
             set;
         }
         public override void OnAdd() {
-            RegistrationService.Service.RegisterVender(Vender, GetDataChecked());
+            RegistrationService.Service.RegisterScope(Scope, GetDataChecked());
         }
         public override void Update() {
             base.Update();
-            Venders = RegistrationService.Service.Venders;
+            Scopes = RegistrationService.Service.Scopes;
         }
         protected override BindingList<Common.CheckedItem> GetDataSource() {
-            if(RegistrationService.Service.Venders == null) return null;
+            if(RegistrationService.Service.Products == null) return null;
             BindingList<Common.CheckedItem> nodes = new BindingList<Common.CheckedItem>();
-            foreach(string vender in RegistrationService.Service.Products)
-                nodes.Add(new Common.CheckedItem(vender));
+            foreach(string product in RegistrationService.Service.Products)
+                nodes.Add(new Common.CheckedItem(product));
             return nodes;
         }
         protected override object GetTitle() {
-            return "Add vender";
+            return "Add scope";
         }
     }
 }

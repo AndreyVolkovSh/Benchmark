@@ -1,15 +1,15 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("{AssemblyName}")]
+[assembly: AssemblyTitle("Grid.Infragistics")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("{Scope}")]
-[assembly: AssemblyProduct("{Product}")]
+[assembly: AssemblyCompany("Infragistics")]
+[assembly: AssemblyProduct("Grid")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("{Guid}")]
+[assembly: Guid("ed162640-f04e-4e65-b3ac-72cf76ca7a1b")]
 
 // Version information for an assembly consists of the following four values:
 //

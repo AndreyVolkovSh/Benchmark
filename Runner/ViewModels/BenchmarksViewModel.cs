@@ -9,10 +9,10 @@ using Benchmark.Common;
 using DevExpress.Mvvm;
 
 namespace Benchmark.ViewModels {
-    public class TestsViewModel : DocumentViewModel {
+    public class BenchmarksViewModel : DocumentViewModel {
         AssemblyCache historyCore;
         TestSource testSourceCore;
-        public TestsViewModel() {
+        public BenchmarksViewModel() {
             historyCore = new AssemblyCache();
             testSourceCore = new TestSource();
         }
@@ -73,7 +73,7 @@ namespace Benchmark.ViewModels {
             testSourceCore.Clear();
         }
         protected override object GetTitle() {
-            return "Tests";
+            return "Benchmarks";
         }
         MainViewModel ParentModel {
             get { return this.GetParentViewModel<MainViewModel>(); }

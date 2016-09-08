@@ -51,7 +51,7 @@ namespace Benchmark.Runner {
             TestResult result = ConvetToResult(logs);
             result.TestName = test.Name;
             result.Category = test.Category;
-            result.Vender = test.Vender;
+            result.Scope = test.Scope;
             result.Product = test.Product;
             return result;
         }

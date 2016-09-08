@@ -37,7 +37,7 @@ namespace Benchmark.Internal {
                 string projectTemplate = ResourceService.TestProject.Replace(ReplaceParams.AssemblyName, fullName)
                     .Replace(ReplaceParams.Reference, test.AssemblyName)
                     .Replace(ReplaceParams.HintPath, test.AssemblyPath);
-                string projectUserTemlate = ResourceService.TestProjectUser.Replace(ReplaceParams.Vender, test.Vender);
+                string projectUserTemlate = ResourceService.TestProjectUser.Replace(ReplaceParams.Scope, test.Scope);
                 string projPath = path + ResourceNames.TestProjectFile;
                 File.WriteAllText(path + ResourceNames.TestFile, test.Template);
                 File.WriteAllText(projPath, projectTemplate);

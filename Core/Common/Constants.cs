@@ -77,7 +77,7 @@ namespace Benchmark.Common {
             Reference = "{Reference}",
             HintPath = "{HintPath}",
             RootNamespace = "{RootNamespace}",
-            Vender = "{Vender}",
+            Scope = "{Scope}",
             Using = "{Using}",
             Field = "{Field}",
             Initialize = "{Initialize}",

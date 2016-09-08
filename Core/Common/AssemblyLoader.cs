@@ -29,7 +29,7 @@ namespace Benchmark.Common {
             get;
             internal set;
         }
-        public string Vender {
+        public string Scope {
             get;
             internal set;
         }
@@ -49,7 +49,7 @@ namespace Benchmark.Common {
             internal set;
         }
         public string FullName {
-            get { return String.Format(Formats.TestFullName, Vender, Product, Category, Name); }
+            get { return String.Format(Formats.TestFullName, Scope, Product, Category, Name); }
         }
     }
     public class TypeLoader {
@@ -118,7 +118,7 @@ namespace Benchmark.Common {
             get;
             private set;
         }
-        public string Vender {
+        public string Scope {
             get;
             private set;
         }
@@ -131,7 +131,7 @@ namespace Benchmark.Common {
             foreach(TypeLoader typeLoader in Types) {
                 foreach(TestLoader testLoader in typeLoader.GetTests()) {
                     testLoader.Product = Product;
-                    testLoader.Vender = Vender;
+                    testLoader.Scope = Scope;
                     testLoader.AssemblyName = AssemblyName;
                     testLoader.AssemblyPath = FullPath;
                     TestBuilder.Build(testLoader, typeLoader);
@@ -156,10 +156,10 @@ namespace Benchmark.Common {
             BenchmarkAssemblyAttribute benchmarkAttribute = AttributeHelper.GetAssemblyAttribute<BenchmarkAssemblyAttribute>(assembly);
             if(benchmarkAttribute != null) {
                 Product = benchmarkAttribute.Product;
-                Vender = benchmarkAttribute.Vender;
+                Scope = benchmarkAttribute.Scope;
             }
             CheckProduct(assembly);
-            CheckVender(assembly);
+            CheckScope(assembly);
             Type[] types = assembly.GetExportedTypes();
             typesCore = CreateTypeLoaders(types);
         }
@@ -169,11 +169,11 @@ namespace Benchmark.Common {
             if(productAttribute != null)
                 Product = productAttribute.Product;
         }
-        void CheckVender(Assembly assembly) {
-            if(!string.IsNullOrEmpty(Vender)) return;
+        void CheckScope(Assembly assembly) {
+            if(!string.IsNullOrEmpty(Scope)) return;
             AssemblyCompanyAttribute companyAttribute = AttributeHelper.GetAssemblyAttribute<AssemblyCompanyAttribute>(assembly);
             if(companyAttribute != null)
-                Vender = companyAttribute.Company;
+                Scope = companyAttribute.Company;
         }
         List<TypeLoader> CreateTypeLoaders(Type[] types) {
             List<TypeLoader> typesInfo = new List<TypeLoader>();

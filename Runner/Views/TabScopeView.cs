@@ -2,18 +2,18 @@
 using DevExpress.XtraEditors;
 
 namespace Benchmark.Views {
-    public partial class TabVenderView : TabBaseView {
-        public TabVenderView() {
+    public partial class TabScopeView : TabBaseView {
+        public TabScopeView() {
             InitializeComponent();
-            InitializeContext<TabVenderViewModel>();
+            InitializeContext<TabScopeViewModel>();
             InitializeLookUp(lookUpEdit);
         }
         protected override void OnLoad(System.EventArgs e) {
             base.OnLoad(e);
-            OnLoadContext<TabVenderViewModel>();
-            var fluentAPI = GetFluentAPI<TabVenderViewModel>();
-            fluentAPI.SetBinding(lookUpEdit.Properties, x => x.DataSource, y => y.Venders);
-            fluentAPI.SetBinding(lookUpEdit, x => x.Text, y => y.Vender);
+            OnLoadContext<TabScopeViewModel>();
+            var fluentAPI = GetFluentAPI<TabScopeViewModel>();
+            fluentAPI.SetBinding(lookUpEdit.Properties, x => x.DataSource, y => y.Scopes);
+            fluentAPI.SetBinding(lookUpEdit, x => x.Text, y => y.Scope);
         }
         void InitializeLookUp(LookUpEdit lookUp) {
             lookUpEdit.Text = string.Empty;

@@ -21,7 +21,7 @@ namespace Benchmark.ViewModels {
         }
         protected override void OnLoadCore() {
             NewTab("SettingsView");
-            NewTab("TestsView");
+            NewTab("BenchmarksView");
             NewTab("ResultView");
         }
     }

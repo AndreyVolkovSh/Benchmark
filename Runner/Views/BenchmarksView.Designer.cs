@@ -1,5 +1,5 @@
 ﻿namespace Benchmark.Views {
-    partial class TestsView {
+    partial class BenchmarksView {
         /// <summary> 
         /// Required designer variable.
         /// </summary>

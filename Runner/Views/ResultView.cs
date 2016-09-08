@@ -28,7 +28,7 @@ namespace Benchmark.Views {
         System.ComponentModel.IContainer components = null;
         void InitializeComponent() {
             this.pivotGridControl = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.venderField = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.scopeField = new DevExpress.XtraPivotGrid.PivotGridField();
             this.productField = new DevExpress.XtraPivotGrid.PivotGridField();
             this.badField = new DevExpress.XtraPivotGrid.PivotGridField();
             this.categoryField = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -44,7 +44,7 @@ namespace Benchmark.Views {
             this.pivotGridControl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pivotGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pivotGridControl.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
-            this.venderField,
+            this.scopeField,
             this.productField,
             this.badField,
             this.categoryField,
@@ -63,12 +63,12 @@ namespace Benchmark.Views {
             this.pivotGridControl.Size = new System.Drawing.Size(647, 419);
             this.pivotGridControl.TabIndex = 1;
             // 
-            // venderField
+            // scopeField
             // 
-            this.venderField.Area = DevExpress.XtraPivotGrid.PivotArea.ColumnArea;
-            this.venderField.AreaIndex = 0;
-            this.venderField.FieldName = "Vender";
-            this.venderField.Name = "venderField";
+            this.scopeField.Area = DevExpress.XtraPivotGrid.PivotArea.ColumnArea;
+            this.scopeField.AreaIndex = 0;
+            this.scopeField.FieldName = "Scope";
+            this.scopeField.Name = "scopeField";
             // 
             // productField
             // 
@@ -128,7 +128,7 @@ namespace Benchmark.Views {
 
         }
         private DevExpress.XtraPivotGrid.PivotGridControl pivotGridControl;
-        private DevExpress.XtraPivotGrid.PivotGridField venderField;
+        private DevExpress.XtraPivotGrid.PivotGridField scopeField;
         private DevExpress.XtraPivotGrid.PivotGridField productField;
         private DevExpress.XtraPivotGrid.PivotGridField badField;
         private DevExpress.XtraPivotGrid.PivotGridField categoryField;

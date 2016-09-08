@@ -1,14 +1,14 @@
 ﻿using Benchmark.ViewModels;
 
 namespace Benchmark.Views {
-    public partial class TestsView : DocumentView {
-        public TestsView() {
+    public partial class BenchmarksView : DocumentView {
+        public BenchmarksView() {
             InitializeComponent();
-            InitializeContext<TestsViewModel>();
+            InitializeContext<BenchmarksViewModel>();
         }
         protected override void OnLoad(System.EventArgs e) {
             base.OnLoad(e);
-            var fluentAPI = GetFluentAPI<TestsViewModel>();
+            var fluentAPI = GetFluentAPI<BenchmarksViewModel>();
             fluentAPI.BindCommand(addAssemblyButton, x => x.OnAddAssemblies());
             fluentAPI.BindCommand(startButton, x => x.OnStart());
             fluentAPI.BindCommand(refreshButton, x => x.OnRefresh());
@@ -16,7 +16,7 @@ namespace Benchmark.Views {
         }
         void UpdateTreeList(bool value) {
             productsTreeList.BeginUpdate();
-            TestsViewModel model = Context.GetViewModel<TestsViewModel>();
+            BenchmarksViewModel model = Context.GetViewModel<BenchmarksViewModel>();
             productsTreeList.PopulateNodes(model.Tests);
             productsTreeList.EndUpdate();
         }

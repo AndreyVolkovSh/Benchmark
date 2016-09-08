@@ -1,5 +1,5 @@
 ﻿namespace Benchmark.Views {
-    partial class TabVenderView {
+    partial class TabScopeView {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -36,12 +36,12 @@
             this.lookUpEdit.Size = new System.Drawing.Size(233, 20);
             this.lookUpEdit.TabIndex = 10;
             // 
-            // TabVenderView
+            // TabScopeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lookUpEdit);
-            this.Name = "TabVenderView";
+            this.Name = "TabScopeView";
             this.Size = new System.Drawing.Size(438, 441);
             this.Controls.SetChildIndex(this.lookUpEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit.Properties)).EndInit();

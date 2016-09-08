@@ -30,12 +30,13 @@ namespace Benchmark.Runner {
             return path + Product + "\\";
         }
         public void AddProject(ProjectInfo project) {
-            string path = GetFullPath(Launcher.GetTestsPath());            
+            string path = GetFullPath(Launcher.GetTestsPath());
             if(PatchSolution(path, project))
                 project.Save(path);
         }
-        bool CheckProject(string path, ProjectInfo project){
-            return Directory.GetDirectories(path, project.AssemblyName) != null;
+        bool CheckProject(string path, ProjectInfo project) {
+            IEnumerable<string> directories = Directory.GetDirectories(path, project.AssemblyName);
+            return directories != null && directories.Count() != 0;
         }
         bool PatchSolution(string path, ProjectInfo project) {
             string fullName = path + Name;
@@ -80,8 +81,8 @@ namespace Benchmark.Runner {
         }
     }
     class ProjectInfo {
-        public ProjectInfo(string product, string vender) {
-            Vender = vender;
+        public ProjectInfo(string product, string scope) {
+            Scope = scope;
             Product = product;
             Guid = System.Guid.NewGuid().ToString();
             Properties = new PropertiesInfo(this);
@@ -90,13 +91,13 @@ namespace Benchmark.Runner {
             get { return AssemblyName + Resolution.PROJ; }
         }
         public string AssemblyName {
-            get { return string.Format(Formats.AssemblyName, Product, Vender); }
+            get { return string.Format(Formats.AssemblyName, Product, Scope); }
         }
         public string Product {
             get;
             private set;
         }
-        public string Vender {
+        public string Scope {
             get;
             private set;
         }
@@ -129,10 +130,10 @@ namespace Benchmark.Runner {
             string rootNamespace = string.Format(Formats.RootNamespace, Product);
             project = project.Replace(ReplaceParams.RootNamespace, rootNamespace);
             project = project.Replace(ReplaceParams.AssemblyName, AssemblyName);
-            project = project.Replace(ReplaceParams.Product, Product);
+            project = project.Replace(ReplaceParams.Scope, Scope);
             File.WriteAllText(path + Name, project);
             File.WriteAllText(path + ResourceNames.SimpleTestsFile, ResourceService.SimpleTests.Replace(ReplaceParams.RootNamespace, rootNamespace));
-            File.WriteAllText(path + Name + Resolution.USER, ResourceService.ProjectUser.Replace(ReplaceParams.Vender, Vender));
+            File.WriteAllText(path + Name + Resolution.USER, ResourceService.ProjectUser.Replace(ReplaceParams.Scope, Scope));
             Properties.Save(path);
         }
     }
@@ -140,7 +141,7 @@ namespace Benchmark.Runner {
         public PropertiesInfo(ProjectInfo project) {
             AssemblyProduct = project.Product;
             AssemblyTitle = project.AssemblyName;
-            AssemblyCompany = project.Vender;
+            AssemblyCompany = project.Scope;
             Guid = project.Guid;
         }
         public string AssemblyProduct {
@@ -172,7 +173,7 @@ namespace Benchmark.Runner {
         void SaveCore(string path) {
             if(!Directory.Exists(path)) return;
             string assemblyInfo = ResourceService.AssemblyInfo.Replace(ReplaceParams.AssemblyName, AssemblyTitle);
-            assemblyInfo = assemblyInfo.Replace(ReplaceParams.Vender, AssemblyCompany);
+            assemblyInfo = assemblyInfo.Replace(ReplaceParams.Scope, AssemblyCompany);
             assemblyInfo = assemblyInfo.Replace(ReplaceParams.Product, AssemblyProduct);
             assemblyInfo = assemblyInfo.Replace(ReplaceParams.Guid, Guid);
             File.WriteAllText(path + ResourceNames.AssemblyInfoFile, assemblyInfo);

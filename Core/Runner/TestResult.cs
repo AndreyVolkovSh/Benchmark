@@ -30,7 +30,7 @@ namespace Benchmark.Runner {
             get;
             set;
         }
-        public string Vender {
+        public string Scope {
             get;
             set;
         }
@@ -41,7 +41,7 @@ namespace Benchmark.Runner {
             this.BestPerfomance = result.BestPerfomance;
             this.FirstPerfomance = result.FirstPerfomance;
             this.MedianPerfomance = result.MedianPerfomance;
-            this.Vender = result.Vender;
+            this.Scope = result.Scope;
             this.Product = result.Product;
         }
     }
