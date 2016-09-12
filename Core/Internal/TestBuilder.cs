@@ -39,17 +39,17 @@ namespace Benchmark.Internal {
             if(!ParameterIsValid(name)) return string.Empty;
             return name + " = new " + classType + "();" + Environment.NewLine;
         }
-        string GetSubscriptionEventTemplate(EventInfo completed, string name, bool unsubscribe = false) {
-            if(!ParameterIsValid(name)) return string.Empty;
+        string GetSubscriptionEventTemplate(EventInfo completed, string testObject, string name, bool unsubscribe = false) {
+            if(!ParameterIsValid(testObject)) return string.Empty;
             if(completed == null) return string.Empty;
-            return name + "." + completed.Name + (unsubscribe ? "-" : "+") + "= OnTestCompleted;" + Environment.NewLine;
+            return testObject + "." + completed.Name + (unsubscribe ? " -= " : " += ") + name + ";" + Environment.NewLine;
         }
         string GetInitializeTemplate(TypeLoader typeLoader) {
             return
                 GetCreateMethodTemplate(CommonConstants.TestObject, typeLoader.Class.FullName) +
                 (Manual ?
-                GetSubscriptionEventTemplate(typeLoader.Completed, CommonConstants.TestObject) +
-                GetSubscriptionEventTemplate(typeLoader.Ready, CommonConstants.TestObject) :
+                GetSubscriptionEventTemplate(typeLoader.Completed, CommonConstants.TestObject, "OnCompleted") +
+                GetSubscriptionEventTemplate(typeLoader.Ready, CommonConstants.TestObject, "OnReady") :
                 string.Empty);
         }
         string GetTextForm(TestLoader testLoader) {
@@ -58,8 +58,8 @@ namespace Benchmark.Internal {
         string GetDisposeTemplate(TypeLoader typeLoader) {
             return
                 (Manual ?
-                GetSubscriptionEventTemplate(typeLoader.Completed, CommonConstants.TestObject, true) +
-                GetSubscriptionEventTemplate(typeLoader.Ready, CommonConstants.TestObject, true) :
+                GetSubscriptionEventTemplate(typeLoader.Completed, CommonConstants.TestObject, "OnCompleted", true) +
+                GetSubscriptionEventTemplate(typeLoader.Ready, CommonConstants.TestObject, "OnReady", true) :
                 string.Empty) +
                 GetCallMethodTemplate(typeLoader.TearDown, CommonConstants.TestObject) +
                 CommonConstants.TestObject + " = null;";
