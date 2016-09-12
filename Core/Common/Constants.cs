@@ -86,6 +86,8 @@ namespace Benchmark.Common {
             TearDown = "{TearDown}",
             Product = "{Product}",
             Dispose = "{Dispose}",
+            Platform = "{Platform}",
+            TargetFramework = "{TargetFramework}",
             Global = "Global",
             EndGlobal = "EndGlobalSection";
     }

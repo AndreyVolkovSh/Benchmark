@@ -33,6 +33,10 @@ namespace Benchmark.Common {
             get;
             internal set;
         }
+        public string TargetFramework {
+            get;
+            internal set;
+        }
         public string Product {
             get;
             internal set;
@@ -126,6 +130,10 @@ namespace Benchmark.Common {
             get;
             private set;
         }
+        public string TargetFramework {
+            get;
+            private set;
+        }
         public IEnumerable<TestLoader> GetTests() {
             if(Types == null) yield break;
             foreach(TypeLoader typeLoader in Types) {
@@ -134,6 +142,7 @@ namespace Benchmark.Common {
                     testLoader.Scope = Scope;
                     testLoader.AssemblyName = AssemblyName;
                     testLoader.AssemblyPath = FullPath;
+                    testLoader.TargetFramework = TargetFramework;
                     TestBuilder.Build(testLoader, typeLoader);
                     yield return testLoader;
                 }
@@ -158,10 +167,17 @@ namespace Benchmark.Common {
                 Product = benchmarkAttribute.Product;
                 Scope = benchmarkAttribute.Scope;
             }
+            TargetFramework = GetTargetFramework(assembly);
             CheckProduct(assembly);
             CheckScope(assembly);
             Type[] types = assembly.GetExportedTypes();
             typesCore = CreateTypeLoaders(types);
+        }
+        string GetTargetFramework(Assembly assembly) {
+            System.Runtime.Versioning.TargetFrameworkAttribute attribute = AttributeHelper.GetAssemblyAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>(assembly);
+            if(attribute == null)
+                return "v4.0";
+            return attribute.FrameworkName.Split('=')[1];
         }
         void CheckProduct(Assembly assembly) {
             if(!string.IsNullOrEmpty(Product)) return;

@@ -23,7 +23,7 @@ namespace Benchmark.Internal {
                 string testFullName = test.FullName;
                 DirectoryInfo projectFolder = GetFolder(Folders.Temp + testFullName);
                 string path = CreateProject(projectFolder.FullName + "\\", test);
-                SolutionBuilder.Build(path, settingsCore.ToBuildSettings());
+                SolutionBuilder.Build(path, settingsCore.ToBuild());
                 if(settingsCore.EnableNGen)
                     nGen.Install(test.Path);
             }
@@ -36,7 +36,9 @@ namespace Benchmark.Internal {
                 string fullName = test.FullName;
                 string projectTemplate = ResourceService.TestProject.Replace(ReplaceParams.AssemblyName, fullName)
                     .Replace(ReplaceParams.Reference, test.AssemblyName)
-                    .Replace(ReplaceParams.HintPath, test.AssemblyPath);
+                    .Replace(ReplaceParams.HintPath, test.AssemblyPath)
+                    .Replace(ReplaceParams.TargetFramework, test.TargetFramework)
+                    .Replace(ReplaceParams.Platform, settingsCore.Platform.ToString());
                 string projectUserTemlate = ResourceService.TestProjectUser.Replace(ReplaceParams.Scope, test.Scope);
                 string projPath = path + ResourceNames.TestProjectFile;
                 File.WriteAllText(path + ResourceNames.TestFile, test.Template);
