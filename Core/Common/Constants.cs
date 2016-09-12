@@ -89,6 +89,7 @@ namespace Benchmark.Common {
             Platform = "{Platform}",
             TargetFramework = "{TargetFramework}",
             Global = "Global",
-            EndGlobal = "EndGlobalSection";
+            ProjectSection = "GlobalSection(ProjectConfigurationPlatforms) = postSolution",
+            EndProjectSection = "EndGlobalSection";
     }
 }

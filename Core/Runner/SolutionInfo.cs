@@ -54,9 +54,11 @@ namespace Benchmark.Runner {
             return projectText.Insert(index, project);
         }
         string PatchProjectConfiguration(string projectText, string guid) {
-            int index = projectText.IndexOf(ReplaceParams.EndGlobal, 0);
-            if(index < 0) return projectText;
-            return projectText.Insert(index,
+            int sectionIndex = projectText.IndexOf(ReplaceParams.ProjectSection, 0);
+            if(sectionIndex < 0) return projectText;
+            int endSectionIndex = projectText.IndexOf(ReplaceParams.EndProjectSection, sectionIndex);
+            if(endSectionIndex < 0) return projectText;
+            return projectText.Insert(endSectionIndex,
                 ResourceService.ProjectConfiguration.Replace(ReplaceParams.Guid, guid));
         }
         public void Save(string path = null) {

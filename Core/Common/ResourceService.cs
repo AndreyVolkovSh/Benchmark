@@ -28,14 +28,14 @@ namespace Benchmark.Common {
         public static string ProjectConfiguration {
             get {
                 return
-@"{Guid}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-{Guid}.Debug|Any CPU.Build.0 = Debug|Any CPU
-{Guid}.Release|Any CPU.ActiveCfg = Release|Any CPU
-{Guid}.Release|Any CPU.Build.0 = Release|Any CPU";
+"\t\t{{Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU" + System.Environment.NewLine +
+"\t\t{{Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU" + System.Environment.NewLine +
+"\t\t{{Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU" + System.Environment.NewLine +
+"\t\t{{Guid}}.Release|Any CPU.Build.0 = Release|Any CPU" + System.Environment.NewLine + "\t";
             }
         }
         public static string ProjectBlock {
-            get { return "Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"{AssemblyName}\", \"" + @"{AssemblyName}\{AssemblyName}.csproj" + "\", \"{Guid}\"	" + System.Environment.NewLine + "EndProject"; }
+            get { return "Project(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"{AssemblyName}\", \"" + @"{AssemblyName}\{AssemblyName}.csproj" + "\", \"{{Guid}}\"	" + System.Environment.NewLine + "EndProject"; }
         }
         static string GetTestsProject(string name) {
             return GetResource(ResourceNames.TestsFolder + name);
