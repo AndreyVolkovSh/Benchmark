@@ -29,13 +29,13 @@ namespace Benchmark.ViewModels {
             set { Settings.ToolVersion = value; }
         }
         public virtual IEnumerable<Framework> Frameworks {
-            get { return Settings.GetFrameworks(); }
+            get { return Settings.Frameworks; }
         }
         public virtual IEnumerable<string> ToolVersions {
-            get { return Settings.GetToolVersions(); }
+            get { return Settings.ToolVersions; }
         }
         public virtual void OnBuild() {
-            Launcher.BuildSolutions(Settings.ToBuildSettings());
+            Launcher.BuildSolutions(Settings);
         }
         protected override object GetTitle() {
             return "Settings";

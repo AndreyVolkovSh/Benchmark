@@ -1,32 +1,18 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace Benchmark.Common {
     public enum Platform { AnyCPU, x86, x64 }
     public class Settings {
-        Frameworks frameworksCore;
-        List<string> toolVersions;
-        public Settings(string[] args)
-            : base() {
-        }
+        static Frameworks frameworksCore;
+        static ToolVersions toolVersions;
         public Settings() {
-            frameworksCore = CreateFrameworks();
-            toolVersions = CreateToolVersions();
             Thread = 2;
             Platform = Platform.AnyCPU;
             EnableNGen = true;
-            Framework = frameworksCore.First;
-            Rebuild = false;
-            if(toolVersions.Count > 0)
-                ToolVersion = toolVersions[0];
-        }
-        public virtual bool Rebuild {
-            get;
-            set;
-        }
-        public string[] Products {
-            get;
-            set;
+            Framework = Frameworks[0];
+            ToolVersion = ToolVersions[0];
         }
         public virtual int Thread {
             get;
@@ -48,37 +34,64 @@ namespace Benchmark.Common {
             get;
             set;
         }
-        public string ToBuildSettings() {
+        public string ToBuild() {
             return string.Format(Formats.Args, Thread, Framework.Version, ToolVersion);
         }
-        public List<string> GetToolVersions() {
-            return toolVersions;
+        public static ToolVersions ToolVersions {
+            get {
+                if(toolVersions == null)
+                    toolVersions = new ToolVersions();
+                return toolVersions;
+            }
         }
-        public IEnumerable<Framework> GetFrameworks() {
-            return frameworksCore.Items;
+        public static Frameworks Frameworks {
+            get {
+                if(frameworksCore == null)
+                    frameworksCore = new Frameworks();
+                return frameworksCore;
+            }
         }
-        Frameworks CreateFrameworks() {
-            return new Frameworks();
+    }
+    public class ToolVersions : IEnumerable<string> {
+        List<string> toolVersions;
+        public ToolVersions() {
+            InitializeToolVersions();
         }
-        List<string> CreateToolVersions() {
+        void InitializeToolVersions() {
             string keyName = RegisterKeys.ToolVersion;
-            List<string> versions = new List<string>();
+            toolVersions = new List<string>();
             string[] tools = new string[] { "4.0", "12.0", "14.0" };
             using(RegistryKey MSBuild = Registry.LocalMachine.OpenSubKey(keyName)) {
-                if(MSBuild == null) return versions;
+                if(MSBuild == null) return;
                 foreach(string tool in tools) {
                     using(RegistryKey toolKey = MSBuild.OpenSubKey(tool))
                         if(toolKey != null)
-                            versions.Add(tool);
+                            toolVersions.Add(tool);
                 }
             }
-            return versions;
         }
-        public static Settings Create(string[] args) {
-            return new Settings();
+        public string this[int index] {
+            get {
+                if(toolVersions.Count > 0)
+                    return toolVersions[0];
+                return null;
+            }
         }
+        public bool Contains(string value) {
+            return toolVersions.Contains(value);
+        }
+        #region IEnumerable<string> Members
+        public IEnumerator<string> GetEnumerator() {
+            return toolVersions.GetEnumerator();
+        }
+        #endregion
+        #region IEnumerable Members
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+        #endregion
     }
-    class Frameworks {
+    public class Frameworks : IEnumerable<Framework> {
         List<Framework> frameworksCore;
         public Frameworks() {
             frameworksCore = new List<Framework>();
@@ -107,15 +120,31 @@ namespace Benchmark.Common {
             int lastVersion = GetLastVersion();
             frameworksCore.RemoveAll((x) => x.Release > lastVersion);
         }
-        public Framework First {
+        public Framework this[string version] {
             get {
-                if(frameworksCore.Count > 0) return frameworksCore[0];
+                IEnumerable<Framework> frameworks = frameworksCore.Where((x) => x.Version == version);
+                if(frameworks == null || frameworks.Count() == 0)
+                    return null;
+                return frameworks.First();
+            }
+        }
+        public Framework this[int index] {
+            get {
+                if(frameworksCore.Count > 0)
+                    return frameworksCore[0];
                 return null;
             }
         }
-        public IEnumerable<Framework> Items {
-            get { return frameworksCore; }
+        #region IEnumerable<Framework> Members
+        public IEnumerator<Framework> GetEnumerator() {
+            return frameworksCore.GetEnumerator();
         }
+        #endregion
+        #region IEnumerable Members
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+        #endregion
     }
     public class Framework {
         public string Version {

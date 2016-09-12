@@ -24,26 +24,6 @@ namespace Benchmark.Runner {
                 throw (ee);
             }
         }
-        //public static List<TestResult> Start(string[] args) {
-        //    // assemblies; categories;
-        //    return Start(Settings.Create(args));
-        //}
-        //static List<TestResult> StartTests(string assembly) {
-        //    AssemblyLoader assemblyInfo = AssemblyLoader.Load(assembly);
-        //    if(assemblyInfo == null)
-        //        throw (new Exception());
-        //    List<TestResult> results = new List<TestResult>();
-        //    List<TestInfo> tests = ProjectCompiler.Compile(assemblyInfo, null);
-        //    using(NGenContext nGen = new NGenContext(true)) {
-        //        nGen.PlatformTarget_x64 = false;
-        //        nGen.Install(assembly);
-        //        foreach(TestInfo test in tests) {
-        //            nGen.Install(test.TestEXE);
-        //            results.Add(StartTest(test));
-        //        }
-        //    }
-        //    return results;
-        //}
         static TestResult StartTest(TestLoader test) {
             BenchmarkLog.Clear();
             ProcessStart(test.Path);
@@ -82,10 +62,10 @@ namespace Benchmark.Runner {
             string rootPath = GetRootPath();
             return GetTestsPath(rootPath);
         }
-        public static void BuildSolutions(string settings) {
+        public static void BuildSolutions(Settings settings) {
             string solutionsPath = GetTestsPath();
             try {
-                Benchmark.Internal.SolutionBuilder.BuildSolutions(solutionsPath, settings);
+                Benchmark.Internal.SolutionBuilder.BuildSolutions(solutionsPath, settings.ToBuild());
             }
             catch(Exception exception) {
                 //log exception  
