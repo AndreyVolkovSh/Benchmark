@@ -27,6 +27,7 @@ namespace Benchmark.Common {
             AssemblyInfoFile = "AssemblyInfo.cs",
             SimpleTestsFile = "SimpleTests.cs",
             TestsFolder = "TestsProject.",
+            AppConfig = "App.config",
             TestFolder = "TestProject.";
         public static string GetResourceName(string name) {
             return "Benchmark.Resources." + name;
@@ -56,17 +57,19 @@ namespace Benchmark.Common {
             TestAssemblies = Assemblies + Tests,
             Assemblies = "Assemblies\\",
             Tests = "Tests\\",
+            Runner = "Runner\\",
+            Console = "Console\\",
             Temp = "Temp\\",
             Properties = "Properties\\";
     }
     public class Formats {
         public const string
             RootNamespace = "{0}.Tests",
-            TestsPath = "{0}\\Tests\\",
             TestFullName = "{0}.{1}.{2}.{3}",
             NGenPath = @"NGen\\{0}\\ngen.exe",
             AssemblyName = "{0}.{1}",
-            Args = "{0} {1} {2}";
+            Args = "{0} {1} {2}",
+            PrivatePath = @"Assemblies\{0}\;";
     }
     public class ReplaceParams {
         public const string
@@ -87,6 +90,7 @@ namespace Benchmark.Common {
             Product = "{Product}",
             Dispose = "{Dispose}",
             Platform = "{Platform}",
+            PrivatePath = "{PrivatePath}",
             TargetFramework = "{TargetFramework}",
             Global = "Global",
             ProjectSection = "GlobalSection(ProjectConfigurationPlatforms) = postSolution",

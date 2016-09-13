@@ -1,19 +1,22 @@
 ﻿using System.ComponentModel;
 using Benchmark.Runner;
+using DevExpress.Mvvm;
+using DevExpress.Mvvm.POCO;
 
 namespace Benchmark.ViewModels {
     public class TabProductViewModel : TabBaseViewModel {
         public TabProductViewModel() {
-            EditLabel = "New product:";
             CheckedListLabel = "Scopes:";
             ButtonText = "Add product";
+            Messenger.Default.Register<Common.RequeryProducts>(this, (x) => UpdateDataSource());
         }
         public string Product {
             get;
             set;
         }
-        public override void OnAdd() {
+        protected override void OnAddCore() {
             RegistrationService.Service.RegisterProduct(Product, GetDataChecked());
+            Messenger.Default.Send(new Common.RequeryScopes());
         }
         protected override BindingList<Common.CheckedItem> GetDataSource() {
             if(RegistrationService.Service.Scopes == null) return null;

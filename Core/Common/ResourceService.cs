@@ -25,6 +25,9 @@ namespace Benchmark.Common {
         public static string TestProjectUser {
             get { return GetTestProject(ResourceNames.TestProjectUserFile); }
         }
+        public static string AppConfig {
+            get { return GetResource(ResourceNames.AppConfig); }
+        }
         public static string ProjectConfiguration {
             get {
                 return

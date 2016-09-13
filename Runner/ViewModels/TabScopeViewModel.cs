@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using Benchmark.Runner;
+using DevExpress.Mvvm;
+using DevExpress.Mvvm.POCO;
 
 namespace Benchmark.ViewModels {
     public class TabScopeViewModel : TabBaseViewModel {
-        public TabScopeViewModel() {
-            EditLabel = "Scope:";
+        public TabScopeViewModel() {            
             CheckedListLabel = "Products:";
             ButtonText = "Add scope";
+            Messenger.Default.Register<Common.RequeryScopes>(this, (x) => UpdateDataSource());
         }
         public virtual IEnumerable<string> Scopes {
             get;
@@ -17,11 +19,12 @@ namespace Benchmark.ViewModels {
             get;
             set;
         }
-        public override void OnAdd() {
+        protected override void OnAddCore() {
             RegistrationService.Service.RegisterScope(Scope, GetDataChecked());
+            Messenger.Default.Send(new Common.RequeryProducts());
         }
-        public override void Update() {
-            base.Update();
+        protected override void UpdateDataSource() {
+            base.UpdateDataSource();
             Scopes = RegistrationService.Service.Scopes;
         }
         protected override BindingList<Common.CheckedItem> GetDataSource() {

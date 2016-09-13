@@ -26,11 +26,11 @@ namespace Benchmark.Runner {
         }
         protected string GetFullPath(string path) {
             if(string.IsNullOrEmpty(path))
-                path = Launcher.GetTestsPath();
+                path = Launcher.TestsPath;
             return path + Product + "\\";
         }
         public void AddProject(ProjectInfo project) {
-            string path = GetFullPath(Launcher.GetTestsPath());
+            string path = GetFullPath(null);
             if(PatchSolution(path, project))
                 project.Save(path);
         }

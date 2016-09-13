@@ -16,11 +16,16 @@ namespace Benchmark.Views {
             fluentAPI.SetBinding(lookUpEdit, x => x.Text, y => y.Scope);
         }
         void InitializeLookUp(LookUpEdit lookUp) {
-            lookUpEdit.Text = string.Empty;
             lookUp.Properties.PopupSizeable = false;
             lookUp.Properties.ShowFooter = false;
             lookUp.Properties.ShowHeader = false;
             lookUp.Properties.UseDropDownRowsAsMaxCount = true;
+            lookUp.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            lookUp.Properties.SearchMode = DevExpress.XtraEditors.Controls.SearchMode.AutoComplete;
+            lookUp.Properties.ImmediatePopup = false;
+            lookUp.Properties.NullValuePrompt = "New scope";
+            lookUp.Properties.NullValuePromptShowForEmptyValue = true;
+            lookUp.Properties.ShowNullValuePromptWhenFocused = true;
         }
     }
 }

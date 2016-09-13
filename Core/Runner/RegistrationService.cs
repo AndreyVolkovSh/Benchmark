@@ -14,7 +14,7 @@ namespace Benchmark.Runner {
             }
         }
         RegistrationService() {
-            Update();
+            Load();
         }
         public bool ProductContains(string product) {
             return productsCore.Contains(product);
@@ -25,16 +25,16 @@ namespace Benchmark.Runner {
         public IEnumerable<string> Scopes {
             get { return scopesCore; }
         }
-        public void Update() {
-            UpdateScopes();
-            UpdateProducts();
+        public void Load() {
+            LoadScopes();
+            LoadProducts();
         }
         DirectoryInfo[] GetDirectories(string path) {
             DirectoryInfo info = new DirectoryInfo(path);
             if(!info.Exists) return null;
             return info.GetDirectories();
         }
-        void UpdateScopes() {
+        void LoadScopes() {
             scopesCore = new HashSet<string>();
             DirectoryInfo[] directories = GetDirectories(Folders.Assemblies);
             if(directories == null) return;
@@ -43,9 +43,9 @@ namespace Benchmark.Runner {
                 scopesCore.Add(direstory.Name);
             }
         }
-        void UpdateProducts() {
+        void LoadProducts() {
             productsCore = new HashSet<string>();
-            DirectoryInfo[] directories = GetDirectories(Launcher.GetTestsPath());
+            DirectoryInfo[] directories = GetDirectories(Launcher.TestsPath);
             if(directories == null) return;
             foreach(var direstory in directories)
                 productsCore.Add(direstory.Name);
@@ -53,13 +53,38 @@ namespace Benchmark.Runner {
         public void RegisterScope(string scope, IEnumerable<string> products) {
             if(string.IsNullOrEmpty(scope)) return;
             try {
-                if(!scopesCore.Contains(scope)) return;
+                if(!scopesCore.Contains(scope))
+                    CreateScope(scope);
                 AddScope(scope, products);
-                UpdateScopes();
+                LoadScopes();
             }
             catch {
                 //log
             }
+        }
+        void CreateScope(string scope) {
+            string scopeFolder = Folders.Assemblies + scope + "\\";
+            if(Directory.Exists(scopeFolder)) return;
+            Directory.CreateDirectory(scopeFolder);
+            PatchConfig(scopeFolder);
+        }
+        void PatchConfig(string scopeFolder) {
+            string privatePath = @"Dlls\;Assemblies\;";
+            if(Scopes != null) {
+                foreach(string scope in Scopes)
+                    privatePath += string.Format(Formats.PrivatePath, scope);
+            }
+            privatePath += scopeFolder + ";";
+            string appConfig = ResourceService.AppConfig.Replace(ReplaceParams.PrivatePath, privatePath);
+            foreach(string config in GetAllConfig())
+                File.WriteAllText(config, appConfig);
+        }
+        IEnumerable<string> GetAllConfig() {
+            List<string> files = new List<string>();
+            files.AddRange(Directory.GetFiles(System.Windows.Forms.Application.StartupPath, "*.exe.config", SearchOption.TopDirectoryOnly));
+            files.AddRange(Directory.GetFiles(Launcher.RunnerPath, "*.config", SearchOption.TopDirectoryOnly));
+            files.AddRange(Directory.GetFiles(Launcher.ConsolePath, "*.config", SearchOption.TopDirectoryOnly));
+            return files;
         }
         void AddScope(string scope, IEnumerable<string> products) {
             AddProjects(scope, products);
@@ -68,7 +93,7 @@ namespace Benchmark.Runner {
             if(productsCore.Contains(product) || string.IsNullOrEmpty(product)) return;
             try {
                 Create(product, scopes);
-                UpdateProducts();
+                LoadProducts();
             }
             catch {
                 //log

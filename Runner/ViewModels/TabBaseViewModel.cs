@@ -6,11 +6,7 @@ using Benchmark.Common;
 namespace Benchmark.ViewModels {
     public abstract class TabBaseViewModel : DocumentViewModel {
         public TabBaseViewModel() {
-            Update();
-        }
-        public virtual string EditLabel {
-            get;
-            set;
+            UpdateDataSource();
         }
         public virtual string CheckedListLabel {
             get;
@@ -24,11 +20,17 @@ namespace Benchmark.ViewModels {
             get;
             set;
         }
-        public virtual void Update() {
+        protected virtual void UpdateDataSource() {
             DataSource = GetDataSource();
         }
-        protected abstract BindingList<CheckedItem> GetDataSource();
-        public abstract void OnAdd();
+        protected virtual BindingList<CheckedItem> GetDataSource() {
+            return null;
+        }
+        public void OnAdd() {
+            OnAddCore();
+            UpdateDataSource();
+        }
+        protected abstract void OnAddCore();
         protected IEnumerable<string> GetDataChecked() {
             IEnumerable<CheckedItem> dataSource = DataSource as IEnumerable<CheckedItem>;
             if(dataSource == null) return null;

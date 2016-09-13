@@ -52,20 +52,24 @@ namespace Benchmark.Runner {
             result.BadPerfomance = logs[logs.Count - 2].Perfomance;
             return result;
         }
-        static string GetTestsPath(string rootPath) {
-            return String.Format(Formats.TestsPath, rootPath);
+        static string GetPath(string folder) {
+            return RootPath + "\\" + folder;
         }
-        static string GetRootPath() {
-            return Path.GetDirectoryName(Application.StartupPath);
+        public static string RootPath {
+            get { return Path.GetDirectoryName(Application.StartupPath); }
         }
-        public static string GetTestsPath() {
-            string rootPath = GetRootPath();
-            return GetTestsPath(rootPath);
+        public static string TestsPath {
+            get { return GetPath(Folders.Tests); }
+        }
+        public static string RunnerPath {
+            get { return GetPath(Folders.Runner); }
+        }
+        public static string ConsolePath {
+            get { return GetPath(Folders.Console); }
         }
         public static void BuildSolutions(Settings settings) {
-            string solutionsPath = GetTestsPath();
             try {
-                Benchmark.Internal.SolutionBuilder.BuildSolutions(solutionsPath, settings.ToBuild());
+                Benchmark.Internal.SolutionBuilder.BuildSolutions(TestsPath, settings.ToBuild());
             }
             catch(Exception exception) {
                 //log exception  
