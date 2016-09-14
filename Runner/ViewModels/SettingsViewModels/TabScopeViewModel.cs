@@ -6,7 +6,7 @@ using DevExpress.Mvvm.POCO;
 
 namespace Benchmark.ViewModels {
     public class TabScopeViewModel : TabBaseViewModel {
-        public TabScopeViewModel() {            
+        public TabScopeViewModel() {
             CheckedListLabel = "Products:";
             ButtonText = "Add scope";
             Messenger.Default.Register<Common.RequeryScopes>(this, (x) => UpdateDataSource());
@@ -20,8 +20,17 @@ namespace Benchmark.ViewModels {
             set;
         }
         protected override void OnAddCore() {
+            if(RegistrationService.Service.RegisterNewScope(Scope))
+                ShowDialogRestart();
             RegistrationService.Service.RegisterScope(Scope, GetDataChecked());
             Messenger.Default.Send(new Common.RequeryProducts());
+        }
+        void ShowDialogRestart() {
+            IMessageBoxService dialog = this.GetRequiredService<IMessageBoxService>();
+            if(dialog == null) return;
+            MessageResult result = dialog.ShowMessage("", "", MessageButton.OKCancel);
+            if(result == MessageResult.OK || result == MessageResult.Yes)
+                System.Windows.Forms.Application.Restart();
         }
         protected override void UpdateDataSource() {
             base.UpdateDataSource();

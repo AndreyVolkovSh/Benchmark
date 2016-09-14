@@ -5,9 +5,14 @@ namespace Benchmark.Common {
             EXE = ".exe",
             PROJ = ".csproj",
             SLN = ".sln",
+            USER = ".user";
+    }
+    public class SearchResolution {
+        public const string
+            SLN = "*.sln",
             ALLProj = "*.*proj",
-            USER = ".user",
-            CONFIG = ".config",
+            CONFIG = "*.config",
+            EXECONFIG = "*.exe.config",
             DLL = "*.dll";
     }
     public class Commands {
@@ -50,7 +55,8 @@ namespace Benchmark.Common {
         public const string
             TestObject = "testObject",
             BuildBat = "BuildSolution.bat",
-            LogName = "DXBenchmarkLog";
+            LogName = "DXBenchmarkLog",
+            PrivatePath = @"Dlls\;Assemblies\;";
     }
     public class Folders {
         public const string

@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
             this.searchControl = new DevExpress.XtraEditors.SearchControl();
-            this.productsTreeList = new Benchmark.Common.ProductTreeList();
+            this.productsTreeList = new Benchmark.Common.BenchmarkTreeList();
             this.refreshButton = new DevExpress.XtraEditors.SimpleButton();
             this.addAssemblyButton = new DevExpress.XtraEditors.SimpleButton();
             this.startButton = new DevExpress.XtraEditors.SimpleButton();
@@ -235,7 +235,7 @@
         private DevExpress.XtraEditors.SimpleButton refreshButton;
         private DevExpress.XtraEditors.SimpleButton addAssemblyButton;
         private DevExpress.XtraEditors.SimpleButton startButton;
-        private Common.ProductTreeList productsTreeList;
+        private Common.BenchmarkTreeList productsTreeList;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup;
         private DevExpress.XtraLayout.LayoutControlItem productsItem;
         private DevExpress.XtraLayout.LayoutControlItem startItem;

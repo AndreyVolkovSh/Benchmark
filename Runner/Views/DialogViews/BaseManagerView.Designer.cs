@@ -1,5 +1,5 @@
 ﻿namespace Benchmark.Views {
-    partial class AssemblyManagerView {
+    partial class BaseManagerView {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -26,7 +26,7 @@
             this.components = new System.ComponentModel.Container();
             this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
             this.searchControl = new DevExpress.XtraEditors.SearchControl();
-            this.treeList = new DevExpress.XtraTreeList.TreeList();
+            this.treeList = new Benchmark.Common.CustomTreeList();
             this.nameColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -54,7 +54,7 @@
             this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(596, 160, 450, 350);
             this.layoutControl.Root = this.layoutControlGroup;
             this.layoutControl.Size = new System.Drawing.Size(351, 313);
-            this.layoutControl.TabIndex = 0;
+            this.layoutControl.TabIndex = 1;
             this.layoutControl.Text = "layoutControl1";
             // 
             // searchControl
@@ -77,13 +77,6 @@
             this.nameColumn});
             this.treeList.Location = new System.Drawing.Point(12, 36);
             this.treeList.Name = "treeList";
-            this.treeList.OptionsBehavior.EnableFiltering = true;
-            this.treeList.OptionsView.ShowCheckBoxes = true;
-            this.treeList.OptionsView.ShowColumns = false;
-            this.treeList.OptionsView.ShowHorzLines = false;
-            this.treeList.OptionsView.ShowIndicator = false;
-            this.treeList.OptionsView.ShowRoot = false;
-            this.treeList.OptionsView.ShowVertLines = false;
             this.treeList.Size = new System.Drawing.Size(327, 265);
             this.treeList.TabIndex = 12;
             // 
@@ -142,12 +135,12 @@
             // 
             this.mvvmContext.ContainerControl = this;
             // 
-            // AssemblyManagerView
+            // BaseManagerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.layoutControl);
-            this.Name = "AssemblyManagerView";
+            this.Name = "BaseManagerView";
             this.Size = new System.Drawing.Size(351, 313);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
             this.layoutControl.ResumeLayout(false);
@@ -164,15 +157,15 @@
 
         #endregion
 
-        private DevExpress.XtraLayout.LayoutControl layoutControl;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup;
-        private DevExpress.XtraEditors.SearchControl searchControl;
-        private DevExpress.XtraTreeList.TreeList treeList;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn nameColumn;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private DevExpress.Utils.MVVM.MVVMContext mvvmContext;
+        protected DevExpress.XtraLayout.LayoutControl layoutControl;
+        protected DevExpress.XtraEditors.SearchControl searchControl;
+        protected Benchmark.Common.CustomTreeList treeList;
+        protected DevExpress.XtraTreeList.Columns.TreeListColumn nameColumn;
+        protected DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup;
+        protected DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        protected DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        protected DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        protected DevExpress.Utils.MVVM.MVVMContext mvvmContext;
 
     }
 }

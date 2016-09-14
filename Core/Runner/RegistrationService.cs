@@ -50,13 +50,24 @@ namespace Benchmark.Runner {
             foreach(var direstory in directories)
                 productsCore.Add(direstory.Name);
         }
+        public bool RegisterNewScope(string scope) {
+            if(string.IsNullOrEmpty(scope)) return false;
+            try {
+                if(scopesCore.Contains(scope)) return false;
+                CreateScope(scope);
+                LoadScopes();
+                return true;
+            }
+            catch {
+                throw (new System.Exception());
+                //log
+            }
+        }
         public void RegisterScope(string scope, IEnumerable<string> products) {
             if(string.IsNullOrEmpty(scope)) return;
             try {
-                if(!scopesCore.Contains(scope))
-                    CreateScope(scope);
+                if(!scopesCore.Contains(scope)) return;
                 AddScope(scope, products);
-                LoadScopes();
             }
             catch {
                 //log
@@ -69,7 +80,7 @@ namespace Benchmark.Runner {
             PatchConfig(scopeFolder);
         }
         void PatchConfig(string scopeFolder) {
-            string privatePath = @"Dlls\;Assemblies\;";
+            string privatePath = CommonConstants.PrivatePath;
             if(Scopes != null) {
                 foreach(string scope in Scopes)
                     privatePath += string.Format(Formats.PrivatePath, scope);
@@ -81,9 +92,9 @@ namespace Benchmark.Runner {
         }
         IEnumerable<string> GetAllConfig() {
             List<string> files = new List<string>();
-            files.AddRange(Directory.GetFiles(System.Windows.Forms.Application.StartupPath, "*.exe.config", SearchOption.TopDirectoryOnly));
-            files.AddRange(Directory.GetFiles(Launcher.RunnerPath, "*.config", SearchOption.TopDirectoryOnly));
-            files.AddRange(Directory.GetFiles(Launcher.ConsolePath, "*.config", SearchOption.TopDirectoryOnly));
+            files.AddRange(Directory.GetFiles(System.Windows.Forms.Application.StartupPath, SearchResolution.EXECONFIG, SearchOption.TopDirectoryOnly));
+            files.AddRange(Directory.GetFiles(Launcher.RunnerPath, SearchResolution.CONFIG, SearchOption.TopDirectoryOnly));
+            files.AddRange(Directory.GetFiles(Launcher.ConsolePath, SearchResolution.CONFIG, SearchOption.TopDirectoryOnly));
             return files;
         }
         void AddScope(string scope, IEnumerable<string> products) {

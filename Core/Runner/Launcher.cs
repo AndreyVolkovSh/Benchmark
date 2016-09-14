@@ -67,9 +67,18 @@ namespace Benchmark.Runner {
         public static string ConsolePath {
             get { return GetPath(Folders.Console); }
         }
-        public static void BuildSolutions(Settings settings) {
+        public static void Build(Settings settings) {
             try {
                 Benchmark.Internal.SolutionBuilder.BuildSolutions(TestsPath, settings.ToBuild());
+            }
+            catch(Exception exception) {
+                //log exception  
+                throw (exception);
+            }
+        }
+        public static void Build(string[] all, Settings settings) {
+            try {
+                Benchmark.Internal.SolutionBuilder.Build(all, settings.ToBuild());
             }
             catch(Exception exception) {
                 //log exception  

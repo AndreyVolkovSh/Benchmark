@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Benchmark.Common;
 using Benchmark.Runner;
+using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 
 namespace Benchmark.ViewModels {
@@ -35,7 +36,12 @@ namespace Benchmark.ViewModels {
             get { return Settings.ToolVersions; }
         }
         public virtual void OnBuild() {
-            Launcher.BuildSolutions(Settings);
+            IDialogService service = this.GetRequiredService<IDialogService>();
+            if(service == null) return;
+            BuildManagerViewModel model = BuildManagerViewModel.Create();
+            MessageResult result = service.ShowDialog(MessageButton.OKCancel, "Build manager", "BuildManagerView", model);
+            if(result == MessageResult.OK || result == MessageResult.Yes)
+                Launcher.Build(model.BuildObjects, Settings);
         }
         protected override object GetTitle() {
             return "Settings";

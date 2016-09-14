@@ -228,17 +228,19 @@
     <Compile Include="Common\AssemblyCache.cs" />
     <Compile Include="Common\CheckedItem.cs" />
     <Compile Include="Common\RequeryResults.cs" />
-    <Compile Include="ViewModels\AssemblyManagerViewModel.cs" />
-    <Compile Include="ViewModels\DocumentManagerViewModel.cs" />
-    <Compile Include="ViewModels\DocumentViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\AssemblyManagerViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModels\DocumentManagerViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModels\DocumentViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\BaseManagerViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\BuildManagerViewModel.cs" />
     <Compile Include="ViewModels\ResultViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\TabBaseViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModels\TabBaseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\TabProductViewModel.cs" />
-    <Compile Include="ViewModels\TabSettingsViewModel.cs" />
-    <Compile Include="ViewModels\TabScopeViewModel.cs" />
-    <Compile Include="Common\ProductTreeList.cs">
+    <Compile Include="ViewModels\SettingsViewModels\TabProductViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModels\TabSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModels\TabScopeViewModel.cs" />
+    <Compile Include="Common\CustomTreeList.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Runner.cs">
@@ -250,49 +252,61 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BenchmarksViewModel.cs" />
-    <Compile Include="Views\AssemblyManagerView.cs">
+    <Compile Include="Views\DialogViews\AssemblyManagerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\AssemblyManagerView.Designer.cs">
+    <Compile Include="Views\DialogViews\AssemblyManagerView.Designer.cs">
       <DependentUpon>AssemblyManagerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DocumentManagerView.cs">
+    <Compile Include="Views\BaseViews\DocumentManagerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\DocumentManagerView.Designer.cs">
+    <Compile Include="Views\BaseViews\DocumentManagerView.Designer.cs">
       <DependentUpon>DocumentManagerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DocumentView.cs">
+    <Compile Include="Views\BaseViews\DocumentView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\DocumentView.Designer.cs">
+    <Compile Include="Views\BaseViews\DocumentView.Designer.cs">
       <DependentUpon>DocumentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\BaseManagerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DialogViews\BaseManagerView.Designer.cs">
+      <DependentUpon>BaseManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\BuildManagerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DialogViews\BuildManagerView.Designer.cs">
+      <DependentUpon>BuildManagerView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SettingsView.cs">
+    <Compile Include="Views\SettingsViews\SettingsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SettingsView.Designer.cs">
+    <Compile Include="Views\SettingsViews\SettingsView.Designer.cs">
       <DependentUpon>SettingsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabBaseView.cs">
+    <Compile Include="Views\SettingsViews\TabBaseView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\TabBaseView.Designer.cs">
+    <Compile Include="Views\SettingsViews\TabBaseView.Designer.cs">
       <DependentUpon>TabBaseView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabProductView.cs">
+    <Compile Include="Views\SettingsViews\TabProductView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\TabProductView.Designer.cs">
+    <Compile Include="Views\SettingsViews\TabProductView.Designer.cs">
       <DependentUpon>TabProductView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabScopeView.cs">
+    <Compile Include="Views\SettingsViews\TabScopeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\TabScopeView.Designer.cs">
+    <Compile Include="Views\SettingsViews\TabScopeView.Designer.cs">
       <DependentUpon>TabScopeView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.cs">
@@ -301,10 +315,10 @@
     <Compile Include="Views\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabSettingsView.cs">
+    <Compile Include="Views\SettingsViews\TabSettingsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\TabSettingsView.Designer.cs">
+    <Compile Include="Views\SettingsViews\TabSettingsView.Designer.cs">
       <DependentUpon>TabSettingsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\BenchmarksView.cs">
@@ -326,34 +340,40 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\AssemblyManagerView.resx">
+    <EmbeddedResource Include="Views\DialogViews\AssemblyManagerView.resx">
       <DependentUpon>AssemblyManagerView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\DocumentManagerView.resx">
+    <EmbeddedResource Include="Views\BaseViews\DocumentManagerView.resx">
       <DependentUpon>DocumentManagerView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\DocumentView.resx">
+    <EmbeddedResource Include="Views\BaseViews\DocumentView.resx">
       <DependentUpon>DocumentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogViews\BaseManagerView.resx">
+      <DependentUpon>BaseManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogViews\BuildManagerView.resx">
+      <DependentUpon>BuildManagerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ResultView.resx">
       <DependentUpon>ResultView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsView.resx">
+    <EmbeddedResource Include="Views\SettingsViews\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\TabBaseView.resx">
+    <EmbeddedResource Include="Views\SettingsViews\TabBaseView.resx">
       <DependentUpon>TabBaseView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\TabProductView.resx">
+    <EmbeddedResource Include="Views\SettingsViews\TabProductView.resx">
       <DependentUpon>TabProductView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\TabScopeView.resx">
+    <EmbeddedResource Include="Views\SettingsViews\TabScopeView.resx">
       <DependentUpon>TabScopeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\TabSettingsView.resx">
+    <EmbeddedResource Include="Views\SettingsViews\TabSettingsView.resx">
       <DependentUpon>TabSettingsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BenchmarksView.resx">

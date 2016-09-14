@@ -4,11 +4,11 @@ using System.Linq;
 using Benchmark.Common;
 
 namespace Benchmark.ViewModels {
-    public class AssemblyManagerViewModel {
+    public class AssemblyManagerViewModel : BaseManagerViewModel {
         AssemblyCache historyCore;
         public AssemblyManagerViewModel(AssemblyCache history) {
             historyCore = history;
-            DataSource = LoadAssemblies();
+            DataSource = LoadDataSource();
         }
         public AssemblyCache Assemblies {
             get {
@@ -20,17 +20,13 @@ namespace Benchmark.ViewModels {
             }
         }
         IEnumerable<FileInfo> GetAssemblies() {
-            return ((IEnumerable<CheckedItem>)DataSource).Where(item => item.Checked).Select(item => item.Tag as FileInfo);
+            return GetCheckedItems().Select((x) => x.Tag as FileInfo);
         }
-        public virtual object DataSource {
-            get;
-            set;
-        }
-        List<CheckedItem> LoadAssemblies() {
+        protected IEnumerable<CheckedItem> LoadDataSource() {
             List<CheckedItem> source = new List<CheckedItem>();
             DirectoryInfo directory = Directory.CreateDirectory(Folders.TestAssemblies);
-            if(directory == null) return source;
-            FileInfo[] assemblies = directory.GetFiles(Resolution.DLL, SearchOption.AllDirectories);
+            if(!directory.Exists) return source;
+            FileInfo[] assemblies = directory.GetFiles(SearchResolution.DLL, SearchOption.AllDirectories);
             if(assemblies == null) return source;
             foreach(FileInfo assembly in assemblies) {
                 CheckedItem item = new CheckedItem(assembly.Name)

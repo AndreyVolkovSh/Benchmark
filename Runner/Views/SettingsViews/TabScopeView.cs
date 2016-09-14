@@ -10,8 +10,7 @@ namespace Benchmark.Views {
         }
         protected override void OnLoad(System.EventArgs e) {
             base.OnLoad(e);
-            OnLoadContext<TabScopeViewModel>();
-            var fluentAPI = GetFluentAPI<TabScopeViewModel>();
+            var fluentAPI = OnLoadContext<TabScopeViewModel>();
             fluentAPI.SetBinding(lookUpEdit.Properties, x => x.DataSource, y => y.Scopes);
             fluentAPI.SetBinding(lookUpEdit, x => x.Text, y => y.Scope);
         }

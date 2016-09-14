@@ -9,7 +9,7 @@ namespace Benchmark.Console {
         static void Main(string[] args) {
             Arguments arguments = Arguments.Parse(args);
             if(arguments.Build)
-                Launcher.BuildSolutions(arguments.Settings);
+                Launcher.Build(arguments.Settings);
             if(string.IsNullOrEmpty(arguments.Assemblies))
                 throw (new Exception());
             IEnumerable<TestLoader> tests = AssemblyLoad(arguments.Assemblies.Split(';'));

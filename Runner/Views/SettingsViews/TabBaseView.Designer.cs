@@ -26,7 +26,7 @@
             this.addButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
             this.searchControl = new DevExpress.XtraEditors.SearchControl();
-            this.treeList = new DevExpress.XtraTreeList.TreeList();
+            this.treeList = new Benchmark.Common.CustomTreeList();
             this.nameColumn = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.layoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.checkedListItem = new DevExpress.XtraLayout.LayoutControlItem();
@@ -93,14 +93,7 @@
             this.treeList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.nameColumn});
             this.treeList.Location = new System.Drawing.Point(98, 28);
-            this.treeList.Name = "treeList";
-            this.treeList.OptionsBehavior.EnableFiltering = true;
-            this.treeList.OptionsView.ShowCheckBoxes = true;
-            this.treeList.OptionsView.ShowColumns = false;
-            this.treeList.OptionsView.ShowHorzLines = false;
-            this.treeList.OptionsView.ShowIndicator = false;
-            this.treeList.OptionsView.ShowRoot = false;
-            this.treeList.OptionsView.ShowVertLines = false;
+            this.treeList.Name = "treeList";            
             this.treeList.Size = new System.Drawing.Size(195, 211);
             this.treeList.TabIndex = 10;
             // 
@@ -255,7 +248,7 @@
         #endregion
 
         protected DevExpress.XtraEditors.SimpleButton addButton;
-        protected DevExpress.XtraTreeList.TreeList treeList;
+        protected Benchmark.Common.CustomTreeList treeList;
         protected DevExpress.XtraTreeList.Columns.TreeListColumn nameColumn;
         protected DevExpress.XtraEditors.SearchControl searchControl;
         protected DevExpress.XtraLayout.LayoutControl layoutControl;

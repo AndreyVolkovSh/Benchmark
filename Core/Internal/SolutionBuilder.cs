@@ -7,10 +7,13 @@ namespace Benchmark.Internal {
     class SolutionBuilder {
         public SolutionBuilder() { }
         public static void BuildSolutions(string path, string buildSettings) {
-            BuildAll(GetAllFiles(path, "*" + Resolution.SLN), buildSettings);
+            BuildAll(GetAllFiles(path, SearchResolution.SLN), buildSettings);
         }
         public static void BuildProjects(string path, string buildSettings) {
-            BuildAll(GetAllFiles(path, Resolution.ALLProj), buildSettings);
+            BuildAll(GetAllFiles(path, SearchResolution.ALLProj), buildSettings);
+        }
+        public static void Build(string[] all, string buildSettings) {
+            BuildAll(all, buildSettings);
         }
         static void BuildAll(string[] all, string buildSettings) {
             if(all == null || all.Length == 0)

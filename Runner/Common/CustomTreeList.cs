@@ -5,17 +5,27 @@ using DevExpress.XtraTreeList.Columns;
 using DevExpress.XtraTreeList.Nodes;
 
 namespace Benchmark.Common {
-    public class ProductTreeList : TreeList {
-        string rootNodeFormat = "{0}/{1}";
-        public ProductTreeList() {
-            OptionsBehavior.AllowRecursiveNodeChecking = true;
-            OptionsView.ShowIndicator = false;
+    public class CustomTreeList : TreeList {
+        public CustomTreeList() {
+            OptionsBehavior.EnableFiltering = true;
             OptionsView.ShowCheckBoxes = true;
-            //OptionsView.ShowColumns = false;
+            OptionsView.ShowColumns = false;
+            OptionsView.ShowHorzLines = false;
+            OptionsView.ShowIndicator = false;
+            OptionsView.ShowRoot = false;
+            OptionsView.ShowVertLines = false;
             OptionsBehavior.ReadOnly = true;
             OptionsBehavior.Editable = false;
             OptionsBehavior.AllowPixelScrolling = DevExpress.Utils.DefaultBoolean.True;
-            OptionsBehavior.EnableFiltering = true;
+        }
+    }
+    public class BenchmarkTreeList : CustomTreeList {
+        string rootNodeFormat = "{0}/{1}";
+        public BenchmarkTreeList() {
+            OptionsBehavior.AllowRecursiveNodeChecking = true;
+            OptionsView.ShowColumns = true;
+            OptionsView.ShowRoot = true;
+            OptionsView.ShowVertLines = true;
             OptionsBehavior.ExpandNodesOnFiltering = true;
             GenerateColumns();
         }

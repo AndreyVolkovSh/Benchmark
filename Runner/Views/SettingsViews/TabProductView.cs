@@ -10,8 +10,7 @@ namespace Benchmark.Views {
         }
         protected override void OnLoad(System.EventArgs e) {
             base.OnLoad(e);
-            OnLoadContext<TabProductViewModel>();
-            var fluentAPI = GetFluentAPI<TabProductViewModel>();
+            var fluentAPI = OnLoadContext<TabProductViewModel>();
             fluentAPI.SetBinding(textEdit, x => x.Text, y => y.Product);
         }
         void InitializeTextEdit(TextEdit textEdit) {
